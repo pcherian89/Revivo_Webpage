@@ -16,7 +16,7 @@ import { explorer, zones } from "@/content/explorer";
 import { cn } from "@/lib/cn";
 import { DIM_LIME, MID_LIME, orthogonal, SIGNAL, type Point } from "@/lib/signal";
 import { flash, signalClock } from "@/lib/signal-clock";
-import { moveSpot, Perforation } from "@/components/signal/Perforation";
+import { moveSpot, Perforation, waveOut } from "@/components/signal/Perforation";
 import { DomainPanel } from "./DomainPanel";
 import { SignalNode } from "./SignalNode";
 import { useAnchors } from "./useAnchors";
@@ -62,6 +62,7 @@ export function DomainExplorer() {
   const coreRef = useRef<HTMLButtonElement>(null);
   const coreNodeRef = useRef<HTMLDivElement>(null);
   const spotRef = useRef<HTMLDivElement>(null);
+  const waveRef = useRef<HTMLDivElement>(null);
   const paths = useRef(new Map<string, SVGPathElement | null>());
   const runId = useRef(0);
   const { dotRef, travel } = useTravel(!reduce);
@@ -106,7 +107,6 @@ export function DomainExplorer() {
     if (reduce) {
       setDrawnZones(4);
       setShownZones(4);
-      chooseZone(0);
       return;
     }
     await wait(140); // let the domain anchors render and be measured
@@ -116,9 +116,7 @@ export function DomainExplorer() {
       await travel([paths.current.get(`zone-${i}`)], STEP);
       setShownZones(i + 1);
     }
-    // One tap gives a full first view: the pulse carries on into the first area.
-    if (id === runId.current) chooseZone(0);
-  }, [activated, reduce, travel, chooseZone]);
+  }, [activated, reduce, travel]);
 
   const openCapability = (cap: number, e: MouseEvent<HTMLButtonElement>) => {
     if (openZone === null) return;
@@ -165,6 +163,7 @@ export function DomainExplorer() {
         {
           at: length - 2,
           fire: () => {
+            waveOut(waveRef.current);
             if (!window.matchMedia("(min-width: 64rem)").matches) {
               flash(coreNodeRef.current, [{ transform: "scale(1.8)" }, { transform: "scale(1)" }], 700);
               return;
@@ -227,7 +226,14 @@ export function DomainExplorer() {
         className="absolute top-0 left-[31px] size-px md:left-[47px] lg:hidden"
       />
 
-      {geo && <Perforation mask={textureMask(geo.pts, isDesktop)} spotRef={spotRef} />}
+      {geo && (
+        <Perforation
+          mask={textureMask(geo.pts, isDesktop)}
+          spotRef={spotRef}
+          waveRef={waveRef}
+          wave={coreWave(geo.pts, isDesktop)}
+        />
+      )}
       {geo && (
         <SignalMap
           geo={geo}
@@ -296,7 +302,7 @@ export function DomainExplorer() {
         </div>
         {hint && (
           <p
-            className="label mt-4 pl-[62px] text-lime md:pl-[94px] lg:mt-3 lg:pl-0 lg:text-center"
+            className="label relative mt-4 pl-[62px] text-lime md:pl-[94px] lg:mx-auto lg:mt-3 lg:w-fit lg:bg-canvas lg:px-3 lg:py-1 lg:text-center"
             aria-live="polite"
           >
             {hint}
@@ -624,7 +630,11 @@ function SignalMap({
       ))}
 
       {/* The single moving pulse */}
-      <g ref={dotRef} style={{ opacity: 0 }} transform={`translate(${coreOut.x} ${coreOut.y})`}>
+      <g
+        ref={dotRef}
+        style={{ opacity: 0, transition: "opacity 450ms ease-out" }}
+        transform={`translate(${coreOut.x} ${coreOut.y})`}
+      >
         <circle r={SIGNAL.haloRadius + 3} fill={SIGNAL.color} opacity={0.16} />
         <circle r={SIGNAL.dotRadius + 0.5} fill={SIGNAL.color} />
       </g>
@@ -642,4 +652,12 @@ function textureMask(p: Record<string, Point>, isDesktop: boolean) {
   const core = p.core ?? p.entry;
   if (!core) return "none";
   return `radial-gradient(ellipse 130px ${Math.round(core.y * 0.75 + 60)}px at ${Math.round(core.x)}px ${Math.round(core.y * 0.6)}px, #000 30%, transparent 100%)`;
+}
+
+/** The wave of lit perforations sent out when the light reaches the Intelligence Layer. */
+function coreWave(p: Record<string, Point>, isDesktop: boolean) {
+  if (isDesktop && p["core-in"] && p["core-out"]) {
+    return { x: p["core-in"].x, y: (p["core-in"].y + p["core-out"].y) / 2, size: 460 };
+  }
+  return p.core ? { x: p.core.x, y: p.core.y, size: 170 } : null;
 }

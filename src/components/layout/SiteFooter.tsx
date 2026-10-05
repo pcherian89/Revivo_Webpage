@@ -7,8 +7,8 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-raised">
-      <div className="container-site border-t border-line py-12 md:py-14">
+    <footer className="border-t border-line bg-raised">
+      <div className="container-site py-12 md:py-14">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div>
             <Link href="/" aria-label="Revivo, home" className="inline-flex min-h-11 items-center text-ink">

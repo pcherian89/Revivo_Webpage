@@ -199,10 +199,6 @@
   stroke-dasharray: 1 1;
   animation: sig-draw 1.4s var(--ease-out-quart) 0.2s both;
 }
-.field-draw {
-  stroke-dasharray: 1 1;
-  animation: sig-draw 1.8s var(--ease-out-quart) 0.1s both;
-}
 .sig-light {
   stroke-dasharray: 0 100000; /* invisible until the signal clock drives it */
 }
@@ -268,7 +264,6 @@
     opacity: 1;
   }
   .sig-track,
-  .field-draw,
   .sig-fade {
     animation: none !important;
   }

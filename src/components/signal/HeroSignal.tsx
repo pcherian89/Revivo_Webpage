@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { flash, signalClock } from "@/lib/signal-clock";
 import { dataMarks, PULSE_HALF, pulseSegment, SIGNAL, type Point } from "@/lib/signal";
-import { moveSpot, Perforation } from "./Perforation";
+import { moveSpot, Perforation, waveOut } from "./Perforation";
 import { visibleRect } from "./visibleRect";
 
 type Geo = {
@@ -18,8 +18,6 @@ type Geo = {
   toCore: string;
   marks: Point[];
   core: { x: number; y: number; rings: number[] } | null;
-  /** Faint playing-field markings around the core (desktop) */
-  field: { lines: string[]; route: string; crosses: Point[]; rings: Point[] } | null;
   /** Where the perforated texture shows */
   texture: string;
 };
@@ -40,6 +38,7 @@ export function HeroSignal() {
   const toCoreRef = useRef<SVGPathElement>(null);
   const rippleRef = useRef<SVGCircleElement>(null);
   const spotRef = useRef<HTMLDivElement>(null);
+  const waveRef = useRef<HTMLDivElement>(null);
 
   // Measure the real layout (headline, "pulse", copy, actions, explorer entry).
   useEffect(() => {
@@ -78,7 +77,8 @@ export function HeroSignal() {
           ? [
               {
                 at: toCore,
-                fire: () =>
+                fire: () => {
+                  waveOut(waveRef.current);
                   flash(
                     rippleRef.current,
                     [
@@ -86,7 +86,8 @@ export function HeroSignal() {
                       { opacity: 0, transform: "scale(1)" },
                     ],
                     1100,
-                  ),
+                  );
+                },
               },
             ]
           : [],
@@ -105,7 +106,12 @@ export function HeroSignal() {
 
   return (
     <>
-      <Perforation mask={geo.texture} spotRef={spotRef} />
+      <Perforation
+        mask={geo.texture}
+        spotRef={spotRef}
+        waveRef={waveRef}
+        wave={geo.core && { x: geo.core.x, y: geo.core.y, size: geo.core.rings[2] * 2 }}
+      />
       <svg
         ref={svgRef}
         aria-hidden="true"
@@ -115,28 +121,6 @@ export function HeroSignal() {
         width={geo.w}
         height={geo.h}
       >
-        {/* Field markings: a halfway line, a box, lanes and a tactical route — any sport, no sport */}
-        {geo.field && (
-          <g stroke="#F5F5F2" strokeOpacity={0.1} strokeWidth={1} fill="none">
-            {geo.field.lines.map((d) => (
-              <path key={d} className="field-draw" pathLength={1} d={d} />
-            ))}
-            <g className="sig-fade">
-              <path d={geo.field.route} strokeDasharray="3 5" strokeOpacity={0.12} />
-              {geo.field.crosses.map((c) => (
-                <path
-                  key={`x${c.x}`}
-                  d={`M ${c.x - 4} ${c.y - 4} l 8 8 M ${c.x + 4} ${c.y - 4} l -8 8`}
-                  strokeOpacity={0.18}
-                />
-              ))}
-              {geo.field.rings.map((c) => (
-                <circle key={`o${c.x}`} cx={c.x} cy={c.y} r={4.5} strokeOpacity={0.18} />
-              ))}
-            </g>
-          </g>
-        )}
-
         {/* Signal core: quiet concentric rings */}
         {geo.core && (
           <g className="sig-fade">
@@ -279,7 +263,6 @@ function buildGeometry(hero: HTMLElement): Geo | null {
       toCore,
       marks,
       core: { x: cx, y: y0, rings },
-      field: fieldMarkings(cx, y0, outer, w, h, f),
       texture,
     };
   }
@@ -303,51 +286,6 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     toCore: toMarks,
     marks,
     core: null,
-    field: null,
     texture: `linear-gradient(to bottom, transparent ${f(y0 - 70)}px, #000 ${f(y0 + 10)}px)`,
   };
-}
-
-/**
- * Field markings around the core, on the same straight/one-radius grammar as the
- * signal: the end of a playing area framing the core, with the signal entering
- * through a gap in the goal line; the halfway line (the signal continues it
- * downwards); a small box; and a little tactical notation (o, two x, a route).
- */
-function fieldMarkings(
-  cx: number,
-  y0: number,
-  outer: number,
-  w: number,
-  h: number,
-  f: (n: number) => number,
-) {
-  const R = SIGNAL.radius;
-  const lines: string[] = [];
-  const top = Math.max(112, y0 - outer - 150);
-  const bottom = Math.min(h - 70, y0 + outer + 56);
-  const gx = cx - outer - 110; // goal line
-  const gap = 24; // where the signal enters the field
-
-  // Touchlines and goal line, open where the signal comes in
-  lines.push(`M ${f(w)} ${f(top)} H ${f(gx + R)} A ${R} ${R} 0 0 0 ${f(gx)} ${f(top + R)} V ${f(y0 - gap)}`);
-  lines.push(
-    `M ${f(gx)} ${f(y0 + gap)} V ${f(bottom - R)} A ${R} ${R} 0 0 0 ${f(gx + R)} ${f(bottom)} H ${f(w)}`,
-  );
-  // Halfway line from the top touchline to the outer ring
-  lines.push(`M ${f(cx)} ${f(top)} V ${f(y0 - outer)}`);
-  // A small box on the goal line (the signal passes through it)
-  const bw = Math.min(64, outer * 0.42);
-  const bh = Math.min(70, outer * 0.48);
-  lines.push(`M ${f(gx)} ${f(y0 - bh)} H ${f(gx + bw)} V ${f(y0 + bh)} H ${f(gx)}`);
-
-  // Tactical notation: one o, two x, and a dashed route from the o into the core
-  const o = { x: f(gx + 46), y: f(top + 44) };
-  const turnX = cx - outer * 0.5;
-  const route = `M ${f(o.x + 9)} ${o.y} H ${f(turnX - 12)} A 12 12 0 0 1 ${f(turnX)} ${f(o.y + 12)} V ${f(y0 - outer * 0.42)}`;
-  const crosses = [
-    { x: f(gx + bw + 34), y: f(y0 + outer * 0.62) },
-    { x: f(cx + outer * 0.62), y: f(y0 + outer * 0.3 + 40) },
-  ];
-  return { lines, route, crosses, rings: [o] };
 }

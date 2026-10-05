@@ -33,7 +33,7 @@ export function useTravel(enabled: boolean) {
         current.current = controls;
         await controls;
       }
-      if (mine === token.current) dot.style.opacity = "0.85";
+      if (mine === token.current) dot.style.opacity = "0"; // fade out: no node looks selected by accident
     },
     [enabled],
   );

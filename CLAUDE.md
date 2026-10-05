@@ -78,16 +78,15 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
    and the core ripples as it arrives. The light is driven by the shared **signal clock** (`src/lib/signal-clock.ts`):
    one light, one timeline — it flows from the hero straight down the explorer trunk into the Intelligence Layer and
    lights it up (core flash). Paused off-screen; static under reduced motion. Geometry in `src/lib/signal.ts`:
-   straight runs, one corner radius, right-angled connectors — never wobble. Behind the core (desktop), faint
-   **field markings** frame it like the end of a playing area (any sport, no sport): the signal enters through a gap
-   in the goal line, the halfway line meets the core, plus a small box and light tactical notation (o, x, a dashed
-   route). Texture: **Perforated Signal** (`Perforation`) — a fine dot screen like stadium cladding around the hero
-   core and the explorer trunk; the dots near the running light glow lime (moved by the signal clock's `onMove`).
+   straight runs, one corner radius, right-angled connectors — never wobble. Texture: **Perforated Signal**
+   (`Perforation`) — invisible at rest (no faint background grids or field markings: they read as misplaced and vanish
+   on dim screens). Where the running light passes, the perforations around it glow lime (moved by the signal clock's
+   `onMove`); when it reaches the hero core and the Intelligence Layer, a ring of lit perforations ripples out (`waveOut`).
 2. **Explorer (`DomainExplorer`)** — progressive and interactive. A large "Revivo Intelligence Layer" button (with a
    hand cue, "Tap to activate") waits for the visitor. Activating it sends a pulse to each of the four domains in turn;
    choosing a domain sends a pulse to each of its four capabilities in turn; a capability opens `DomainPanel` (desktop
-   right panel ≈46vw; mobile bottom sheet). After activation the pulse carries straight on into the first area
-   (Operations), so one tap gives a full view. Desktop: tree; below 1024px: vertical rail. One moving pulse at a time
+   right panel ≈46vw; mobile bottom sheet). Nothing opens by itself: the visitor clicks each area. The travel dot
+   fades out after each run so no node looks selected by accident. Desktop: tree; below 1024px: vertical rail. One moving pulse at a time
    (`useTravel`). Server/no-JS render shows the whole map; reduced motion reveals instantly. Branches are a clean,
    symmetric tree: every child of one parent shares one stem and one horizontal bus (`orthogonal(a, b, busY)`),
    fixed-size anchors, equal column gaps, opaque lime tints (`DIM_LIME`/`MID_LIME`) so overlaps never double up.
