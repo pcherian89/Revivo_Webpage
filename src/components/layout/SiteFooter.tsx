@@ -1,80 +1,50 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Wordmark } from "@/components/brand/Wordmark";
+import { RevivoLogo } from "@/components/brand/RevivoLogo";
 import { contactConfig, siteConfig } from "@/config/site";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-line bg-raised">
-      <div className="container-site py-14 md:py-20">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-6">
-            <Wordmark />
-            <p className="text-display-md mt-10 text-ink">{siteConfig.tagline}</p>
-            <p className="mt-4 max-w-md text-sm text-muted">
-              Custom AI, data and automation systems for gyms, academies, teams, leagues, events, federations
-              and sponsorship organizations.
-            </p>
+    <footer className="bg-raised">
+      <div className="container-site border-t border-line py-12 md:py-14">
+        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+          <div>
+            <Link href="/" aria-label="Revivo, home" className="inline-flex min-h-11 items-center text-ink">
+              <RevivoLogo title="" className="h-7 w-auto" />
+            </Link>
+            <p className="text-small mt-4 text-subtle">{siteConfig.location}</p>
           </div>
 
-          <nav aria-label="Footer" className="md:col-span-3">
-            <p className="text-label mb-4 text-subtle">Company</p>
-            <ul className="space-y-1 text-sm">
+          <ul className="text-small flex flex-col gap-1 md:items-end">
+            {contactConfig.email && (
               <li>
-                <FooterLink href="/#what-we-build">What we build</FooterLink>
+                <FooterLink href={`mailto:${contactConfig.email}`}>{contactConfig.email}</FooterLink>
               </li>
-              <li>
-                <FooterLink href="/#how-we-work">How we work</FooterLink>
-              </li>
-              <li>
-                <FooterLink href="/#about">About</FooterLink>
-              </li>
-              <li>
-                <FooterLink href="/contact">Contact</FooterLink>
-              </li>
-            </ul>
-          </nav>
-
-          <div className="md:col-span-3">
-            <p className="text-label mb-4 text-subtle">Connect</p>
-            <ul className="space-y-1 text-sm">
-              {contactConfig.email && (
-                <li>
-                  <FooterLink href={`mailto:${contactConfig.email}`}>{contactConfig.email}</FooterLink>
-                </li>
+            )}
+            <li>
+              {contactConfig.linkedin ? (
+                <FooterLink href={contactConfig.linkedin} external>
+                  LinkedIn
+                </FooterLink>
+              ) : (
+                <span className="inline-flex min-h-11 items-center text-subtle">LinkedIn — coming soon</span>
               )}
-              <li>
-                {contactConfig.linkedin ? (
-                  <FooterLink href={contactConfig.linkedin} external>
-                    LinkedIn
-                  </FooterLink>
-                ) : (
-                  <span className="inline-flex min-h-11 items-center text-subtle">
-                    LinkedIn — coming soon
-                  </span>
-                )}
-              </li>
-              <li className="pt-2 text-muted">{siteConfig.location}</li>
-            </ul>
-          </div>
+            </li>
+          </ul>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-line pt-6 text-xs text-subtle sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-small mt-10 flex flex-col gap-2 text-subtle sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {siteConfig.name}. {siteConfig.descriptor}.
+            © {year} {siteConfig.name}. Custom AI solutions for sport and fitness.
           </p>
           <ul className="flex gap-6">
             <li>
-              <FooterLink href="/privacy" small>
-                Privacy
-              </FooterLink>
+              <FooterLink href="/privacy">Privacy</FooterLink>
             </li>
             <li>
-              <FooterLink href="/terms" small>
-                Terms
-              </FooterLink>
+              <FooterLink href="/terms">Terms</FooterLink>
             </li>
           </ul>
         </div>
@@ -83,20 +53,9 @@ export function SiteFooter() {
   );
 }
 
-function FooterLink({
-  href,
-  children,
-  external,
-  small,
-}: {
-  href: string;
-  children: ReactNode;
-  external?: boolean;
-  small?: boolean;
-}) {
-  const className = `inline-flex min-h-11 items-center transition-colors duration-200 hover:text-ink ${
-    small ? "text-subtle" : "text-muted"
-  }`;
+function FooterLink({ href, children, external }: { href: string; children: ReactNode; external?: boolean }) {
+  const className =
+    "inline-flex min-h-11 items-center text-muted transition-colors duration-200 hover:text-ink";
   if (external || href.startsWith("mailto:")) {
     return (
       <a

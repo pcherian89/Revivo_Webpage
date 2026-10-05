@@ -18,103 +18,101 @@ report-only consultancy, or a company that claims to solve every sports problem 
 **There are no finished commercial products yet.** Every example on the site is an illustrative solution area.
 Never write "Our Products". Revivo IQ (a separate application) must **not** appear on this launch website.
 
-## 2. Approved language
+## 2. Brand idea and approved language
 
-- Descriptor: **AI SYSTEMS FOR SPORT** · Master tagline: **SPORT, INTELLIGENTLY BUILT.**
-- Hero eyebrow: **THE GAME IS ONLY THE VISIBLE PART.**
-- Hero headline: **SPORT CREATES THE CHALLENGES. / WE BUILD THE INTELLIGENCE.**
-- Primary CTA: **TELL US THE PROBLEM** · Secondary: **EXPLORE WHAT WE CAN BUILD**
-- Additional lines: From fragmented activity to coordinated intelligence. · Custom where it matters. Reusable where it
-  makes sense. · Customer-shaped. Revivo-built. · One challenge. The right system. · Designed for sport. Configured
-  for you. · Technology should clarify the next move. · Sport moves fast. Its systems often do not. · Bring us the
-  process slowing your organization down.
-- Preferred vocabulary: what we can build, problems we help solve, example/illustrative system, capabilities, scoped
-  discovery, prototype, pilot, custom implementation, decision support, built around your workflow, could, designed
-  to, supports, potential outcome.
-- Required qualifier near capability examples (keep verbatim): _"These are representative solution areas. Every
-  engagement begins with discovery, and the final system is scoped around the organization's users, workflow, data
-  and objectives."_
+**Concept — "Flatline → Alive."** The logo is a flat line, one heartbeat, then a dot: _re-vivo_, "live again".
+Every sports and fitness organization has something that has gone quiet (progress no one can see, relationships
+that drift, days run on chat groups, talent that slips through, concerns that go unheard). Revivo finds the
+flatline and builds the AI system that brings it back to life.
 
-**Tone:** intelligent but understandable; ambitious but credible; premium but not cold; technical but problem-led;
-athletic but not aggressive; confident without exaggeration.
+- **The one tagline (hero h1): "AI that gives sport a pulse."** Do not add other taglines to pages.
+- Eyebrow: "Custom-built for sport and fitness"
+- Primary action everywhere: **"Start with your challenge"** (links to `/#start`). Secondary (hero only): "Explore what we solve".
+- Scene titles: "Find the flatline." · "From silence to signal." · "We start with the problem—not the technology." ·
+  "What has gone quiet in your organization?"
+- **Say:** pulse, quiet, flatline, visible, alive, signal, progress record, relationship memory, live operations
+  picture, talent pathway, coach, athlete, client, could, designed to, illustrative.
+- **Never say:** gym software, CRM, management system, platform, dashboard, app, all-in-one, leverage, empower,
+  seamless, revolutionize, game-changing, cutting-edge, "Our Products", "Request a demo".
+- Do not lead with gyms; the default story is coach ↔ athlete/client progress.
+- Required qualifier near the stories: "Illustrative system. Every Revivo engagement is designed around the
+  client's actual workflow, users, data and objectives."
+- Copy limits (enforced by `npm run check:copy`): hero statement ≤35 words, scene intro ≤40, each flatline part ≤35,
+  story annotation ≤12, process step ≤20, max 3 stories, one primary + one secondary action per scene.
 
-**Avoid:** revolutionizing sports, game-changing innovation, repeated "cutting-edge AI", unlocking limitless
-potential, disrupting the ecosystem, one platform for everything.
+**Tone:** intelligent but understandable; creative, not generic; confident without exaggeration.
 
 ## 3. Prohibited claims (never add, even if asked casually — confirm with the owner first)
 
-- Describing examples as completed Revivo products, or fake product screenshots/dashboards implying deployed systems
-- Invented customers, partners, testimonials, logos, revenue or performance statistics; "Trusted by" without real clients
-- "India's leading sports AI company" or similar superlatives
+- Describing examples as completed Revivo products, or fake screenshots/dashboards implying deployed systems
+- Invented customers, partners, testimonials, logos, metrics or case studies; "Trusted by" without real clients
+- Superlatives such as "India's leading sports AI company"
 - Guaranteed revenue or performance improvement
-- Injury prediction, medical diagnosis, or fully autonomous decision-making
+- Injury prediction, medical diagnosis, health/heart-rate monitoring (the heartbeat is a brand metaphor only), or
+  fully autonomous decision-making
 - Calling third-party foundation models "proprietary AI"
-- Suggesting every capability is already built
 - Implying ICC or any US organization from the founder's background is a Revivo client/partner
 - Certifications or legal compliance Revivo has not obtained
-- A generated or stock founder photo (use the typographic panel until a real photo is supplied)
+- Generated or stock founder photos
+- Revivo IQ or other sub-brands on this site (until approved)
 
 ## 4. Design system
 
-Tokens live in `src/app/globals.css` (`@theme`). Use the tokens — no ad-hoc hex values in components (exceptions: the
-hero SVG `COLORS` map, the final-CTA decoration and the OG image, which mirror the tokens).
+Tokens live in `src/app/globals.css` (`@theme`). Use tokens — no ad-hoc hex values in components (exceptions: the
+logo and signal SVGs, the OG image).
 
-| Token            | Value      | Use                                     |
-| ---------------- | ---------- | --------------------------------------- |
-| `canvas`         | `#0B0F0C`  | Main background                         |
-| `raised`         | `#111612`  | Alternate section background            |
-| `surface`        | `#171D18`  | Elevated surfaces, selected states      |
-| `lime`           | `#CCFF00`  | Signal/active/primary CTA — **~10–15% of the view max**; never large lime blocks |
-| `ink`            | `#F4F5EF`  | Main text                               |
-| `muted`/`subtle` | grey-green | Secondary text / small labels (both pass AA) |
-| `line`/`line-strong` | graphite | Dividers, borders                   |
-| `amber`          | `#F2B04B`  | Form errors/status only, always with an icon + text |
+| Token                  | Value                 | Use                                                                          |
+| ---------------------- | --------------------- | ---------------------------------------------------------------------------- |
+| `canvas` / `raised`    | `#0A0B0A` / `#101210` | Background / scene tone shift (blend with gradients, never hard edges)       |
+| `ink`                  | `#F5F5F2`             | Main text (logo wordmark colour)                                             |
+| `muted` / `subtle`     | grey                  | Secondary text / quiet text (both pass AA)                                   |
+| `line` / `line-strong` | graphite              | The quiet flatline, hairlines                                                |
+| `lime`                 | `#CCFF00`             | **Alive only:** the signal, active state, primary action. ~5–10% of a screen |
+| `amber`                | `#F2B04B`             | Form errors only, always with icon + text                                    |
 
-Typography — exactly three roles (`src/app/fonts.ts`, via next/font): **Barlow Condensed 600** for major display
-headlines only (`text-display-*`), **Manrope** for body and navigation, **JetBrains Mono** for labels, indices and
-statuses (`text-label`). Do not make every heading uppercase/condensed.
+**Logo** (`src/components/brand/RevivoLogo.tsx`, traced from the official lockups): horizontal lockup (A) in header
+and footer, never under 24px tall; symbol (C) for icons only; stacked idea (B) for the social image. Mark is always
+lime (black on lime); never outlined or glowing. The wordmark is a placeholder face; replace `WORDMARK_PATH` when the
+final one exists.
 
-Layout: `container-site` (max ~1408px), `section-pad`, body copy `measure` (~656px), strong editorial grid, thin
-technical dividers, mono indices (`01 / LABEL`), asymmetric compositions, sharp edges (`rounded-xs` max), one dominant
-headline per section (`SectionHeader`).
+**The Revivo Signal** = the logo's own heartbeat (`src/lib/heartbeat.ts`). Grammar: graphite flat line = quiet,
+lime heartbeat = alive, dot = action. It appears only in: hero, the active flatline choice, story key steps, and the
+submit button. Never as decoration elsewhere.
 
-Never use: purple/blue AI gradients, robots/brains/circuit heads, glass blobs or heavy glassmorphism, generic rounded
-SaaS cards, stock celebrating athletes, neon overload, fake dashboards or meaningless charts, background video,
-particles, heavy parallax, bouncing/springy motion, scroll hijacking.
+**Typography:** one family, Manrope 400/500/600, sentence case. Six sizes only: `text-hero`, `text-title`,
+`text-subtitle`, `text-lead`, body (1.0625rem), `text-small`. Uppercase only via `.eyebrow`. No monospace.
+
+**Layout:** `container-site`, `scene` spacing, `measure` for body copy, one focal point per scene, editorial and
+asymmetric, no card grids, no bordered panels, no nested panels, no decorative codes or coordinates, pill buttons.
+
+Never use: purple/blue AI gradients, robots/brains, glass blobs, card grids, fake dashboards, background video,
+particles, heavy parallax, bouncing motion, scroll hijacking, scroll snapping, typewriter or glitch effects.
 
 ## 5. Component structure
 
-- `src/content/*.ts` — all copy. Components must read copy from here, not hard-code it.
-- `src/config/site.ts` — contact details, links, site URL, nav. Empty string = hidden.
-- `src/components/hero/` — `Hero` (server) + `IntelligenceField` (client) + `fieldGeometry.ts` (pure layout maths).
-- `src/components/home/` — one file per homepage section.
-- `src/components/ui/` — `ButtonLink`, `SectionHeader`, `useTabs` (accessible tabs).
-- `src/components/motion/` — `MotionProvider` (LazyMotion + reduced motion), `Reveal`, `useRevealState`.
-- `src/lib/contact-schema.ts` — single Zod schema shared by the form and `src/app/api/contact/route.ts`.
-- Keep sections as separate components; never collapse the site into one large component.
+- `src/content/home.ts` — all homepage copy; `src/content/enquiry.ts` — form copy/options.
+- `src/config/site.ts` — contact details, links, site URL, nav, primary CTA. Empty string = hidden.
+- `src/components/scenes/` — the five scenes: `HeroScene`, `FlatlineScene`, `StoryScene`, `ProcessScene`, `ConversationScene`.
+- `src/components/signal/` — `HeroSignal` (CSS-only), `Pulse` (choice glyph).
+- `src/components/enquiry/EnquiryForm.tsx` — the short form (homepage + `/contact`); schema in `src/lib/contact-schema.ts`, shared with `src/app/api/contact/route.ts`.
+- `src/components/ui/` — `ButtonLink`, `useTabs`. `src/components/motion/` — `MotionProvider`, `Reveal`, `useRevealState`.
+- Five scenes only. Detailed explanations belong on future pages, not the homepage.
 
 ## 6. Animation constraints
 
-Principle: **one cinematic hero moment, three purposeful interactions, disciplined stillness everywhere else.**
-
-- Hero field formation: CSS keyframes in `globals.css`, completes in ~2.4s, plays once, then a near-still ambient
-  state. Its default (un-animated) state must be the final connected network so it is complete without JS or with
-  reduced motion. Ambient animation pauses off-screen (`data-paused`).
-- The three interactions: capability signal channels (one active at a time), problem-to-system examples, sector
-  selector. Each must work by click/tap **and** keyboard; nothing may be hover-only.
-- Use Motion via the `m` component only (`LazyMotion strict` will throw on `motion.*`). No other animation libraries,
-  no Three.js/WebGL/Lottie/video.
-- Timing: entrances 400–700ms, hover/focus 150–250ms, ease-out curves, no springs with overshoot. Animate only
-  `transform` and `opacity`. Pointer depth: desktop fine pointers only, a few pixels max.
-- Content must never be hidden before JS runs: use `Reveal`/`useRevealState` (visible by default; only hidden once
-  JS confirms it is below the fold).
-- Every motion must respect `prefers-reduced-motion` (`MotionConfig reducedMotion="user"` + CSS media query).
+- Hero signal: CSS keyframes in `globals.css`, plays once (~1.6s), resting state = finished signal, no JS.
+- Interactions: flatline choices (one alive at a time; accordion on mobile) and story tabs (max 3). Click/tap and
+  keyboard for everything; nothing hover-only.
+- Motion via the `m` component only (`LazyMotion strict`). No other animation libraries, WebGL, Lottie or video.
+- Entrances 400–600ms ease-out, crossfades ~250–350ms; animate transform/opacity/stroke only; nothing replays on
+  scroll-back. Content is never hidden before JS runs (`Reveal`/`useRevealState`).
+- Respect `prefers-reduced-motion` everywhere.
 
 ## 7. Responsive rules
 
 Mobile-first; one codebase. Check at **375, 768, 1024, 1440px**. No horizontal overflow; fluid `clamp()` type; touch
 targets ≥ 44px; tap equivalents for every hover; headline + primary CTA visible immediately on mobile; split layouts
-become vertical stories; the hero uses the compact fan geometry below `xl`; no pointer parallax on touch.
+become vertical stories; the story flow is vertical below `xl`; no pointer effects on touch.
 
 ## 8. Accessibility
 
@@ -128,8 +126,8 @@ contrast ≥ 4.5:1 for text, never colour-only meaning.
 npm run lint && npm run typecheck && npm run build
 ```
 
-Then preview with `npm run start` and check: the four widths above for overflow and layout; keyboard path (skip link →
-nav → hero CTAs → field nodes → channels → tabs → form); reduced motion (static complete hero); contact form invalid
+Also run `npm run check:copy`. Then preview with `npm run start` and check: the four widths above for overflow and layout; keyboard path (skip link →
+nav → hero actions → flatline choices → story tabs → form); reduced motion (static complete hero); contact form invalid
 submit, valid submit without email env (fallback appears), and with Resend configured if keys are available.
 Lighthouse targets: accessibility ≥ 95, SEO ≥ 95, CLS ≤ 0.1, LCP ≤ 2.5s, INP ≤ 200ms.
 

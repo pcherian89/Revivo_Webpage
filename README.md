@@ -2,34 +2,41 @@
 
 The official website for **Revivo**, a specialist AI solutions builder for sports and fitness.
 
-> **Sport, intelligently built.**
+> **AI that gives sport a pulse.**
 
-The site advertises Revivo's capabilities, shows how Revivo thinks, and invites sports and fitness organizations to
-_bring Revivo a problem_. It is not a product catalogue — the examples on the site are illustrative.
+The homepage is a short, five-scene presentation built on the logo's own idea — **flatline → alive**: find what has
+gone quiet in a sports or fitness organization and build the AI system that brings it back to life. It is not a
+product catalogue; every example is illustrative.
+
+1. **Hero** — "AI that gives sport a pulse." with the heartbeat signal
+2. **Find the flatline** — five recognisable problems, one open at a time
+3. **From silence to signal** — one illustrative transformation at a time (max three)
+4. **How we work** — Discover → Define → Prototype → Build
+5. **Conversation** — "What has gone quiet in your organization?" + a short enquiry form
 
 **Pages**
 
-| URL        | What it is                                                         |
-| ---------- | ------------------------------------------------------------------ |
-| `/`        | Main company website (hero, capabilities, process, founder, CTA)   |
-| `/contact` | Detailed solution-enquiry form (`/contact?intent=pilot` preselects "Pilot partnership") |
-| `/privacy` | Starter privacy policy                                             |
-| `/terms`   | Starter website terms                                              |
+| URL        | What it is                                         |
+| ---------- | -------------------------------------------------- |
+| `/`        | The five-scene homepage (the form is at `/#start`) |
+| `/contact` | The same short enquiry form on its own page        |
+| `/privacy` | Starter privacy policy                             |
+| `/terms`   | Starter website terms                              |
 
 ---
 
 ## Technology used
 
-| Tool                       | Why                                                                           |
-| -------------------------- | ----------------------------------------------------------------------------- |
-| **Next.js 16** (App Router) | The website framework. Pages are pre-built for speed.                        |
-| **TypeScript**             | JavaScript with type checking, which catches mistakes before they go live.    |
-| **Tailwind CSS 4**         | Styling. Design tokens (colours, fonts, sizes) live in one CSS file.          |
-| **Motion** (for React)     | The animation library for the interactive sections.                          |
-| **Zod**                    | Checks contact-form answers in the browser _and_ on the server.               |
-| **Resend**                 | Sends contact-form enquiries to your inbox (once configured).                |
-| **Lucide**                 | A small set of line icons (arrows, plus/minus).                               |
-| **next/font**              | Self-hosts Barlow Condensed, Manrope and JetBrains Mono — no Google requests at runtime. |
+| Tool                        | Why                                                                        |
+| --------------------------- | -------------------------------------------------------------------------- |
+| **Next.js 16** (App Router) | The website framework. Pages are pre-built for speed.                      |
+| **TypeScript**              | JavaScript with type checking, which catches mistakes before they go live. |
+| **Tailwind CSS 4**          | Styling. Design tokens (colours, fonts, sizes) live in one CSS file.       |
+| **Motion** (for React)      | The animation library for the interactive sections.                        |
+| **Zod**                     | Checks contact-form answers in the browser _and_ on the server.            |
+| **Resend**                  | Sends contact-form enquiries to your inbox (once configured).              |
+| **Lucide**                  | A small set of line icons (arrows, plus/minus).                            |
+| **next/font**               | Self-hosts the Manrope font — no Google requests at runtime.               |
 
 No database, CMS, video, WebGL or tracking is used.
 
@@ -69,40 +76,42 @@ npm run start   # serves it at http://localhost:3000
 ```
 src/
 ├─ app/                      Pages and site-wide settings
-│  ├─ page.tsx               Homepage (assembles the sections)
+│  ├─ page.tsx               Homepage (assembles the five scenes)
 │  ├─ contact/page.tsx       Contact page
 │  ├─ privacy/ terms/        Legal pages (edit wording directly here)
-│  ├─ api/contact/route.ts   Server code that receives the contact form
+│  ├─ api/contact/route.ts   Server code that receives the enquiry form
 │  ├─ layout.tsx             Shared layout, page titles and SEO defaults
-│  ├─ globals.css            ★ Design tokens: colours, type sizes, hero animation
-│  ├─ fonts.ts               ★ Font choices
+│  ├─ globals.css            ★ Colours, the six type sizes, grain, signal animation
+│  ├─ fonts.ts               ★ Font choice (Manrope)
 │  ├─ sitemap.ts, robots.ts  Search-engine files
 │  ├─ opengraph-image.tsx    Image shown when the site is shared on social media
-│  └─ icon.svg               Browser-tab icon
+│  └─ icon.svg               Browser-tab icon (the logo symbol)
 ├─ config/site.ts            ★ Contact email, LinkedIn, WhatsApp, booking link, site URL
 ├─ content/
 │  ├─ home.ts                ★ ALL homepage text
-│  └─ contact.ts             ★ Contact page text and form options
+│  └─ enquiry.ts             ★ Form button text and organization types
 ├─ components/
-│  ├─ hero/                  Hero + the animated "Revivo Intelligence Field"
-│  ├─ home/                  One file per homepage section
-│  ├─ contact/               The enquiry form
+│  ├─ scenes/                One file per homepage scene
+│  ├─ signal/                The heartbeat signal (hero line, small pulses)
+│  ├─ brand/RevivoLogo.tsx   The official logo (traced from your lockups)
+│  ├─ enquiry/               The enquiry form
 │  ├─ layout/                Header (with mobile menu) and footer
-│  ├─ brand/                 REVIVO wordmark and symbol
-│  ├─ motion/                Animation helpers (scroll reveal, reduced-motion support)
-│  └─ ui/                    Buttons, section headers, accessible tabs
-└─ lib/                      Form validation, structured data, small helpers
+│  ├─ motion/                Animation helpers (reveal on scroll, reduced motion)
+│  └─ ui/                    Buttons, accessible tabs
+├─ lib/                      Heartbeat geometry, form validation, structured data
+scripts/check-copy.ts        Keeps homepage copy within its word limits
+public/grain.png             Subtle film-grain texture
 ```
 
 ★ = the files you are most likely to edit.
 
 ### Changing website copy
 
-All homepage wording is in **`src/content/home.ts`**. Change the text between the quotes and save — the layout updates
-automatically. Contact-page wording and dropdown options are in **`src/content/contact.ts`**. Privacy and terms wording
-is directly in `src/app/privacy/page.tsx` and `src/app/terms/page.tsx`.
+All homepage wording is in **`src/content/home.ts`**. Change the text between the quotes and save. Then run
+`npm run check:copy` — it fails if any text grows past its word limit, which keeps the homepage short. Privacy and
+terms wording is in `src/app/privacy/page.tsx` and `src/app/terms/page.tsx`.
 
-Before changing copy, read the "Accuracy rules" in `CLAUDE.md` (no invented clients, metrics or products).
+Before changing copy, read `CLAUDE.md` (approved language, words to avoid, and no invented clients or products).
 
 ### Changing contact details
 
@@ -113,22 +122,18 @@ Open **`src/config/site.ts`**:
 
 Anything left as `""` is simply hidden (the footer shows "LinkedIn — coming soon" until a URL is added).
 
-### Adding the founder photograph
+### Updating the logo
 
-Put the photo in `public/` (e.g. `public/founder.jpg`), then in `src/content/home.ts` set:
-
-```ts
-photo: { src: "/founder.jpg", alt: "Pothen Cherian, founder of Revivo" },
-```
-
-Until then, an abstract typographic panel is shown. Never use a generated or stock image there.
+The logo lives in `src/components/brand/RevivoLogo.tsx`, traced from the official "Flatline → Alive" lockups. The
+wordmark currently uses the designer's placeholder typeface; when the final wordmark is ready, replace the
+`WORDMARK_PATH` value (and the same path in `src/app/opengraph-image.tsx`).
 
 ### Changing colours and fonts
 
 - **Colours:** edit the `@theme` block at the top of `src/app/globals.css` (e.g. `--color-lime: #ccff00;`). Every
   part of the site uses these tokens, so one change updates everything. Note: the hero SVG and social image repeat a few
-  hex values — search for the old hex code if you change the palette.
-- **Fonts:** edit `src/app/fonts.ts` (choose any font from `next/font/google`). Keep to three roles: display, body, mono.
+  hex values (logo, signal, social image) — search for the old hex code if you change the palette.
+- **Fonts:** edit `src/app/fonts.ts` (any font from `next/font/google`). The site uses one family and three weights.
 
 ---
 
@@ -140,13 +145,13 @@ Copy the example file and fill in values:
 cp .env.example .env.local
 ```
 
-| Variable                    | Required?          | What it does                                                    |
-| --------------------------- | ------------------ | --------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`      | For production     | Your live address, e.g. `https://www.yourdomain.com`            |
+| Variable                    | Required?            | What it does                                                  |
+| --------------------------- | -------------------- | ------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`      | For production       | Your live address, e.g. `https://www.yourdomain.com`          |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Strongly recommended | Public email shown on the site and used by the email fallback |
-| `RESEND_API_KEY`            | To send form emails | Secret key from Resend                                          |
-| `CONTACT_TO_EMAIL`          | To send form emails | Inbox that receives enquiries                                   |
-| `CONTACT_FROM_EMAIL`        | To send form emails | Sender address on a domain verified in Resend                   |
+| `RESEND_API_KEY`            | To send form emails  | Secret key from Resend                                        |
+| `CONTACT_TO_EMAIL`          | To send form emails  | Inbox that receives enquiries                                 |
+| `CONTACT_FROM_EMAIL`        | To send form emails  | Sender address on a domain verified in Resend                 |
 
 `.env.local` is never committed to Git. **Never paste real keys into any committed file.**
 
@@ -158,9 +163,9 @@ cp .env.example .env.local
 4. Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` (locally in `.env.local`, and on Vercel).
 5. Restart the server and send a test enquiry.
 
-**If email is not configured**, the form still validates, then shows a clear message with an **"Email your enquiry"**
+**If email is not configured**, the form still validates, then shows a clear message with an **"Email your challenge"**
 button (opens the visitor's email app with their answers filled in, using `NEXT_PUBLIC_CONTACT_EMAIL`) and a
-**"Copy enquiry text"** button. Submissions are never silently lost.
+**"Copy your answers"** button. Submissions are never silently lost.
 
 Spam protection: a hidden "honeypot" field that people never see; bots that fill it get a fake success and nothing is
 sent. There is no rate limiting yet (see limitations).
@@ -174,6 +179,7 @@ Run these before publishing changes:
 ```bash
 npm run lint        # code-quality rules (ESLint)
 npm run typecheck   # TypeScript type checking
+npm run check:copy  # homepage copy stays within its word limits
 npm run build       # full production build — must succeed
 npm run format      # optional: tidy code formatting (Prettier)
 ```
@@ -204,12 +210,12 @@ claims of certification or regulatory compliance.
 
 ## Troubleshooting
 
-| Problem                                    | Fix                                                                             |
-| ------------------------------------------ | ------------------------------------------------------------------------------- |
-| `npm: command not found`                   | Install Node.js from <https://nodejs.org>, then reopen the terminal.            |
-| `Port 3000 is already in use`              | Another server is running. Stop it (`Ctrl + C` in its terminal) or use `-p 3001`. |
-| Changes don't appear                       | Save the file; hard-refresh the browser (`Ctrl/Cmd + Shift + R`).               |
-| Contact form shows "Online sending isn't available yet" | Email variables aren't set — see _Contact-form setup_. Restart the server after editing `.env.local`. |
-| Build fails after editing `home.ts`        | Usually a missing quote, comma or bracket. The error message names the line.    |
-| Fonts fail to download during build        | The build fetches fonts once from Google; check your internet connection.       |
-| Weird errors after updating packages       | Delete `node_modules` and `.next`, then run `npm install` again.                |
+| Problem                                           | Fix                                                                                                   |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `npm: command not found`                          | Install Node.js from <https://nodejs.org>, then reopen the terminal.                                  |
+| `Port 3000 is already in use`                     | Another server is running. Stop it (`Ctrl + C` in its terminal) or use `-p 3001`.                     |
+| Changes don't appear                              | Save the file; hard-refresh the browser (`Ctrl/Cmd + Shift + R`).                                     |
+| Form shows "Online sending isn't switched on yet" | Email variables aren't set — see _Contact-form setup_. Restart the server after editing `.env.local`. |
+| Build fails after editing `home.ts`               | Usually a missing quote, comma or bracket. The error message names the line.                          |
+| Fonts fail to download during build               | The build fetches fonts once from Google; check your internet connection.                             |
+| Weird errors after updating packages              | Delete `node_modules` and `.next`, then run `npm install` again.                                      |

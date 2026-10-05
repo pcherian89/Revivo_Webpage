@@ -4,30 +4,18 @@ import type { ContactInput } from "./contact-schema";
 export function formatEnquiry(d: ContactInput) {
   return [
     `Name: ${d.fullName}`,
-    `Work email: ${d.email}`,
-    `Phone: ${d.phone || "—"}`,
-    `Organization: ${d.organization}`,
-    `Organization type: ${d.organizationType}`,
-    `Country: ${d.country}`,
+    `Organization: ${d.organization} (${d.organizationType})`,
+    `Email: ${d.email}`,
+    `Phone / WhatsApp: ${d.phone || "—"}`,
     "",
-    "What process or decision is not working?",
-    d.problem,
+    "The challenge:",
+    d.challenge,
     "",
-    "How is it managed today?",
+    "How it is handled today:",
     d.currentProcess,
-    "",
-    "Who would use the solution?",
-    d.users,
-    "",
-    "What outcome are you trying to achieve?",
-    d.outcome,
-    "",
-    `Approximate timeline: ${d.timeline}`,
-    `Approximate budget: ${d.budget || "—"}`,
-    `Preferred next step: ${d.nextStep}`,
   ].join("\n");
 }
 
-export function enquirySubject(d: Pick<ContactInput, "organization" | "nextStep">) {
-  return `Revivo enquiry — ${d.organization || "New organization"} (${d.nextStep || "General enquiry"})`;
+export function enquirySubject(d: Pick<ContactInput, "organization">) {
+  return `Revivo enquiry — ${d.organization || "New organization"}`;
 }

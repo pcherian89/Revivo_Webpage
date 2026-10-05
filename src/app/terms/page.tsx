@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <LegalPage
-      label="Legal"
       title="Website terms"
       updated="5 October 2026"
       intro={<p>These terms apply to your use of this website. By using it, you agree to them.</p>}
@@ -24,8 +23,8 @@ export default function TermsPage() {
           heading: "About this website",
           body: (
             <p>
-              This website describes Revivo’s capabilities as a builder of custom AI, data and automation
-              solutions for sports and fitness organizations. It is provided for general information only.
+              This website describes what Revivo can design and build: custom AI solutions for sport and
+              fitness organizations. It is provided for general information only.
             </p>
           ),
         },
@@ -52,8 +51,8 @@ export default function TermsPage() {
           heading: "Intellectual property",
           body: (
             <p>
-              The Revivo name, wordmark, symbol, text, graphics and design of this website belong to Revivo
-              unless stated otherwise. Please do not reuse them without permission.
+              The Revivo name, logo, text, graphics and design of this website belong to Revivo unless stated
+              otherwise. Please do not reuse them without permission.
             </p>
           ),
         },

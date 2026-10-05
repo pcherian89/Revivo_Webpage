@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AnimatePresence, m } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Wordmark } from "@/components/brand/Wordmark";
+import { RevivoLogo } from "@/components/brand/RevivoLogo";
 import { buttonClasses } from "@/components/ui/ButtonLink";
 import { navLinks, primaryCta, siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
@@ -76,7 +76,9 @@ export function SiteHeader() {
         )}
       >
         <div className="container-site flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
-          <Wordmark />
+          <Link href="/" className="inline-flex min-h-11 items-center text-ink" aria-label="Revivo, home">
+            <RevivoLogo title="" className="h-[26px] w-auto" />
+          </Link>
 
           <nav aria-label="Primary" className="hidden lg:block">
             <ul className="flex items-center gap-8">
@@ -84,7 +86,7 @@ export function SiteHeader() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-flex min-h-11 items-center text-sm font-medium text-muted transition-colors duration-200 hover:text-ink"
+                    className="inline-flex min-h-11 items-center text-[0.9375rem] font-medium text-muted transition-colors duration-200 hover:text-ink"
                   >
                     {link.label}
                   </Link>
@@ -95,7 +97,10 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-2">
             <div className="hidden sm:block">
-              <Link href={primaryCta.href} className={buttonClasses("primary", "min-h-10 px-4 text-xs")}>
+              <Link
+                href={primaryCta.href}
+                className={buttonClasses("primary", "min-h-10 px-5 text-[0.9375rem]")}
+              >
                 {primaryCta.label}
               </Link>
             </div>
@@ -136,17 +141,14 @@ export function SiteHeader() {
           >
             <nav aria-label="Mobile" className="container-site flex min-h-full flex-col py-8">
               <ul className="border-t border-line">
-                {navLinks.map((link, i) => (
+                {navLinks.map((link) => (
                   <li key={link.href} className="border-b border-line">
                     <Link
                       href={link.href}
                       onClick={() => close(false)}
                       className="flex min-h-16 items-center justify-between gap-4 text-ink"
                     >
-                      <span className="text-display-md">{link.label}</span>
-                      <span className="text-label text-subtle" aria-hidden="true">
-                        0{i + 1}
-                      </span>
+                      <span className="text-subtitle">{link.label}</span>
                     </Link>
                   </li>
                 ))}
@@ -158,7 +160,7 @@ export function SiteHeader() {
               >
                 {primaryCta.label}
               </Link>
-              <p className="text-label mt-auto pt-10 text-subtle">{siteConfig.location}</p>
+              <p className="text-small mt-auto pt-10 text-subtle">{siteConfig.location}</p>
             </nav>
           </m.div>
         )}

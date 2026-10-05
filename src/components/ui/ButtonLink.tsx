@@ -3,45 +3,32 @@ import { ArrowRight } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "text";
-
-const base =
-  "group inline-flex min-h-12 items-center justify-center gap-3 rounded-xs px-6 text-sm font-semibold uppercase tracking-[0.08em] transition-[background-color,color,border-color] duration-200 ease-out";
+type Variant = "primary" | "quiet";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-lime text-canvas hover:bg-ink",
-  secondary: "border border-line-strong text-ink hover:border-ink",
-  text: "min-h-11 px-0 text-ink hover:text-lime",
+  primary:
+    "min-h-12 rounded-full bg-lime px-6 text-canvas font-semibold hover:bg-ink transition-colors duration-200",
+  quiet: "min-h-12 px-1 text-ink font-medium hover:text-lime transition-colors duration-200",
 };
 
 export function buttonClasses(variant: Variant = "primary", className?: string) {
-  return cn(base, variants[variant], className);
+  return cn("group inline-flex items-center justify-center gap-2.5 text-base", variants[variant], className);
 }
 
 type ButtonLinkProps = Omit<ComponentProps<typeof Link>, "className"> & {
   variant?: Variant;
   className?: string;
   children: ReactNode;
-  /** Show the trailing arrow (default true) */
-  arrow?: boolean;
 };
 
-export function ButtonLink({
-  variant = "primary",
-  className,
-  children,
-  arrow = true,
-  ...props
-}: ButtonLinkProps) {
+export function ButtonLink({ variant = "primary", className, children, ...props }: ButtonLinkProps) {
   return (
     <Link className={buttonClasses(variant, className)} {...props}>
       <span>{children}</span>
-      {arrow && (
-        <ArrowRight
-          aria-hidden="true"
-          className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none"
-        />
-      )}
+      <ArrowRight
+        aria-hidden="true"
+        className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none"
+      />
     </Link>
   );
 }

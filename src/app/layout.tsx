@@ -4,10 +4,10 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { siteConfig, siteUrl } from "@/config/site";
-import { displayFont, monoFont, sansFont } from "./fonts";
+import { sansFont } from "./fonts";
 import "./globals.css";
 
-const title = `${siteConfig.name} — ${siteConfig.descriptor}`;
+const title = `${siteConfig.name} — ${siteConfig.tagline}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -38,15 +38,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      data-scroll-behavior="smooth"
-      className={`${displayFont.variable} ${sansFont.variable} ${monoFont.variable}`}
-    >
+    <html lang="en" data-scroll-behavior="smooth" className={sansFont.variable}>
       <body>
         <a
           href="#main"
-          className="sr-only z-[100] bg-lime px-4 py-3 text-sm font-semibold text-canvas focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-[100] rounded-full bg-lime px-5 py-3 text-sm font-semibold text-canvas focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>

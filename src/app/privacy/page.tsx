@@ -22,9 +22,8 @@ const contactLine = contactConfig.email ? (
 export default function PrivacyPage() {
   return (
     <LegalPage
-      label="Legal"
       title="Privacy policy"
-      updated="5 October 2026"
+      updated="6 October 2026"
       intro={
         <p>
           This policy explains what information Revivo collects through this website, why we collect it and

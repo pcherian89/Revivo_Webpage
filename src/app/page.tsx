@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/hero/Hero";
-import { CapabilityChannels } from "@/components/home/CapabilityChannels";
-import { DeliveryOptions } from "@/components/home/DeliveryOptions";
-import { FinalCta } from "@/components/home/FinalCta";
-import { FounderSection } from "@/components/home/FounderSection";
-import { ProblemSection } from "@/components/home/ProblemSection";
-import { ProblemToSystem } from "@/components/home/ProblemToSystem";
-import { ProcessSection } from "@/components/home/ProcessSection";
-import { SectorSelector } from "@/components/home/SectorSelector";
-import { WhyRevivo } from "@/components/home/WhyRevivo";
+import { ConversationScene } from "@/components/scenes/ConversationScene";
+import { FlatlineScene } from "@/components/scenes/FlatlineScene";
+import { HeroScene } from "@/components/scenes/HeroScene";
+import { ProcessScene } from "@/components/scenes/ProcessScene";
+import { StoryScene } from "@/components/scenes/StoryScene";
 import { jsonLdScript, organizationJsonLd, servicesJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: { absolute: "Revivo — AI Systems for Sport | Custom AI solutions for sports and fitness" },
+  title: { absolute: "Revivo — AI that gives sport a pulse | Custom AI solutions for sport and fitness" },
   alternates: { canonical: "/" },
   openGraph: { url: "/" },
 };
 
+/** Five scenes, one idea each: understand → recognize → believe → trust the process → start. */
 export default function HomePage() {
   return (
     <>
@@ -24,18 +20,11 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdScript([organizationJsonLd(), servicesJsonLd()]) }}
       />
-      <Hero />
-      <ProblemSection />
-      <CapabilityChannels />
-      <ProblemToSystem />
-      <SectorSelector />
-      <ProcessSection />
-      <DeliveryOptions />
-      <div id="about">
-        <WhyRevivo />
-        <FounderSection />
-      </div>
-      <FinalCta />
+      <HeroScene />
+      <FlatlineScene />
+      <StoryScene />
+      <ProcessScene />
+      <ConversationScene />
     </>
   );
 }

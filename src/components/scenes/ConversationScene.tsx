@@ -1,23 +1,21 @@
-import type { Metadata } from "next";
+import { Reveal } from "@/components/motion/Reveal";
 import { EnquiryForm } from "@/components/enquiry/EnquiryForm";
 import { contactConfig } from "@/config/site";
 import { conversation } from "@/content/home";
 
-export const metadata: Metadata = {
-  title: "Start with your challenge",
-  description:
-    "Tell Revivo what has gone quiet in your sports or fitness organization. A person reads every message and replies with questions, not a sales pitch.",
-  alternates: { canonical: "/contact" },
-  openGraph: { url: "/contact" },
-};
-
-export default function ContactPage() {
+/** Scene 5 — one question, one short form. The signal ends at the submit button. */
+export function ConversationScene() {
   return (
-    <div className="scene pt-32 md:pt-40">
+    <section
+      id="start"
+      aria-labelledby="start-heading"
+      className="scene bg-[linear-gradient(to_bottom,var(--color-canvas),var(--color-raised))]"
+    >
       <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-5">
-          <p className="eyebrow text-muted">Start with your challenge</p>
-          <h1 className="text-title mt-5">{conversation.title}</h1>
+        <Reveal className="lg:col-span-5">
+          <h2 id="start-heading" className="text-title">
+            {conversation.title}
+          </h2>
           <p className="text-lead mt-5 text-muted">{conversation.support}</p>
           {contactConfig.email && (
             <p className="text-small mt-8 text-subtle">
@@ -30,11 +28,11 @@ export default function ContactPage() {
               </a>
             </p>
           )}
-        </div>
+        </Reveal>
         <div className="lg:col-span-7">
-          <EnquiryForm idPrefix="contact" />
+          <EnquiryForm />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,47 +1,59 @@
-import { ImageResponse } from "next/og";
+import { cn } from "@/lib/cn";
 
-export const alt = "Revivo — AI that gives sport a pulse. Custom AI solutions for sport and fitness.";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+/**
+ * Official Revivo logo, traced from the "Flatline → Alive" lockups.
+ * - "lockup" (A, horizontal): header, footer, documents — never below 24px tall.
+ * - "mark"   (C, symbol only): icons and favicons only.
+ * The mark is always lime (or black on lime); never outlined or glowing.
+ * The wordmark is outlined vector paths, so no font is required.
+ * When the final licensed wordmark is ready, replace WORDMARK_PATH only.
+ */
 
-const WORDMARK =
+const MARK_PATH =
+  "M5.10 216.94 L66.30 216.94 L80.70 177.34 L98.70 256.54 L111.30 202.54 L122.10 216.94 L141.90 216.94";
+const WORDMARK_PATH =
   "M245.43599999999998 182.8V196.96H241.956Q233.916 196.96 229.776 201.04000000000002Q225.636 205.12 225.636 215.2V250.0H211.956V183.88H225.636V193.48000000000002Q228.636 188.44 233.61599999999999 185.62Q238.596 182.8 245.43599999999998 182.8ZM315.756 222.04H265.236Q265.836 229.96 271.116 234.76Q276.396 239.56 284.076 239.56Q295.116 239.56 299.676 230.32H314.436Q311.436 239.44 303.576 245.26Q295.716 251.08 284.076 251.08Q274.596 251.08 267.096 246.82Q259.596 242.56 255.336 234.82Q251.076 227.08 251.076 216.88Q251.076 206.68 255.216 198.94Q259.356 191.2 266.856 187.0Q274.356 182.8 284.076 182.8Q293.436 182.8 300.756 186.88Q308.076 190.96 312.156 198.34Q316.236 205.72 316.236 215.32Q316.236 219.04 315.756 222.04ZM301.956 211.0Q301.836 203.44 296.55600000000004 198.88Q291.276 194.32 283.476 194.32Q276.396 194.32 271.356 198.82Q266.316 203.32 265.356 211.0ZM352.83599999999996 237.76 371.5559999999999 183.88H386.07599999999996L360.876 250.0H344.5559999999999L319.47599999999994 183.88H334.11599999999993ZM392.19599999999997 166.36Q392.19599999999997 162.64 394.716 160.12Q397.236 157.60000000000002 400.95599999999996 157.60000000000002Q404.556 157.60000000000002 407.076 160.12Q409.596 162.64 409.596 166.36Q409.596 170.07999999999998 407.076 172.6Q404.556 175.12 400.95599999999996 175.12Q397.236 175.12 394.716 172.6Q392.19599999999997 170.07999999999998 392.19599999999997 166.36ZM407.676 183.88V250.0H393.996V183.88ZM448.83599999999996 237.76 467.5559999999999 183.88H482.07599999999996L456.876 250.0H440.5559999999999L415.47599999999994 183.88H430.11599999999993ZM485.556 216.88Q485.556 206.8 489.996 199.0Q494.436 191.2 502.116 187.0Q509.796 182.8 519.276 182.8Q528.756 182.8 536.4359999999999 187.0Q544.116 191.2 548.556 199.0Q552.996 206.8 552.996 216.88Q552.996 226.96 548.4359999999999 234.76Q543.876 242.56 536.016 246.82Q528.156 251.08 518.6759999999999 251.08Q509.316 251.08 501.756 246.82Q494.19599999999997 242.56 489.876 234.82Q485.556 227.08 485.556 216.88ZM538.956 216.88Q538.956 209.68 536.1959999999999 204.7Q533.4359999999999 199.72 528.876 197.2Q524.316 194.68 519.036 194.68Q513.756 194.68 509.256 197.2Q504.756 199.72 502.116 204.7Q499.476 209.68 499.476 216.88Q499.476 227.56 504.936 233.38Q510.39599999999996 239.2 518.6759999999999 239.2Q523.956 239.2 528.576 236.68Q533.196 234.16 536.076 229.12Q538.956 224.08 538.956 216.88Z";
 
-/** Social card: the stacked logo idea — mark over name — with the tagline. */
-export default function OpengraphImage() {
-  return new ImageResponse(
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#0A0B0A",
-        color: "#F5F5F2",
-        fontFamily: "sans-serif",
-      }}
+type RevivoLogoProps = {
+  variant?: "lockup" | "mark";
+  className?: string;
+  /** Accessible name; pass "" when a visible label already names the link */
+  title?: string;
+  /** Colour of the mark (lime by default; use canvas on lime backgrounds) */
+  markColor?: string;
+};
+
+export function RevivoLogo({
+  variant = "lockup",
+  className,
+  title = "Revivo",
+  markColor = "#CCFF00",
+}: RevivoLogoProps) {
+  const isMark = variant === "mark";
+  const [w, h] = isMark ? [175, 90] : [558, 108];
+  const viewBox = isMark ? "0 172 175 90" : "0 154 558 108";
+  return (
+    <svg
+      viewBox={viewBox}
+      width={w}
+      height={h}
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("block", className)}
+      role={title ? "img" : undefined}
+      aria-label={title || undefined}
+      aria-hidden={title ? undefined : true}
+      focusable="false"
     >
-      <svg width="560" height="108" viewBox="0 154 558 108">
-        <path
-          d="M5.10 216.94 L66.30 216.94 L80.70 177.34 L98.70 256.54 L111.30 202.54 L122.10 216.94 L141.90 216.94"
-          fill="none"
-          stroke="#CCFF00"
-          strokeWidth="10.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <circle cx="161.7" cy="216.94" r="7.96" fill="#CCFF00" />
-        <path d={WORDMARK} fill="#F5F5F2" />
-      </svg>
-      <div style={{ marginTop: 56, fontSize: 56, fontWeight: 600, letterSpacing: -1.5 }}>
-        AI that gives sport a pulse.
-      </div>
-      <div style={{ marginTop: 18, fontSize: 26, color: "#A6A9A2" }}>
-        Custom AI solutions for sport and fitness
-      </div>
-    </div>,
-    size,
+      <path
+        d={MARK_PATH}
+        fill="none"
+        stroke={markColor}
+        strokeWidth="10.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="161.7" cy="216.94" r="7.96" fill={markColor} />
+      {!isMark && <path d={WORDMARK_PATH} fill="currentColor" />}
+    </svg>
   );
 }

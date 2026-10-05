@@ -1,5 +1,5 @@
 import { contactConfig, siteConfig, siteUrl } from "@/config/site";
-import { capabilities } from "@/content/home";
+import { flatlines } from "@/content/home";
 
 /** schema.org data describing Revivo for search engines. Facts only. */
 export function organizationJsonLd() {
@@ -18,12 +18,12 @@ export function organizationJsonLd() {
     areaServed: "Worldwide",
     knowsAbout: [
       "AI solutions for sports",
-      "Sports technology development",
-      "Sports analytics and data",
-      "Sports workflow automation",
-      "Athlete-development systems",
+      "AI for fitness and coaching",
+      "Athlete and client progress tracking",
+      "Athlete-development pathways",
       "Sports event operations",
-      "Sponsorship technology",
+      "Sports analytics and data",
+      "Custom sports software development",
     ],
     ...(contactConfig.email
       ? { contactPoint: { "@type": "ContactPoint", contactType: "sales", email: contactConfig.email } }
@@ -37,25 +37,25 @@ export function servicesJsonLd() {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${siteUrl}/#service`,
-    name: "Custom AI, data and automation solutions for sports and fitness organizations",
-    serviceType: "Custom sports software and AI solution development",
+    name: "Custom AI solutions for sport and fitness organizations",
+    serviceType: "Custom AI solution design and development for sport and fitness",
     provider: { "@id": `${siteUrl}/#organization` },
     areaServed: "Worldwide",
     audience: {
       "@type": "Audience",
       audienceType:
-        "Gyms, sports academies, teams, leagues, events and venues, federations, sports foundations and sponsorship organizations",
+        "Coaches, academies, clubs, fitness studios, teams, leagues, events, venues, federations and sports foundations",
     },
     description: siteConfig.description,
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Solution areas",
-      itemListElement: capabilities.channels.map((c) => ({
+      name: "Problems we help solve",
+      itemListElement: flatlines.items.map((f) => ({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: c.name,
-          description: `${c.summary} Scoped through discovery for each organization.`,
+          name: f.name,
+          description: `${f.system} Scoped through discovery for each organization.`,
         },
       })),
     },
