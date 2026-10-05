@@ -7,7 +7,7 @@ import { useMediaQuery } from "@/components/ui/useMediaQuery";
 import { useTabs } from "@/components/ui/useTabs";
 import { explorer, zones } from "@/content/explorer";
 import { cn } from "@/lib/cn";
-import { connector, SIGNAL, type Point } from "@/lib/signal";
+import { orthogonal, SIGNAL, type Point } from "@/lib/signal";
 import { signalBus } from "@/lib/signal-bus";
 import { DomainPanel } from "./DomainPanel";
 import { SignalNode } from "./SignalNode";
@@ -368,14 +368,14 @@ function SignalMap({
     if (!target) return null;
     const from = isDesktop ? (p["layer-out"] ?? p.layer) : i === 0 ? p.layer : p[`zone-in-${i - 1}`];
     const lit = isDesktop ? i === zone : i <= zone;
-    return { key: `zone-${i}`, d: connector(from, target), lit };
+    return { key: `zone-${i}`, d: orthogonal(from, target), lit };
   });
 
   const capFrom = isDesktop ? p[`zone-out-${zone}`] : p[`zone-in-${zone}`];
   const capBranches = zones[zone].capabilities.map((_, j) => {
     const target = p[`cap-${j}`];
     if (!capFrom || !target) return null;
-    return { key: `cap-${j}`, d: connector(capFrom, target), lit: j === activeCap };
+    return { key: `cap-${j}`, d: orthogonal(capFrom, target), lit: j === activeCap };
   });
 
   const lastZone = p[`zone-in-${zones.length - 1}`];
@@ -383,9 +383,9 @@ function SignalMap({
     ? zones[zone].capabilities
         .map((_, j) => p[`cap-out-${j}`])
         .filter(Boolean)
-        .map((a) => connector(a, p.converge))
+        .map((a) => orthogonal(a, p.converge))
     : lastZone
-      ? [connector(lastZone, p.converge)]
+      ? [orthogonal(lastZone, p.converge)]
       : [];
 
   return (
@@ -411,14 +411,14 @@ function SignalMap({
 
       {/* Trunk: hero signal → intelligence layer */}
       <path
-        d={connector(p.entry, p.layer)}
+        d={orthogonal(p.entry, p.layer)}
         stroke={SIGNAL.color}
         strokeOpacity={SIGNAL.glowOpacity}
         strokeWidth={SIGNAL.glowWidth}
       />
       <path
         ref={setPath("trunk")}
-        d={connector(p.entry, p.layer)}
+        d={orthogonal(p.entry, p.layer)}
         stroke={SIGNAL.color}
         strokeWidth={SIGNAL.width}
       />

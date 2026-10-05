@@ -65,16 +65,18 @@ uppercase `.label`. Headline max two lines on laptops.
 **Buttons:** condensed bold, near-square (`rounded-xs`), lime primary, outlined secondary.
 
 Never use: purple/blue AI gradients, robots/brains, glass blobs, card grids, fake dashboards, background video,
-particles, SVG turbulence or large blur filters, scroll hijacking, typewriter/glitch effects, ECG/hospital-monitor visuals.
+particles, SVG turbulence or large blur filters, scroll hijacking, typewriter/glitch effects, ECG/hospital-monitor visuals, wobbly or hand-drawn-looking lines.
 
 ## 5. The Revivo Signal Journey
 
 Story: live sports signal → Revivo intelligence → solution domains → organized action.
 
-1. **Hero (`HeroSignal`)** — measured on the client from the real headline. A quiet lime line draws beneath the
-   headline, makes one smooth asymmetric pulse under the word "pulse", separates into data marks, reconnects and sweeps
-   down to the exact x of the explorer entry (`#signal-entry-desktop` / `#signal-entry-mobile`). Plays once (~3s), then
-   is still. The shape comes from `src/lib/signal.ts` (smooth curves only — never sharp heartbeat corners).
+1. **Hero (`HeroSignal`)** — measured on the client from the real headline. A perfectly straight lime line draws
+   beneath the headline, makes one crisp pulse under the word "pulse", passes five evenly spaced data dots, then turns
+   down (one 18px rounded corner) just beside the copy — on the explorer's own axis whenever it clears the text — and
+   drops straight into the explorer entry (`#signal-entry-desktop` / `#signal-entry-mobile`). Plays once (~3s), then is
+   still. Geometry lives in `src/lib/signal.ts`: straight runs, one corner radius (`SIGNAL.radius`), right-angled
+   connectors (`orthogonal`) — never wobble, never a trip to the far edge of the page.
 2. **Explorer (`DomainExplorer`)** — the trunk enters the Revivo Intelligence Layer and branches to the four zones
    (desktop: tree; below 1024px: vertical rail + accordion). Branches connect to measured HTML anchors (`useAnchors`).
    Selected branch lit, others at reduced opacity. Capabilities open `DomainPanel` (desktop right panel ≈46vw; mobile

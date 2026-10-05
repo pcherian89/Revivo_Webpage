@@ -13,9 +13,9 @@ const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 export function HeroScene() {
   const { headline } = hero;
   return (
-    <section id="hero" aria-labelledby="hero-heading" className="relative flex min-h-[86svh] flex-col">
+    <section id="hero" aria-labelledby="hero-heading" className="relative flex min-h-[78svh] flex-col">
       <HeroSignal />
-      <div className="container-site relative flex flex-1 flex-col justify-center pt-28 pb-36 lg:pt-32 lg:pb-32">
+      <div className="container-site relative flex flex-1 flex-col justify-center pt-28 pb-28 lg:pt-32 lg:pb-20">
         <p className="label hero-fade text-subtle" style={delay(0)}>
           {hero.eyebrow}
         </p>

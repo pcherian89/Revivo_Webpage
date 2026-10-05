@@ -2,16 +2,17 @@
 
 import { animate, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { dataMarks, pulse, rhythm, SIGNAL, smoothPath, type Point } from "@/lib/signal";
+import { dataMarks, PULSE_HALF, pulseSegment, SIGNAL, type Point } from "@/lib/signal";
 import { signalBus } from "@/lib/signal-bus";
 import { visibleRect } from "./visibleRect";
 
 type Geo = { w: number; h: number; a: string; marks: Point[]; b: string; end: Point };
 
 /**
- * The hero signal: a quiet lime line draws beneath the headline, lifts into one
- * restrained pulse under the word "pulse", separates into data marks,
- * reconnects, and sweeps down to exactly where the explorer's signal begins.
+ * The hero signal: a precise lime line draws beneath the headline, makes one
+ * crisp pulse under the word "pulse", passes through evenly spaced data marks,
+ * then turns down beside the copy (straight runs, one corner radius) and drops
+ * into exactly where the explorer's signal begins.
  * Plays once, then settles. Decorative only (aria-hidden).
  */
 export function HeroSignal() {
@@ -105,6 +106,7 @@ export function HeroSignal() {
       controls.push(c3);
       await c3;
       if (cancelled) return;
+      animate(dot, { opacity: 0 }, { duration: 0.4 });
       setDrawn(true);
       signalBus.markHeroDone();
     };
@@ -168,14 +170,10 @@ export function HeroSignal() {
       })}
       <g ref={marksRef} fill={SIGNAL.color}>
         {geo.marks.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r={i % 2 ? 1.6 : 2.2} />
+          <circle key={i} cx={p.x} cy={p.y} r={2} />
         ))}
       </g>
-      <g
-        ref={dotRef}
-        transform={`translate(${geo.end.x} ${geo.end.y})`}
-        style={{ opacity: finished ? 1 : 0 }}
-      >
+      <g ref={dotRef} transform={`translate(${geo.end.x} ${geo.end.y})`} style={{ opacity: 0 }}>
         <circle r={SIGNAL.haloRadius} fill={SIGNAL.color} opacity={0.18} />
         <circle r={SIGNAL.dotRadius} fill={SIGNAL.color} />
       </g>
@@ -201,45 +199,51 @@ function buildGeometry(hero: HTMLElement): Geo | null {
 
   const w = box.width;
   const h = box.height;
+  const R = SIGNAL.radius;
   const desktop = window.matchMedia("(min-width: 64rem)").matches;
   const exitX = entry ? (entry.left + entry.right) / 2 : desktop ? w / 2 : 31;
   const end = { x: exitX, y: h };
+  const f = (n: number) => Math.round(n * 10) / 10;
+
+  // Shared start: a straight line, one pulse, a short straight, evenly spaced marks.
+  const lead = (y0: number, px: number, s: number, markGap: number) => {
+    const a = `M 0 ${f(y0)} H ${f(px - PULSE_HALF.before * s)}${pulseSegment(px, y0, s)} H ${f(px + PULSE_HALF.after * s + 16)}`;
+    const marksStart = px + PULSE_HALF.after * s + 16 + markGap;
+    const marks = dataMarks(marksStart, y0, 5, markGap);
+    const bStart = marksStart + markGap * 5;
+    return { a, marks, bStart };
+  };
 
   if (desktop) {
-    // Beneath the headline, pulsing under the word "pulse".
+    // Beneath the headline; the pulse sits under the word "pulse".
     const y0 = h1.bottom + 16;
     const px = (word.left + word.right) / 2;
-    const aPts = [
-      ...rhythm(0, px - 64, y0),
-      ...pulse(px, y0).slice(1),
-      ...rhythm(px + 70, px + 116, y0, 2).slice(1),
-    ];
-    const marks = dataMarks(px + 116, y0, 6, 18);
-    const bStart = px + 252;
-    const xR = Math.min(w - 40, Math.max(copy.right + 72, w * 0.86));
-    const r = 36;
-    const yS = Math.max(actions.bottom + 28, y0 + r + 24);
-    const k = (h - yS) * 0.55;
-    const bLine = bStart < xR - r - 24 ? smoothPath(rhythm(bStart, xR - r, y0, 2)) : `M ${bStart} ${y0}`;
-    const b = `${bLine} Q ${xR} ${y0} ${xR} ${y0 + r} L ${xR} ${yS} C ${xR} ${yS + k} ${exitX} ${h - k} ${exitX} ${h}`;
-    return { w, h, a: smoothPath(aPts), marks, b, end };
+    const { a, marks, bStart } = lead(y0, px, 1, 14);
+    // Turn down just beyond the copy — or exactly on the explorer's axis when it is clear of the text.
+    const textRight = Math.max(copy.right, actions.right);
+    let xV = Math.max(textRight + 40, bStart + R + 12);
+    // Prefer one continuous vertical on the explorer's axis whenever it clears the text.
+    const aligned = exitX >= Math.max(textRight + 20, bStart + R + 12);
+    if (aligned) xV = exitX;
+    else xV = Math.max(xV, exitX + 2 * R);
+    let b = `M ${f(bStart)} ${f(y0)} H ${f(xV - R)} A ${R} ${R} 0 0 1 ${f(xV)} ${f(y0 + R)}`;
+    if (aligned) b += ` V ${f(h)}`;
+    else {
+      const yJ = Math.max(actions.bottom + 40, y0 + 3 * R);
+      b += ` V ${f(yJ - R)} A ${R} ${R} 0 0 1 ${f(xV - R)} ${f(yJ)} H ${f(exitX + R)} A ${R} ${R} 0 0 0 ${f(exitX)} ${f(yJ + R)} V ${f(h)}`;
+    }
+    return { w, h, a, marks, b, end };
   }
 
-  // Tablet / mobile: the signal runs below the actions and sweeps to the left rail.
-  const y0 = actions.bottom + 40;
-  const px = w * 0.36;
-  const s = 0.8;
-  const aPts = [
-    ...rhythm(0, px - 64 * s, y0, 2),
-    ...pulse(px, y0, s).slice(1),
-    ...rhythm(px + 56, px + 88, y0, 1.5).slice(1),
-  ];
-  const marks = dataMarks(px + 88, y0, 5, 14);
-  const bStart = px + 170;
-  const xR = w - 22;
-  const r = 20;
-  const yS = y0 + r + 14;
-  const k = (h - yS) * 0.55;
-  const b = `M ${bStart} ${y0} L ${xR - r} ${y0} Q ${xR} ${y0} ${xR} ${y0 + r} L ${xR} ${yS} C ${xR} ${yS + k} ${exitX} ${h - k} ${exitX} ${h}`;
-  return { w, h, a: smoothPath(aPts), marks, b, end };
+  // Tablet / mobile: below the actions, turning at the text edge and stepping back to the left rail.
+  const y0 = actions.bottom + 36;
+  const px = Math.min(w * 0.42, copy.right - 200);
+  const { a, marks, bStart } = lead(y0, px, 0.85, 12);
+  const xR = Math.max(bStart + R + 8, Math.min(copy.right, w - 20));
+  const yL = y0 + 2 * R + 8;
+  const b =
+    `M ${f(bStart)} ${f(y0)} H ${f(xR - R)} A ${R} ${R} 0 0 1 ${f(xR)} ${f(y0 + R)}` +
+    ` V ${f(yL - R)} A ${R} ${R} 0 0 1 ${f(xR - R)} ${f(yL)} H ${f(exitX + R)}` +
+    ` A ${R} ${R} 0 0 0 ${f(exitX)} ${f(yL + R)} V ${f(h)}`;
+  return { w, h, a, marks, b, end };
 }

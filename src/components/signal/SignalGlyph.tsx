@@ -1,9 +1,10 @@
-import { pulse, rhythm, SIGNAL, smoothPath } from "@/lib/signal";
+import { pulseSegment, SIGNAL } from "@/lib/signal";
 import { cn } from "@/lib/cn";
 
-const D = smoothPath([...rhythm(0, 10, 12, 0.6, 5), ...pulse(26, 12, 0.32).slice(1), { x: 50, y: 12 }]);
+const S = 0.34;
+const D = `M 1 12 H ${26 - 34 * S}${pulseSegment(26, 12, S)} H 46`;
 
-/** A small accent of the Revivo Signal (the same pulse shape as the hero). */
+/** A small accent of the Revivo Signal: the same straight line and pulse as the hero. */
 export function SignalGlyph({ className, color = SIGNAL.color }: { className?: string; color?: string }) {
   return (
     <svg
@@ -20,7 +21,7 @@ export function SignalGlyph({ className, color = SIGNAL.color }: { className?: s
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="53" cy="12" r="2" fill={color} />
+      <circle cx="52" cy="12" r="2" fill={color} />
     </svg>
   );
 }
