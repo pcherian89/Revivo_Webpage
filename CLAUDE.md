@@ -75,15 +75,21 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
 1. **Hero (`HeroSignal`)** — pure SVG + CSS, measured from the real layout. A straight lime track (dim) runs beneath
    the headline, makes one crisp pulse under "pulse", passes five data marks and flows into the **signal core** on the
    right (concentric rings), then drops into the explorer. A bright light **runs through the track continuously**
-   (5s cycle) and the core ripples as it arrives. Paused off-screen; static under reduced motion. Geometry in
-   `src/lib/signal.ts`: straight runs, one corner radius, right-angled connectors — never wobble.
+   and the core ripples as it arrives. The light is driven by the shared **signal clock** (`src/lib/signal-clock.ts`):
+   one light, one timeline — it flows from the hero straight down the explorer trunk into the Intelligence Layer and
+   lights it up (core flash). Paused off-screen; static under reduced motion. Geometry in `src/lib/signal.ts`:
+   straight runs, one corner radius, right-angled connectors — never wobble.
 2. **Explorer (`DomainExplorer`)** — progressive and interactive. A large "Revivo Intelligence Layer" button (with a
    hand cue, "Tap to activate") waits for the visitor. Activating it sends a pulse to each of the four domains in turn;
    choosing a domain sends a pulse to each of its four capabilities in turn; a capability opens `DomainPanel` (desktop
    right panel ≈46vw; mobile bottom sheet). Desktop: tree; below 1024px: vertical rail. One moving pulse at a time
-   (`useTravel`). Server/no-JS render shows the whole map; reduced motion reveals instantly.
-3. **After the explorer** — the branches reconverge into one short line labelled "Built around your challenge"; the
-   process uses small `SignalGlyph` accents; one final glyph on the submit button. The lower page stays calm.
+   (`useTravel`). Server/no-JS render shows the whole map; reduced motion reveals instantly. Branches are a clean,
+   symmetric tree: every child of one parent shares one stem and one horizontal bus (`orthogonal(a, b, busY)`),
+   fixed-size anchors, equal column gaps, opaque lime tints (`DIM_LIME`/`MID_LIME`) so overlaps never double up.
+3. **After the explorer** — no converge line. The process (`ProcessScene`) sits on a continuous rail with a light
+   that keeps running through the four steps (CSS keyframes, each step glyph lights as it passes; horizontal on
+   desktop, vertical on mobile). Next to the form, `EchoSignal` ("Your signal") answers as the visitor types
+   (`revivo:typing` event) plus a quiet idle pulse, with "What happens next" (three steps). The lower page stays calm.
 
 ## 6. Component structure
 
@@ -91,8 +97,9 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
 - `src/content/home.ts` — hero, process and final CTA copy. `src/content/enquiry.ts` — form options.
 - `src/components/scenes/` — `HeroScene`, `ProcessScene`, `FinalCtaScene`.
 - `src/components/explorer/` — `DomainExplorer`, `DomainPanel`, `SignalNode`, `useAnchors`, `useTravel`.
-- `src/components/signal/` — `HeroSignal`, `SignalGlyph`. Geometry: `src/lib/signal.ts`.
-- `src/components/enquiry/EnquiryForm.tsx` (homepage + `/contact`; listens for `revivo:prefill`).
+- `src/components/signal/` — `HeroSignal`, `EchoSignal`, `SignalGlyph`. Geometry: `src/lib/signal.ts`; shared light
+  timeline: `src/lib/signal-clock.ts`.
+- `src/components/enquiry/EnquiryForm.tsx` (homepage + `/contact`; listens for `revivo:prefill`, emits `revivo:typing`).
 - Motion via the `m` component only (`LazyMotion strict`) plus Motion's `animate()` for signal travel. No GSAP,
   Three.js, WebGL, canvas or particle libraries. The hero text sequence is CSS so it renders without JavaScript.
 - Reduced motion: paths drawn, no travel, all interactions intact.

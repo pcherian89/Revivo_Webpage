@@ -14,7 +14,8 @@ import {
 import { useMediaQuery } from "@/components/ui/useMediaQuery";
 import { explorer, zones } from "@/content/explorer";
 import { cn } from "@/lib/cn";
-import { orthogonal, SIGNAL, type Point } from "@/lib/signal";
+import { DIM_LIME, MID_LIME, orthogonal, SIGNAL, type Point } from "@/lib/signal";
+import { flash, signalClock } from "@/lib/signal-clock";
 import { DomainPanel } from "./DomainPanel";
 import { SignalNode } from "./SignalNode";
 import { useAnchors } from "./useAnchors";
@@ -57,6 +58,8 @@ export function DomainExplorer() {
   const [selection, setSelection] = useState<Selection>(null);
 
   const triggerRef = useRef<HTMLElement | null>(null);
+  const coreRef = useRef<HTMLButtonElement>(null);
+  const coreNodeRef = useRef<HTMLDivElement>(null);
   const paths = useRef(new Map<string, SVGPathElement | null>());
   const runId = useRef(0);
   const { dotRef, travel } = useTravel(!reduce);
@@ -140,6 +143,53 @@ export function DomainExplorer() {
     [closePanel, reduce],
   );
 
+  // The hero light continues down the trunk and lights the Intelligence Layer on arrival.
+  useEffect(() => {
+    const section = sectionRef.current;
+    const light = paths.current.get("trunk-light");
+    const glow = paths.current.get("trunk-glow");
+    if (!section || !light || !glow || !geo) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const length = light.getTotalLength();
+    signalClock.set({
+      key: "trunk",
+      order: 1,
+      paths: [glow, light],
+      length,
+      events: [
+        {
+          at: length - 2,
+          fire: () => {
+            if (!window.matchMedia("(min-width: 64rem)").matches) {
+              flash(coreNodeRef.current, [{ transform: "scale(1.8)" }, { transform: "scale(1)" }], 700);
+              return;
+            }
+            flash(
+              coreRef.current,
+              [
+                {
+                  boxShadow: "0 0 0 0 rgba(204, 255, 0, 0.55), 0 0 36px rgba(204, 255, 0, 0.35)",
+                  backgroundColor: "rgba(204, 255, 0, 0.14)",
+                },
+                {
+                  boxShadow: "0 0 0 26px rgba(204, 255, 0, 0), 0 0 0 rgba(204, 255, 0, 0)",
+                  backgroundColor: "rgba(17, 17, 19, 1)",
+                },
+              ],
+              1200,
+            );
+          },
+        },
+      ],
+    });
+    const io = new IntersectionObserver(([e]) => signalClock.setVisible("trunk", e.isIntersecting));
+    io.observe(section);
+    return () => {
+      io.disconnect();
+      signalClock.remove("trunk");
+    };
+  }, [geo]);
+
   // Stop any running sequence when unmounting.
   useEffect(
     () => () => {
@@ -198,12 +248,13 @@ export function DomainExplorer() {
 
         {/* The Revivo Intelligence Layer — the thing to touch */}
         <div className="mt-10 grid grid-cols-[62px_1fr] items-center pr-5 md:grid-cols-[94px_1fr] md:pr-10 lg:mt-12 lg:flex lg:flex-col lg:items-center lg:pr-0">
-          <div className="flex justify-center lg:hidden">
-            <SignalNode anchor="core" state="on" className="size-4" />
+          <div ref={coreNodeRef} className="flex justify-center lg:hidden">
+            <SignalNode anchor="core" state="on" />
           </div>
           <div className="flex flex-col lg:items-center">
             <span data-anchor="core-in" aria-hidden="true" className="hidden size-px lg:block" />
             <button
+              ref={coreRef}
               type="button"
               onClick={activate}
               aria-expanded={staticAll || activated}
@@ -213,7 +264,7 @@ export function DomainExplorer() {
                 "group relative flex items-center gap-4 text-left transition-colors duration-300 lg:size-56 lg:flex-col lg:justify-center lg:gap-2 lg:rounded-full lg:border lg:text-center",
                 activated || staticAll
                   ? "cursor-default lg:border-lime/50 lg:bg-lime/[0.06]"
-                  : "lg:core-invite lg:border-lime/40 lg:bg-raised hover:lg:border-lime",
+                  : "lg:border-lime/40 lg:bg-raised hover:lg:border-lime",
               )}
             >
               <span className="flex flex-col">
@@ -287,7 +338,7 @@ export function DomainExplorer() {
 
           <div id="explore-caps" className={cn(openZone !== null && "mt-14")}>
             {openZone !== null && (
-              <ul key={openZone} className="grid grid-cols-4 gap-6">
+              <ul key={openZone} className="grid grid-cols-4 gap-8">
                 {zones[openZone].capabilities.map((c, j) => {
                   const visible = j < capsVisible;
                   return (
@@ -410,22 +461,9 @@ export function DomainExplorer() {
           </ul>
         )}
 
-        {/* Reconvergence + qualifier */}
-        {openZone !== null && capsVisible === 4 && (
-          <m.div
-            initial={hydrated ? { opacity: 0 } : false}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="mt-10 grid grid-cols-[62px_1fr] items-center pr-5 md:grid-cols-[94px_1fr] lg:mt-12 lg:flex lg:justify-center lg:pr-0"
-          >
-            <div className="flex justify-center">
-              <SignalNode anchor="converge" state="on" className="size-2.5" />
-            </div>
-            <p className="label text-muted lg:ml-4">{explorer.converge}</p>
-          </m.div>
-        )}
+        {/* Qualifier */}
         <div className="container-site">
-          <p className="text-small mt-5 pl-[42px] text-subtle md:pl-8 lg:mx-auto lg:max-w-xl lg:pl-0 lg:text-center">
+          <p className="text-small mt-10 pl-[42px] text-subtle md:pl-8 lg:mx-auto lg:max-w-xl lg:pl-0 lg:text-center">
             {explorer.qualifier}
           </p>
         </div>
@@ -470,51 +508,60 @@ function SignalMap({
   const coreOut = isDesktop ? p["core-out"] : p.core;
   if (!p.entry || !core || !coreOut) return null;
 
-  const zoneBranches = zones.map((_, i) => {
-    const target = p[`zone-in-${i}`];
-    if (!target) return null;
-    const from = isDesktop ? coreOut : i === 0 ? coreOut : p[`zone-in-${i - 1}`];
-    return {
-      key: `zone-${i}`,
-      d: orthogonal(from, target),
-      drawn: i < drawnZones,
-      lit: zone === null || i === zone,
-    };
-  });
+  // One shared bus height per parent → a clean, symmetric tree.
+  const zoneTargets = zones.map((_, i) => p[`zone-in-${i}`]).filter(Boolean);
+  const zoneBus = zoneTargets.length
+    ? coreOut.y + (Math.min(...zoneTargets.map((t) => t.y)) - coreOut.y) / 2
+    : undefined;
+
+  const zoneBranches = zones
+    .map((_, i) => {
+      const target = p[`zone-in-${i}`];
+      if (!target) return null;
+      const from = isDesktop ? coreOut : i === 0 ? coreOut : p[`zone-in-${i - 1}`];
+      const lit = zone === null ? null : isDesktop ? i === zone : i <= zone;
+      return {
+        key: `zone-${i}`,
+        d: orthogonal(from, target, isDesktop ? zoneBus : undefined),
+        drawn: i < drawnZones,
+        color: lit === null ? MID_LIME : lit ? SIGNAL.color : DIM_LIME,
+        order: lit ? 2 : lit === null ? 1 : 0,
+      };
+    })
+    .filter((b) => b !== null)
+    .sort((a, b) => a.order - b.order);
 
   const capFrom = zone === null ? null : isDesktop ? p[`zone-out-${zone}`] : p[`zone-in-${zone}`];
+  const capTargets = zone === null ? [] : [0, 1, 2, 3].map((j) => p[`cap-${j}`]).filter(Boolean);
+  const capBus =
+    capFrom && capTargets.length
+      ? capFrom.y + (Math.min(...capTargets.map((t) => t.y)) - capFrom.y) / 2
+      : undefined;
   const capBranches =
-    zone === null
+    zone === null || !capFrom
       ? []
-      : zones[zone].capabilities.map((_, j) => {
-          const target = p[`cap-${j}`];
-          if (!capFrom || !target) return null;
-          return {
-            key: `cap-${j}`,
-            d: orthogonal(capFrom, target),
-            drawn: j < drawnCaps,
-            lit: j === activeCap,
-          };
-        });
-
-  const showConverge = zone !== null && drawnCaps === 4 && p.converge;
-  const lastZone = p[`zone-in-${zones.length - 1}`];
-  const converge = !showConverge
-    ? []
-    : isDesktop
-      ? zones[zone!].capabilities
-          .map((_, j) => p[`cap-out-${j}`])
-          .filter(Boolean)
-          .map((a) => orthogonal(a, p.converge))
-      : lastZone
-        ? [orthogonal(lastZone, p.converge)]
-        : [];
+      : [0, 1, 2, 3]
+          .map((j) => {
+            const target = p[`cap-${j}`];
+            if (!target) return null;
+            const lit = j === activeCap;
+            return {
+              key: `cap-${j}`,
+              d: orthogonal(capFrom, target, capBus, isDesktop ? SIGNAL.radius : 12),
+              drawn: j < drawnCaps,
+              color: lit ? SIGNAL.color : MID_LIME,
+              order: lit ? 1 : 0,
+            };
+          })
+          .filter((b) => b !== null)
+          .sort((a, b) => a.order - b.order);
 
   const draw = (on: boolean, dur = 0.42) => ({
     initial: animate ? { pathLength: 0 } : false,
     animate: { pathLength: on ? 1 : 0 },
     transition: { duration: animate ? dur : 0, ease: [0.45, 0, 0.2, 1] as const },
   });
+  const trunk = orthogonal(p.entry, core);
 
   return (
     <svg
@@ -527,56 +574,47 @@ function SignalMap({
       fill="none"
       strokeLinecap="round"
     >
-      {converge.map((d, i) => (
-        <path key={`cv-${i}`} d={d} stroke={SIGNAL.quiet} strokeWidth={1.25} />
-      ))}
-      {showConverge && (
-        <path
-          d={`M ${p.converge.x} ${p.converge.y} V ${p.converge.y + (isDesktop ? 18 : 36)}`}
-          stroke={SIGNAL.quiet}
-          strokeWidth={1.25}
-        />
-      )}
-
-      {/* Trunk: hero signal → intelligence layer */}
+      {/* Trunk: the hero signal continues into the Intelligence Layer */}
+      <path d={trunk} stroke={DIM_LIME} strokeWidth={SIGNAL.width} />
       <path
-        d={orthogonal(p.entry, core)}
+        ref={setPath("trunk-glow")}
+        className="sig-light"
+        d={trunk}
         stroke={SIGNAL.color}
-        strokeOpacity={0.38}
-        strokeWidth={SIGNAL.width}
+        strokeOpacity={0.28}
+        strokeWidth={8}
+      />
+      <path
+        ref={setPath("trunk-light")}
+        className="sig-light"
+        d={trunk}
+        stroke={SIGNAL.color}
+        strokeWidth={2.25}
       />
 
-      {/* Domain branches: drawn one at a time; the chosen one stays bright */}
-      {zoneBranches.map(
-        (b) =>
-          b && (
-            <m.path
-              key={b.key}
-              ref={setPath(b.key)}
-              d={b.d}
-              stroke={SIGNAL.color}
-              strokeWidth={SIGNAL.width}
-              {...draw(b.drawn)}
-              style={{ strokeOpacity: b.lit ? 0.9 : 0.25 }}
-            />
-          ),
-      )}
+      {/* Domain branches: introduced one at a time; the chosen route stays bright */}
+      {zoneBranches.map((b) => (
+        <m.path
+          key={b.key}
+          ref={setPath(b.key)}
+          d={b.d}
+          stroke={b.color}
+          strokeWidth={SIGNAL.width}
+          {...draw(b.drawn)}
+        />
+      ))}
 
       {/* Capability branches for the chosen domain */}
-      {capBranches.map(
-        (b) =>
-          b && (
-            <m.path
-              key={`${zone}-${b.key}`}
-              ref={setPath(b.key)}
-              d={b.d}
-              stroke={SIGNAL.color}
-              strokeWidth={b.lit ? SIGNAL.width : 1.25}
-              {...draw(b.drawn, 0.36)}
-              style={{ strokeOpacity: b.lit ? 1 : 0.55 }}
-            />
-          ),
-      )}
+      {capBranches.map((b) => (
+        <m.path
+          key={`${zone}-${b.key}`}
+          ref={setPath(b.key)}
+          d={b.d}
+          stroke={b.color}
+          strokeWidth={SIGNAL.width}
+          {...draw(b.drawn, 0.36)}
+        />
+      ))}
 
       {/* The single moving pulse */}
       <g ref={dotRef} style={{ opacity: 0 }} transform={`translate(${coreOut.x} ${coreOut.y})`}>

@@ -10,8 +10,9 @@ Revivo is a global AI solutions-building company for the sports ecosystem. The h
 2. **Domain explorer** — the signal enters the Revivo Intelligence Layer and branches into four solution zones
    (Operations & Infrastructure, Revenue & Engagement, Athlete Development & Performance, Governance & Impact);
    each zone shows four capabilities, and each capability opens a detail panel
-3. **How Revivo works** — Discover → Define → Prototype → Build
-4. **Final call to action** — "What is your organization not seeing yet?" and a short enquiry form
+3. **How Revivo works** — Discover → Define → Prototype → Build, on a rail with a light running through it
+4. **Final call to action** — "What is your organization not seeing yet?", a "Your signal" line that reacts as
+   visitors type, and a short enquiry form
 
 Every capability is illustrative — nothing on the site is presented as a finished product.
 
@@ -100,7 +101,8 @@ src/
 │  ├─ layout/                Header (with mobile menu) and footer
 │  ├─ motion/                Animation helpers (reveal on scroll, reduced motion)
 │  └─ ui/                    Buttons, accessible tabs, media-query hook
-├─ lib/signal.ts             Shape of the Revivo Signal (smooth curves, one pulse)
+├─ lib/signal.ts             Shape of the Revivo Signal (straight runs, one pulse)
+├─ lib/signal-clock.ts       One light, one timeline: hero → Intelligence Layer
 scripts/check-copy.ts        Keeps copy within its word limits (4 zones × 4 capabilities)
 ```
 
@@ -109,7 +111,7 @@ scripts/check-copy.ts        Keeps copy within its word limits (4 zones × 4 cap
 ### Changing website copy
 
 Hero, process and final-CTA wording is in **`src/content/home.ts`**; the four zones and sixteen capabilities
-(problem, what Revivo could build, outcome, organizations, decision-maker) are in **`src/content/explorer.ts`**. Change the text between the quotes and save. Then run
+(problem, what Revivo could build, potential outcome) are in **`src/content/explorer.ts`**. Change the text between the quotes and save. Then run
 `npm run check:copy` — it fails if any text grows past its word limit, which keeps the homepage short. Privacy and
 terms wording is in `src/app/privacy/page.tsx` and `src/app/terms/page.tsx`.
 

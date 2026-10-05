@@ -65,15 +65,17 @@ export function dataMarks(x0: number, y: number, count = 5, gap = 14): Point[] {
 /**
  * A right-angled connector with rounded corners, leaving `a` vertically and
  * arriving at `b` vertically (down → across → down). Straight if aligned.
+ * Pass the same `busY` for all children of one parent so their routes share one
+ * stem and one horizontal bar — a clean, symmetric tree with no parallel lines.
  */
-export function orthogonal(a: Point, b: Point, radius: number = SIGNAL.radius): string {
+export function orthogonal(a: Point, b: Point, busY?: number, radius: number = SIGNAL.radius): string {
   const dx = b.x - a.x;
   const dy = b.y - a.y;
   if (Math.abs(dx) < 3) return `M ${r1(a.x)} ${r1(a.y)} V ${r1(b.y)}`; // near-aligned: one clean vertical
-  const r = Math.max(0, Math.min(radius, Math.abs(dx) / 2, Math.abs(dy) / 2));
-  const midY = a.y + dy / 2;
+  const midY = busY ?? a.y + dy / 2;
+  const r = Math.max(0, Math.min(radius, Math.abs(dx) / 2, midY - a.y, b.y - midY));
   const dir = Math.sign(dx);
-  // Turning from "down" to "right" is a clockwise (sweep 0) turn on screen; to "left" is sweep 1.
+  // Turning from "down" to "right" is sweep 0 on screen; to "left" is sweep 1.
   const s1 = dir > 0 ? 0 : 1;
   const s2 = dir > 0 ? 1 : 0;
   return [
@@ -85,6 +87,10 @@ export function orthogonal(a: Point, b: Point, radius: number = SIGNAL.radius): 
     `V ${r1(b.y)}`,
   ].join(" ");
 }
+
+/** Lime blended onto the page background — opaque, so overlapping routes never double up. */
+export const DIM_LIME = "#4A5B0B";
+export const MID_LIME = "#86A606";
 
 /** Ease-out used for signal travel. */
 export const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);

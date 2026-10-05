@@ -31,4 +31,15 @@ export const process = {
 export const finalCta = {
   title: "What is your organization not seeing yet?",
   support: "Bring us the process, bottleneck or decision that needs to work better.",
+  signal: {
+    label: "Your signal",
+    idle: "Start typing — every challenge begins as a signal.",
+    active: "Signal received. Keep going.",
+  },
+  nextLabel: "What happens next",
+  next: [
+    "We read your challenge properly.",
+    "We reply with a few focused questions.",
+    "If there is a fit, we suggest a first conversation.",
+  ],
 } as const;

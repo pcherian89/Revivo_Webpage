@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
+import { flash, signalClock } from "@/lib/signal-clock";
 import { dataMarks, PULSE_HALF, pulseSegment, SIGNAL, type Point } from "@/lib/signal";
 import { visibleRect } from "./visibleRect";
 
@@ -18,22 +19,21 @@ type Geo = {
   core: { x: number; y: number; rings: number[] } | null;
 };
 
-const PERIOD = 5; // seconds per light cycle
-const TRAVEL = 0.7; // share of the cycle the light spends travelling
-const START = 2.4; // seconds before the first run (after the page has settled)
-
 /**
  * The hero signal. A precise lime track runs beneath the headline, makes one
  * crisp pulse under "pulse", passes five data marks and flows into the Revivo
  * signal core on the right, then drops into the explorer. A bright light keeps
- * running through the track and the core ripples each time it arrives.
- * Pure SVG + CSS; paused off-screen; static under reduced motion. Decorative.
+ * running through the track (driven by the shared signal clock, so it continues
+ * into the explorer) and the core ripples each time it passes. Paused off-screen;
+ * static under reduced motion. Decorative.
  */
 export function HeroSignal() {
   const [geo, setGeo] = useState<Geo | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const lightRef = useRef<SVGPathElement>(null);
+  const glowRef = useRef<SVGPathElement>(null);
   const toCoreRef = useRef<SVGPathElement>(null);
+  const rippleRef = useRef<SVGCircleElement>(null);
 
   // Measure the real layout (headline, "pulse", copy, actions, explorer entry).
   useEffect(() => {
@@ -54,24 +54,43 @@ export function HeroSignal() {
     };
   }, []);
 
-  // Size the light to ~110px whatever the path length, and time the core ripple.
+  // Hand the light to the shared clock (segment 0: the hero), and pause it off-screen.
   useEffect(() => {
     const svg = svgRef.current;
     const light = lightRef.current;
-    if (!svg || !light || !geo) return;
-    const total = light.getTotalLength();
-    svg.style.setProperty("--sig-k", String(Math.min(0.12, 110 / total)));
+    const glow = glowRef.current;
+    if (!svg || !light || !glow || !geo) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const toCore = toCoreRef.current?.getTotalLength();
-    if (toCore) svg.style.setProperty("--sig-core-at", `${START + (toCore / total) * PERIOD * TRAVEL}s`);
-  }, [geo]);
-
-  // Pause the running light while the hero is off-screen.
-  useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(([e]) => svg.classList.toggle("sig-paused", !e.isIntersecting));
+    signalClock.set({
+      key: "hero",
+      order: 0,
+      paths: [glow, light],
+      length: light.getTotalLength(),
+      events:
+        geo.core && toCore
+          ? [
+              {
+                at: toCore,
+                fire: () =>
+                  flash(
+                    rippleRef.current,
+                    [
+                      { opacity: 0.8, transform: "scale(0.2)" },
+                      { opacity: 0, transform: "scale(1)" },
+                    ],
+                    1100,
+                  ),
+              },
+            ]
+          : [],
+    });
+    const io = new IntersectionObserver(([e]) => signalClock.setVisible("hero", e.isIntersecting));
     io.observe(svg);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      signalClock.remove("hero");
+    };
   }, [geo]);
 
   if (!geo) return null;
@@ -86,7 +105,6 @@ export function HeroSignal() {
       viewBox={`0 0 ${geo.w} ${geo.h}`}
       width={geo.w}
       height={geo.h}
-      style={{ "--sig-period": `${PERIOD}s` } as CSSProperties}
     >
       {/* Signal core: quiet concentric rings */}
       {geo.core && (
@@ -129,9 +147,8 @@ export function HeroSignal() {
       <path {...common} d={geo.toCore} ref={toCoreRef} stroke="none" />
       <path
         {...common}
-        ref={lightRef}
+        ref={glowRef}
         className="sig-light"
-        pathLength={1}
         d={geo.light}
         stroke={SIGNAL.color}
         strokeOpacity={0.28}
@@ -139,8 +156,8 @@ export function HeroSignal() {
       />
       <path
         {...common}
+        ref={lightRef}
         className="sig-light"
-        pathLength={1}
         d={geo.light}
         stroke={SIGNAL.color}
         strokeWidth={2.25}
@@ -150,7 +167,9 @@ export function HeroSignal() {
       {geo.core && (
         <g className="sig-fade">
           <circle
+            ref={rippleRef}
             className="sig-ripple"
+            style={{ transformBox: "fill-box", transformOrigin: "center", opacity: 0 }}
             cx={geo.core.x}
             cy={geo.core.y}
             r={geo.core.rings[geo.core.rings.length - 1]}

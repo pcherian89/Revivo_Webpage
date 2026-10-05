@@ -93,6 +93,7 @@ export function EnquiryForm({ idPrefix = "enquiry" }: { idPrefix?: string }) {
   const onChange =
     (field: keyof Values) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
       const value = e.target.type === "checkbox" ? (e.target as HTMLInputElement).checked : e.target.value;
+      if (e.target.type !== "checkbox") window.dispatchEvent(new Event("revivo:typing"));
       setValues((v) => ({ ...v, [field]: value }));
       if (errors[field] && contactSchema.shape[field].safeParse(value).success) {
         setErrors((prev) => {

@@ -40,7 +40,6 @@ export const explorer = {
   },
   qualifier:
     "Illustrative possibilities. Every Revivo system is designed around the client’s workflows, users, data and objectives.",
-  converge: "Built around your challenge",
   panelLabels: {
     problem: "Common problem",
     build: "What Revivo could build",
