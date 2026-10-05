@@ -17,6 +17,8 @@ export type Segment = {
   paths: SVGPathElement[];
   length: number;
   events?: SignalEvent[];
+  /** Called each frame with the light's head position on this segment (null when it is elsewhere). */
+  onMove?: (pt: DOMPoint | null) => void;
 };
 
 const SPEED = 560; // px per second
@@ -51,6 +53,10 @@ function frame(now: number) {
     const local = d - offset;
     const off = String(DASH - local);
     for (const p of seg.paths) p.style.strokeDashoffset = off;
+    if (seg.onMove) {
+      const on = local >= 0 && local <= seg.length;
+      seg.onMove(on ? seg.paths[0].getPointAtLength(local) : null);
+    }
     for (const ev of seg.events ?? []) {
       const at = offset + ev.at;
       if (prevD < at && d >= at) ev.fire();

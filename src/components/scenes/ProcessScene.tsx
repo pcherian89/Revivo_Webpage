@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { SignalGlyph } from "@/components/signal/SignalGlyph";
+import { FieldGlyph } from "@/components/signal/SignalGlyph";
 import { process } from "@/content/home";
 import { DIM_LIME, SIGNAL } from "@/lib/signal";
 
@@ -13,7 +13,8 @@ type Rail = { w: number; h: number; d: string; hits: number[] };
 /**
  * Scene 3 — how Revivo works. One continuous rail runs through the four stages;
  * a light travels along it on a loop and each stage's signal lights up as the
- * light passes. Horizontal on desktop, vertical on phones. Paused off-screen.
+ * light passes. Each stage's mark shows the field taking shape: scattered
+ * signals → a pattern → structure → the connected signal. Horizontal on desktop, vertical on phones. Paused off-screen.
  */
 export function ProcessScene() {
   const listRef = useRef<HTMLOListElement>(null);
@@ -30,7 +31,7 @@ export function ProcessScene() {
         const box = list.getBoundingClientRect();
         const glyphs = Array.from(list.querySelectorAll<HTMLElement>("[data-step-glyph]")).map((g) => {
           const r = g.getBoundingClientRect();
-          return { x: r.left - box.left + 12, y: r.top - box.top + r.height / 2 };
+          return { x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height / 2 };
         });
         if (!glyphs.length) return;
         const horizontal = glyphs.length > 1 && Math.abs(glyphs[1].y - glyphs[0].y) < 4;
@@ -117,10 +118,13 @@ export function ProcessScene() {
           )}
           {process.steps.map((step, i) => (
             <li key={step.name} className="relative flex gap-5 lg:flex-col lg:gap-4">
-              <span data-step-glyph className="relative z-10 flex h-6 w-14 shrink-0 items-center bg-canvas">
-                <SignalGlyph color={DIM_LIME} />
+              <span
+                data-step-glyph
+                className="relative z-10 flex h-8 w-[75px] shrink-0 items-center bg-canvas"
+              >
+                <FieldGlyph stage={i} color={DIM_LIME} className="h-8 w-[75px]" />
                 <span className="rail-hit absolute inset-0 flex items-center" style={timing(i)}>
-                  <SignalGlyph />
+                  <FieldGlyph stage={i} className="h-8 w-[75px]" />
                 </span>
               </span>
               <div>

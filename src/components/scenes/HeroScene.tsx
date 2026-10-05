@@ -15,7 +15,7 @@ export function HeroScene() {
   return (
     <section id="hero" aria-labelledby="hero-heading" className="relative flex min-h-[72svh] flex-col">
       <HeroSignal />
-      <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-28 lg:pt-28 lg:pb-16">
+      <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-24 lg:pt-28 lg:pb-16">
         <p className="label hero-fade text-subtle" style={delay(0)}>
           {hero.eyebrow}
         </p>

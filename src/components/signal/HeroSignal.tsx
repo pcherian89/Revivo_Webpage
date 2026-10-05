@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { flash, signalClock } from "@/lib/signal-clock";
 import { dataMarks, PULSE_HALF, pulseSegment, SIGNAL, type Point } from "@/lib/signal";
+import { moveSpot, Perforation } from "./Perforation";
 import { visibleRect } from "./visibleRect";
 
 type Geo = {
@@ -17,6 +18,10 @@ type Geo = {
   toCore: string;
   marks: Point[];
   core: { x: number; y: number; rings: number[] } | null;
+  /** Faint playing-field markings around the core (desktop) */
+  field: { lines: string[]; route: string; crosses: Point[]; rings: Point[] } | null;
+  /** Where the perforated texture shows */
+  texture: string;
 };
 
 /**
@@ -34,6 +39,7 @@ export function HeroSignal() {
   const glowRef = useRef<SVGPathElement>(null);
   const toCoreRef = useRef<SVGPathElement>(null);
   const rippleRef = useRef<SVGCircleElement>(null);
+  const spotRef = useRef<HTMLDivElement>(null);
 
   // Measure the real layout (headline, "pulse", copy, actions, explorer entry).
   useEffect(() => {
@@ -84,6 +90,7 @@ export function HeroSignal() {
               },
             ]
           : [],
+      onMove: (pt) => moveSpot(spotRef.current, pt),
     });
     const io = new IntersectionObserver(([e]) => signalClock.setVisible("hero", e.isIntersecting));
     io.observe(svg);
@@ -97,91 +104,116 @@ export function HeroSignal() {
   const common = { fill: "none", strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
 
   return (
-    <svg
-      ref={svgRef}
-      aria-hidden="true"
-      focusable="false"
-      className="pointer-events-none absolute inset-0 h-full w-full"
-      viewBox={`0 0 ${geo.w} ${geo.h}`}
-      width={geo.w}
-      height={geo.h}
-    >
-      {/* Signal core: quiet concentric rings */}
-      {geo.core && (
-        <g className="sig-fade">
-          {geo.core.rings.map((r, i) => (
-            <circle
-              key={r}
-              cx={geo.core!.x}
-              cy={geo.core!.y}
-              r={r}
-              fill="none"
-              stroke={i === 0 ? SIGNAL.color : "#F5F5F2"}
-              strokeOpacity={i === 0 ? 0.22 : 0.07}
-              strokeWidth={1}
-            />
+    <>
+      <Perforation mask={geo.texture} spotRef={spotRef} />
+      <svg
+        ref={svgRef}
+        aria-hidden="true"
+        focusable="false"
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox={`0 0 ${geo.w} ${geo.h}`}
+        width={geo.w}
+        height={geo.h}
+      >
+        {/* Field markings: a halfway line, a box, lanes and a tactical route — any sport, no sport */}
+        {geo.field && (
+          <g stroke="#F5F5F2" strokeOpacity={0.1} strokeWidth={1} fill="none">
+            {geo.field.lines.map((d) => (
+              <path key={d} className="field-draw" pathLength={1} d={d} />
+            ))}
+            <g className="sig-fade">
+              <path d={geo.field.route} strokeDasharray="3 5" strokeOpacity={0.12} />
+              {geo.field.crosses.map((c) => (
+                <path
+                  key={`x${c.x}`}
+                  d={`M ${c.x - 4} ${c.y - 4} l 8 8 M ${c.x + 4} ${c.y - 4} l -8 8`}
+                  strokeOpacity={0.18}
+                />
+              ))}
+              {geo.field.rings.map((c) => (
+                <circle key={`o${c.x}`} cx={c.x} cy={c.y} r={4.5} strokeOpacity={0.18} />
+              ))}
+            </g>
+          </g>
+        )}
+
+        {/* Signal core: quiet concentric rings */}
+        {geo.core && (
+          <g className="sig-fade">
+            {geo.core.rings.map((r, i) => (
+              <circle
+                key={r}
+                cx={geo.core!.x}
+                cy={geo.core!.y}
+                r={r}
+                fill="none"
+                stroke={i === 0 ? SIGNAL.color : "#F5F5F2"}
+                strokeOpacity={i === 0 ? 0.22 : 0.07}
+                strokeWidth={1}
+              />
+            ))}
+          </g>
+        )}
+
+        {/* The track (always visible, dim) */}
+        {[geo.a, geo.b].map((d) => (
+          <path
+            key={d.slice(0, 24)}
+            {...common}
+            className="sig-track"
+            pathLength={1}
+            d={d}
+            stroke={SIGNAL.color}
+            strokeOpacity={0.38}
+            strokeWidth={SIGNAL.width}
+          />
+        ))}
+        <g fill={SIGNAL.color} fillOpacity={0.6} className="sig-fade">
+          {geo.marks.map((p) => (
+            <circle key={p.x} cx={p.x} cy={p.y} r={2} />
           ))}
         </g>
-      )}
 
-      {/* The track (always visible, dim) */}
-      {[geo.a, geo.b].map((d) => (
+        {/* The running light: a soft glow and a bright core */}
+        <path {...common} d={geo.toCore} ref={toCoreRef} stroke="none" />
         <path
-          key={d.slice(0, 24)}
           {...common}
-          className="sig-track"
-          pathLength={1}
-          d={d}
+          ref={glowRef}
+          className="sig-light"
+          d={geo.light}
           stroke={SIGNAL.color}
-          strokeOpacity={0.38}
-          strokeWidth={SIGNAL.width}
+          strokeOpacity={0.28}
+          strokeWidth={8}
         />
-      ))}
-      <g fill={SIGNAL.color} fillOpacity={0.6} className="sig-fade">
-        {geo.marks.map((p) => (
-          <circle key={p.x} cx={p.x} cy={p.y} r={2} />
-        ))}
-      </g>
+        <path
+          {...common}
+          ref={lightRef}
+          className="sig-light"
+          d={geo.light}
+          stroke={SIGNAL.color}
+          strokeWidth={2.25}
+        />
 
-      {/* The running light: a soft glow and a bright core */}
-      <path {...common} d={geo.toCore} ref={toCoreRef} stroke="none" />
-      <path
-        {...common}
-        ref={glowRef}
-        className="sig-light"
-        d={geo.light}
-        stroke={SIGNAL.color}
-        strokeOpacity={0.28}
-        strokeWidth={8}
-      />
-      <path
-        {...common}
-        ref={lightRef}
-        className="sig-light"
-        d={geo.light}
-        stroke={SIGNAL.color}
-        strokeWidth={2.25}
-      />
-
-      {/* Core point and its ripple */}
-      {geo.core && (
-        <g className="sig-fade">
-          <circle
-            ref={rippleRef}
-            className="sig-ripple"
-            style={{ transformBox: "fill-box", transformOrigin: "center", opacity: 0 }}
-            cx={geo.core.x}
-            cy={geo.core.y}
-            r={geo.core.rings[geo.core.rings.length - 1]}
-            fill="none"
-            stroke={SIGNAL.color}
-            strokeWidth={1.25}
-          />
-          <circle cx={geo.core.x} cy={geo.core.y} r={14} fill={SIGNAL.color} fillOpacity={0.12} />
-          <circle cx={geo.core.x} cy={geo.core.y} r={5} fill={SIGNAL.color} />
-        </g>
-      )}
-    </svg>
+        {/* Core point and its ripple */}
+        {geo.core && (
+          <g className="sig-fade">
+            <circle
+              ref={rippleRef}
+              className="sig-ripple"
+              style={{ transformBox: "fill-box", transformOrigin: "center", opacity: 0 }}
+              cx={geo.core.x}
+              cy={geo.core.y}
+              r={geo.core.rings[geo.core.rings.length - 1]}
+              fill="none"
+              stroke={SIGNAL.color}
+              strokeWidth={1.25}
+            />
+            <circle cx={geo.core.x} cy={geo.core.y} r={14} fill={SIGNAL.color} fillOpacity={0.12} />
+            <circle cx={geo.core.x} cy={geo.core.y} r={5} fill={SIGNAL.color} />
+          </g>
+        )}
+      </svg>
+    </>
   );
 }
 
@@ -237,7 +269,19 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     const b = `M ${f(bStart)} ${f(y0)} H ${f(cx)}${down}`;
     const toCore = `${toMarks} H ${f(cx)}`;
     const light = `${toCore}${down}`;
-    return { w, h, a: toMarks, b, light, toCore, marks, core: { x: cx, y: y0, rings } };
+    const texture = `radial-gradient(ellipse ${f(outer * 2.3)}px ${f(Math.max(outer * 1.7, h - y0))}px at ${f(cx)}px ${f(y0)}px, #000 30%, transparent 100%)`;
+    return {
+      w,
+      h,
+      a: toMarks,
+      b,
+      light,
+      toCore,
+      marks,
+      core: { x: cx, y: y0, rings },
+      field: fieldMarkings(cx, y0, outer, w, h, f),
+      texture,
+    };
   }
 
   // Tablet / mobile: below the actions, turning at the text edge and stepping back to the rail.
@@ -259,5 +303,51 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     toCore: toMarks,
     marks,
     core: null,
+    field: null,
+    texture: `linear-gradient(to bottom, transparent ${f(y0 - 70)}px, #000 ${f(y0 + 10)}px)`,
   };
+}
+
+/**
+ * Field markings around the core, on the same straight/one-radius grammar as the
+ * signal: the end of a playing area framing the core, with the signal entering
+ * through a gap in the goal line; the halfway line (the signal continues it
+ * downwards); a small box; and a little tactical notation (o, two x, a route).
+ */
+function fieldMarkings(
+  cx: number,
+  y0: number,
+  outer: number,
+  w: number,
+  h: number,
+  f: (n: number) => number,
+) {
+  const R = SIGNAL.radius;
+  const lines: string[] = [];
+  const top = Math.max(112, y0 - outer - 150);
+  const bottom = Math.min(h - 70, y0 + outer + 56);
+  const gx = cx - outer - 110; // goal line
+  const gap = 24; // where the signal enters the field
+
+  // Touchlines and goal line, open where the signal comes in
+  lines.push(`M ${f(w)} ${f(top)} H ${f(gx + R)} A ${R} ${R} 0 0 0 ${f(gx)} ${f(top + R)} V ${f(y0 - gap)}`);
+  lines.push(
+    `M ${f(gx)} ${f(y0 + gap)} V ${f(bottom - R)} A ${R} ${R} 0 0 0 ${f(gx + R)} ${f(bottom)} H ${f(w)}`,
+  );
+  // Halfway line from the top touchline to the outer ring
+  lines.push(`M ${f(cx)} ${f(top)} V ${f(y0 - outer)}`);
+  // A small box on the goal line (the signal passes through it)
+  const bw = Math.min(64, outer * 0.42);
+  const bh = Math.min(70, outer * 0.48);
+  lines.push(`M ${f(gx)} ${f(y0 - bh)} H ${f(gx + bw)} V ${f(y0 + bh)} H ${f(gx)}`);
+
+  // Tactical notation: one o, two x, and a dashed route from the o into the core
+  const o = { x: f(gx + 46), y: f(top + 44) };
+  const turnX = cx - outer * 0.5;
+  const route = `M ${f(o.x + 9)} ${o.y} H ${f(turnX - 12)} A 12 12 0 0 1 ${f(turnX)} ${f(o.y + 12)} V ${f(y0 - outer * 0.42)}`;
+  const crosses = [
+    { x: f(gx + bw + 34), y: f(y0 + outer * 0.62) },
+    { x: f(cx + outer * 0.62), y: f(y0 + outer * 0.3 + 40) },
+  ];
+  return { lines, route, crosses, rings: [o] };
 }

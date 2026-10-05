@@ -16,6 +16,7 @@ import { explorer, zones } from "@/content/explorer";
 import { cn } from "@/lib/cn";
 import { DIM_LIME, MID_LIME, orthogonal, SIGNAL, type Point } from "@/lib/signal";
 import { flash, signalClock } from "@/lib/signal-clock";
+import { moveSpot, Perforation } from "@/components/signal/Perforation";
 import { DomainPanel } from "./DomainPanel";
 import { SignalNode } from "./SignalNode";
 import { useAnchors } from "./useAnchors";
@@ -60,6 +61,7 @@ export function DomainExplorer() {
   const triggerRef = useRef<HTMLElement | null>(null);
   const coreRef = useRef<HTMLButtonElement>(null);
   const coreNodeRef = useRef<HTMLDivElement>(null);
+  const spotRef = useRef<HTMLDivElement>(null);
   const paths = useRef(new Map<string, SVGPathElement | null>());
   const runId = useRef(0);
   const { dotRef, travel } = useTravel(!reduce);
@@ -71,24 +73,6 @@ export function DomainExplorer() {
   const capsVisible = staticAll ? 4 : shownCaps;
   const openZone = staticAll ? 0 : zone;
   const mapOpen = staticAll || activated; // domains exist in the layout only once activated
-
-  const activate = useCallback(async () => {
-    if (activated) return;
-    const id = ++runId.current;
-    setActivated(true);
-    if (reduce) {
-      setDrawnZones(4);
-      setShownZones(4);
-      return;
-    }
-    await wait(140); // let the domain anchors render and be measured
-    for (let i = 0; i < zones.length; i++) {
-      if (id !== runId.current) return;
-      setDrawnZones(i + 1);
-      await travel([paths.current.get(`zone-${i}`)], STEP);
-      setShownZones(i + 1);
-    }
-  }, [activated, reduce, travel]);
 
   const chooseZone = useCallback(
     async (i: number) => {
@@ -114,6 +98,27 @@ export function DomainExplorer() {
     },
     [zone, reduce, travel],
   );
+
+  const activate = useCallback(async () => {
+    if (activated) return;
+    const id = ++runId.current;
+    setActivated(true);
+    if (reduce) {
+      setDrawnZones(4);
+      setShownZones(4);
+      chooseZone(0);
+      return;
+    }
+    await wait(140); // let the domain anchors render and be measured
+    for (let i = 0; i < zones.length; i++) {
+      if (id !== runId.current) return;
+      setDrawnZones(i + 1);
+      await travel([paths.current.get(`zone-${i}`)], STEP);
+      setShownZones(i + 1);
+    }
+    // One tap gives a full first view: the pulse carries on into the first area.
+    if (id === runId.current) chooseZone(0);
+  }, [activated, reduce, travel, chooseZone]);
 
   const openCapability = (cap: number, e: MouseEvent<HTMLButtonElement>) => {
     if (openZone === null) return;
@@ -181,6 +186,7 @@ export function DomainExplorer() {
           },
         },
       ],
+      onMove: (pt) => moveSpot(spotRef.current, pt),
     });
     const io = new IntersectionObserver(([e]) => signalClock.setVisible("trunk", e.isIntersecting));
     io.observe(section);
@@ -221,6 +227,7 @@ export function DomainExplorer() {
         className="absolute top-0 left-[31px] size-px md:left-[47px] lg:hidden"
       />
 
+      {geo && <Perforation mask={textureMask(geo.pts, isDesktop)} spotRef={spotRef} />}
       {geo && (
         <SignalMap
           geo={geo}
@@ -623,4 +630,16 @@ function SignalMap({
       </g>
     </svg>
   );
+}
+
+/** The perforated texture gathers around the Intelligence Layer and its trunk. */
+function textureMask(p: Record<string, Point>, isDesktop: boolean) {
+  if (isDesktop && p["core-in"] && p["core-out"]) {
+    const cx = p["core-in"].x;
+    const cy = (p["core-in"].y + p["core-out"].y) / 2;
+    return `radial-gradient(ellipse 380px 320px at ${Math.round(cx)}px ${Math.round(cy)}px, #000 35%, transparent 100%)`;
+  }
+  const core = p.core ?? p.entry;
+  if (!core) return "none";
+  return `radial-gradient(ellipse 130px ${Math.round(core.y * 0.75 + 60)}px at ${Math.round(core.x)}px ${Math.round(core.y * 0.6)}px, #000 30%, transparent 100%)`;
 }
