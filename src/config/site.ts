@@ -6,10 +6,13 @@
  */
 
 const vercelProductionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+/** Netlify sets URL to the site's main address during production builds. */
+const netlifyProductionUrl = process.env.CONTEXT === "production" ? process.env.URL : undefined;
 
 /** Absolute site URL used for canonical links, the sitemap and social cards. */
 export const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL ||
+  netlifyProductionUrl ||
   (vercelProductionHost ? `https://${vercelProductionHost}` : "http://localhost:3000")
 ).replace(/\/$/, "");
 
@@ -28,11 +31,14 @@ export const siteConfig = {
 
 export const contactConfig = {
   /** Public enquiry email. Shown in the footer and used for the email fallback. */
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "pothen@revivosportech.com",
+  /** Phone as shown, and the same number for tel: links (digits only, with country code). */
+  phone: "+91 92251 48593",
+  phoneHref: "tel:+919225148593",
   /** Company LinkedIn page, e.g. "https://www.linkedin.com/company/…" */
   linkedin: "",
   /** Optional WhatsApp click-to-chat link, e.g. "https://wa.me/XXXXXXXXXXXX" */
-  whatsapp: "",
+  whatsapp: "https://wa.me/919225148593",
   /** Optional booking link (Calendly, Cal.com, etc.) */
   booking: "",
 } as const;

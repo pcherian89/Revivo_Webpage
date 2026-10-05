@@ -1,0 +1,8 @@
+# Netlify build settings. Netlify detects Next.js and adds its Next.js runtime
+# automatically (pages, the /api/contact form handler and images all work).
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"

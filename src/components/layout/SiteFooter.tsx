@@ -23,6 +23,18 @@ export function SiteFooter() {
                 <FooterLink href={`mailto:${contactConfig.email}`}>{contactConfig.email}</FooterLink>
               </li>
             )}
+            {contactConfig.phone && (
+              <li>
+                <FooterLink href={contactConfig.phoneHref}>{contactConfig.phone}</FooterLink>
+              </li>
+            )}
+            {contactConfig.whatsapp && (
+              <li>
+                <FooterLink href={contactConfig.whatsapp} external>
+                  WhatsApp
+                </FooterLink>
+              </li>
+            )}
             <li>
               {contactConfig.linkedin ? (
                 <FooterLink href={contactConfig.linkedin} external>
@@ -56,7 +68,7 @@ export function SiteFooter() {
 function FooterLink({ href, children, external }: { href: string; children: ReactNode; external?: boolean }) {
   const className =
     "inline-flex min-h-11 items-center text-muted transition-colors duration-200 hover:text-ink";
-  if (external || href.startsWith("mailto:")) {
+  if (external || href.startsWith("mailto:") || href.startsWith("tel:")) {
     return (
       <a
         href={href}

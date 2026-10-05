@@ -190,17 +190,17 @@ npm run format      # optional: tidy code formatting (Prettier)
 
 ---
 
-## Deploying to Vercel (only after the preview is approved)
+## Deploying to Netlify (only after the preview is approved)
 
-1. Push this repository to GitHub (already done if you are reading this there).
-2. Sign in at <https://vercel.com> with GitHub → **Add New… → Project** → import this repository.
-3. Framework preset: **Next.js** (detected automatically). Leave build settings as default.
-4. Under **Environment Variables**, add the variables from the table above.
-5. Click **Deploy**. Vercel gives you a preview URL (`*.vercel.app`).
-6. To use your own domain: Project → **Settings → Domains** → add it and follow the DNS instructions. Then set
-   `NEXT_PUBLIC_SITE_URL` to that domain and redeploy.
+1. Sign in at <https://app.netlify.com> with GitHub → **Add new project → Import an existing project** → GitHub →
+   choose this repository. Netlify reads `netlify.toml`, so leave the build settings as they are.
+2. Under **Site configuration → Environment variables**, add the variables from the table above.
+3. **Deploy**. Netlify gives you an address like `something.netlify.app`.
+4. Custom domain: **Domain management → Add a domain**. With DNS kept at your registrar (e.g. GoDaddy), add an
+   `A` record for `@` pointing to Netlify's load balancer and a `CNAME` for `www` pointing to your `*.netlify.app`
+   address — Netlify shows the exact values. Keep your existing email (MX) records untouched.
 
-Every later push to the main branch redeploys automatically; other branches get their own preview URLs.
+Every push to `main` redeploys automatically.
 
 ---
 

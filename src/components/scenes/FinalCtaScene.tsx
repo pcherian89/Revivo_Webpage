@@ -59,6 +59,18 @@ export function ChallengeAside() {
           >
             {contactConfig.email}
           </a>
+          {contactConfig.phone && (
+            <>
+              {" "}
+              or call{" "}
+              <a
+                href={contactConfig.phoneHref}
+                className="text-ink underline underline-offset-4 hover:text-lime"
+              >
+                {contactConfig.phone}
+              </a>
+            </>
+          )}
         </p>
       )}
     </>
