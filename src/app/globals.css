@@ -1,0 +1,365 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   REVIVO DESIGN TOKENS
+   Change colours, fonts and the type scale here. Tailwind turns every
+   --color-* token into utilities, e.g. --color-lime → bg-lime, text-lime.
+   ========================================================================== */
+
+@theme {
+  /* Surfaces */
+  --color-canvas: #0b0f0c; /* main background */
+  --color-raised: #111612; /* secondary background */
+  --color-surface: #171d18; /* elevated surface */
+
+  /* Signal colour — keep to roughly 10–15% of what is visible */
+  --color-lime: #ccff00;
+  --color-lime-soft: rgb(204 255 0 / 0.14);
+
+  /* Text */
+  --color-ink: #f4f5ef; /* main text, warm off-white */
+  --color-muted: #a4ae9f; /* secondary text, grey-green (7.6:1 on canvas) */
+  --color-subtle: #828d7e; /* small labels (5.3:1 on canvas) */
+
+  /* Lines */
+  --color-line: #252e26; /* graphite divider */
+  --color-line-strong: #3a453b;
+
+  /* Status only — use sparingly and never as the only signal */
+  --color-amber: #f2b04b;
+
+  --radius-xs: 2px;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Fonts come from next/font in src/app/fonts.ts */
+@theme inline {
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout + type utilities
+   --------------------------------------------------------------------------- */
+
+@utility container-site {
+  width: 100%;
+  max-width: 88rem; /* 1408px */
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 0.4rem + 2.6vw, 3rem);
+}
+
+@utility section-pad {
+  padding-block: clamp(4.5rem, 3rem + 6vw, 9rem);
+}
+
+@utility measure {
+  max-width: 41rem; /* ~656px body copy width */
+}
+
+/* Display — Barlow Condensed. Used for major headlines only. */
+@utility text-display-hero {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 1.55rem + 4.4vw, 5.5rem);
+  line-height: 0.93;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+@utility text-display-lg {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 1.45rem + 3.3vw, 4.5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+@utility text-display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.4rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* Monospace labels, indices and system statuses */
+@utility text-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@utility text-lead {
+  font-size: clamp(1.0625rem, 0.98rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+}
+
+/* Fine technical grid used behind the hero and founder panel */
+@utility bg-tech-grid {
+  background-image:
+    linear-gradient(to right, rgb(244 245 239 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(244 245 239 / 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-canvas);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lime);
+    outline-offset: 3px;
+  }
+
+  /* Programmatic focus targets (e.g. <main>) should not show a ring */
+  [tabindex="-1"]:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  button,
+  [role="button"],
+  [role="tab"] {
+    cursor: pointer;
+  }
+}
+
+/* ==========================================================================
+   REVIVO INTELLIGENCE FIELD (hero)
+   The formation runs on CSS keyframes so it plays before JavaScript loads,
+   finishes in ~2.3s, then settles. The default (non-animated) state of every
+   element is its final, connected state — so with reduced motion or no
+   animation support the visitor sees a complete, static network.
+   ========================================================================== */
+
+.field {
+  --field-ease: var(--ease-out-quart);
+}
+
+.field-node-shift {
+  animation: field-node-in 900ms var(--field-ease) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.field-draw {
+  stroke-dasharray: 1 1;
+  animation: field-draw 720ms var(--field-ease) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.field-signal {
+  stroke-dasharray: 0.07 1.2;
+  stroke-dashoffset: -1;
+  opacity: 0;
+  animation: field-signal 900ms linear both;
+  animation-delay: var(--d, 0ms);
+}
+
+.field-ambient {
+  stroke-dasharray: 0.06 1.2;
+  stroke-dashoffset: -1;
+  opacity: 0;
+  animation: field-ambient 14s linear infinite;
+  animation-delay: var(--d, 3s);
+}
+
+.field-fade {
+  animation: field-fade 600ms var(--field-ease) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.field-core {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: field-core-in 700ms var(--field-ease) both;
+}
+
+.field-core-on {
+  animation:
+    field-fade 360ms var(--field-ease) 1250ms both,
+    field-breathe 7s ease-in-out 2.6s infinite;
+}
+
+.field-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: field-pulse 1400ms var(--field-ease) 80ms both;
+}
+
+/* Interaction: hovered / focused / tapped input node */
+.field-link {
+  transition:
+    stroke 200ms ease-out,
+    stroke-opacity 200ms ease-out;
+}
+.field-node-box {
+  transition:
+    fill 200ms ease-out,
+    stroke 200ms ease-out;
+}
+.field-node-label {
+  transition: fill 200ms ease-out;
+}
+.field [data-active="true"] .field-link {
+  stroke: var(--color-lime);
+  stroke-opacity: 0.9;
+}
+.field [data-active="true"] .field-node-box {
+  fill: var(--color-lime);
+  stroke: var(--color-lime);
+}
+.field [data-active="true"] .field-node-label {
+  fill: var(--color-ink);
+}
+.field-hit {
+  outline: none;
+}
+.field-hit:focus-visible .field-focus-ring {
+  stroke: var(--color-lime);
+  stroke-opacity: 1;
+}
+
+/* Pause ambient animation while the hero is off-screen */
+.field[data-paused="true"] * {
+  animation-play-state: paused !important;
+}
+
+@keyframes field-node-in {
+  from {
+    opacity: 0.18;
+    transform: translate(var(--dx, 0px), var(--dy, 0px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes field-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes field-signal {
+  0% {
+    stroke-dashoffset: 0.07;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -1;
+    opacity: 0;
+  }
+}
+
+@keyframes field-ambient {
+  0% {
+    stroke-dashoffset: 0.06;
+    opacity: 0;
+  }
+  1% {
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  11%,
+  100% {
+    stroke-dashoffset: -1;
+    opacity: 0;
+  }
+}
+
+@keyframes field-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes field-core-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes field-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes field-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field *,
+  .field {
+    animation: none !important;
+    transition: none !important;
+  }
+}
