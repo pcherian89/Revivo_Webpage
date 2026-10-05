@@ -437,7 +437,9 @@ export function DomainExplorer() {
                         className="pb-4"
                       >
                         <p className="text-small text-muted">{z.summary}</p>
-                        <ul className="mt-2">
+                        {/* Capability nodes sit in the gutter between the rail and the text, so their
+                            branch never crosses the words above. */}
+                        <ul className="mt-2 -ml-[23px] md:-ml-[32px]">
                           {z.capabilities.map((c, j) => {
                             const capVisible = j < capsVisible;
                             return (

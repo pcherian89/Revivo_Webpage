@@ -17,34 +17,49 @@ export function SiteFooter() {
             <p className="text-small mt-4 text-subtle">{siteConfig.positioning}</p>
           </div>
 
-          <ul className="text-small flex flex-col gap-1 md:items-end">
+          {/* Contact: one clear label per channel. Call and WhatsApp share one number. */}
+          <dl className="text-small grid gap-5 md:text-right">
             {contactConfig.email && (
-              <li>
-                <FooterLink href={`mailto:${contactConfig.email}`}>{contactConfig.email}</FooterLink>
-              </li>
+              <div>
+                <dt className="label text-subtle">Email</dt>
+                <dd>
+                  <FooterLink href={`mailto:${contactConfig.email}`}>{contactConfig.email}</FooterLink>
+                </dd>
+              </div>
             )}
             {contactConfig.phone && (
-              <li>
-                <FooterLink href={contactConfig.phoneHref}>{contactConfig.phone}</FooterLink>
-              </li>
+              <div>
+                <dt className="label text-subtle">Call or WhatsApp</dt>
+                <dd className="flex flex-wrap items-center gap-x-4 md:justify-end">
+                  <FooterLink href={contactConfig.phoneHref}>{contactConfig.phone}</FooterLink>
+                  {contactConfig.whatsapp && (
+                    <a
+                      href={contactConfig.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-3.5 text-ink transition-colors duration-200 hover:border-lime hover:text-lime"
+                    >
+                      <span aria-hidden="true" className="size-1.5 rounded-full bg-lime" />
+                      Chat on WhatsApp
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  )}
+                </dd>
+              </div>
             )}
-            {contactConfig.whatsapp && (
-              <li>
-                <FooterLink href={contactConfig.whatsapp} external>
-                  WhatsApp
-                </FooterLink>
-              </li>
-            )}
-            <li>
-              {contactConfig.linkedin ? (
-                <FooterLink href={contactConfig.linkedin} external>
-                  LinkedIn
-                </FooterLink>
-              ) : (
-                <span className="inline-flex min-h-11 items-center text-subtle">LinkedIn — coming soon</span>
-              )}
-            </li>
-          </ul>
+            <div>
+              <dt className="label text-subtle">LinkedIn</dt>
+              <dd>
+                {contactConfig.linkedin ? (
+                  <FooterLink href={contactConfig.linkedin} external>
+                    Revivo on LinkedIn
+                  </FooterLink>
+                ) : (
+                  <span className="inline-flex min-h-11 items-center text-subtle">Coming soon</span>
+                )}
+              </dd>
+            </div>
+          </dl>
         </div>
 
         <div className="text-small mt-10 flex flex-col gap-2 text-subtle sm:flex-row sm:items-center sm:justify-between">

@@ -59,18 +59,26 @@ export function ChallengeAside() {
           >
             {contactConfig.email}
           </a>
-          {contactConfig.phone && (
-            <>
-              {" "}
-              or call{" "}
-              <a
-                href={contactConfig.phoneHref}
-                className="text-ink underline underline-offset-4 hover:text-lime"
-              >
-                {contactConfig.phone}
-              </a>
-            </>
-          )}
+        </p>
+      )}
+      {contactConfig.phone && (
+        <p className="text-small mt-2 text-subtle">
+          Call or{" "}
+          {contactConfig.whatsapp ? (
+            <a
+              href={contactConfig.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink underline underline-offset-4 hover:text-lime"
+            >
+              WhatsApp<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          ) : (
+            "WhatsApp"
+          )}{" "}
+          <a href={contactConfig.phoneHref} className="text-ink underline underline-offset-4 hover:text-lime">
+            {contactConfig.phone}
+          </a>
         </p>
       )}
     </>

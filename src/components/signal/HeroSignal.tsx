@@ -240,8 +240,9 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     // Signal core in the empty right half, centred on the track.
     const textRight = Math.max(h1.right, copy.right, actions.right);
     const room = w - 48 - (textRight + 56);
-    const outer = Math.max(90, Math.min(210, room / 2));
-    const cx = textRight + 56 + Math.max(outer, room / 2);
+    const outer = Math.max(60, Math.min(210, room / 2));
+    // Never let the rings run off the right edge on narrower laptop windows.
+    const cx = Math.min(textRight + 56 + Math.max(outer, room / 2), w - 24 - outer);
     const rings = [outer * 0.36, outer * 0.68, outer];
 
     // From the core, straight down and across into the explorer's axis.
@@ -268,7 +269,8 @@ function buildGeometry(hero: HTMLElement): Geo | null {
   }
 
   // Tablet / mobile: below the actions, turning at the text edge and stepping back to the rail.
-  const y0 = actions.bottom + 34;
+  // Keep the whole step (two corners) inside the hero, so it meets the explorer line exactly.
+  const y0 = Math.min(actions.bottom + 34, h - (2 * R + 8) - R - 8);
   const px = Math.min(w * 0.42, copy.right - 200);
   const { toMarks, marks, bStart } = lead(y0, px, 0.85, 12);
   const xR = Math.max(bStart + R + 8, Math.min(copy.right, w - 20));
