@@ -21,7 +21,9 @@ export type Segment = {
   onMove?: (pt: DOMPoint | null) => void;
 };
 
-const SPEED = 560; // px per second
+const SPEED_DESKTOP = 560; // px per second
+const SPEED_PHONE = 300; // phones: shorter paths on a small screen read as faster, so slow down
+const wide = typeof window !== "undefined" ? window.matchMedia("(min-width: 64rem)") : null; // same breakpoint as lg
 const PAUSE = 1.3; // seconds of rest between runs
 const DASH = 120; // length of the light in px
 
@@ -44,8 +46,9 @@ function frame(now: number) {
   const total = ordered.reduce((s, seg) => s + seg.length, 0);
   if (!total) return;
   if (!start) start = now;
-  const cycle = (total + DASH) / SPEED + PAUSE;
-  const d = (((now - start) / 1000) % cycle) * SPEED;
+  const speed = wide?.matches ? SPEED_DESKTOP : SPEED_PHONE;
+  const cycle = (total + DASH) / speed + PAUSE;
+  const d = (((now - start) / 1000) % cycle) * speed;
   if (d < prevD) prevD = -1; // new run
 
   let offset = 0;
