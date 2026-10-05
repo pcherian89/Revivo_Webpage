@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { EnquiryForm } from "@/components/enquiry/EnquiryForm";
-import { contactConfig } from "@/config/site";
+import { ChallengeAside } from "@/components/scenes/FinalCtaScene";
 import { finalCta } from "@/content/home";
 
 export const metadata: Metadata = {
@@ -19,17 +19,7 @@ export default function ContactPage() {
           <p className="label text-subtle">Start with your challenge</p>
           <h1 className="text-title mt-5">{finalCta.title}</h1>
           <p className="text-lead mt-5 text-muted">{finalCta.support}</p>
-          {contactConfig.email && (
-            <p className="text-small mt-8 text-subtle">
-              Prefer email?{" "}
-              <a
-                href={`mailto:${contactConfig.email}`}
-                className="text-ink underline underline-offset-4 hover:text-lime"
-              >
-                {contactConfig.email}
-              </a>
-            </p>
-          )}
+          <ChallengeAside />
         </div>
         <div className="lg:col-span-7">
           <EnquiryForm idPrefix="contact" />
