@@ -13,13 +13,13 @@ const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 export function HeroScene() {
   const { headline } = hero;
   return (
-    <section id="hero" aria-labelledby="hero-heading" className="relative flex min-h-[78svh] flex-col">
+    <section id="hero" aria-labelledby="hero-heading" className="relative flex min-h-[72svh] flex-col">
       <HeroSignal />
-      <div className="container-site relative flex flex-1 flex-col justify-center pt-28 pb-28 lg:pt-32 lg:pb-20">
+      <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-28 lg:pt-28 lg:pb-16">
         <p className="label hero-fade text-subtle" style={delay(0)}>
           {hero.eyebrow}
         </p>
-        <h1 id="hero-heading" className="text-hero mt-5 max-w-5xl">
+        <h1 id="hero-heading" className="text-hero mt-4 max-w-4xl">
           <span className="hero-fade block" style={delay(250)}>
             {headline.first}
           </span>{" "}
@@ -33,12 +33,12 @@ export function HeroScene() {
             </span>
           </span>
         </h1>
-        <p id="hero-copy" className="text-lead measure hero-fade mt-8 text-muted lg:mt-14" style={delay(700)}>
+        <p id="hero-copy" className="text-lead measure hero-fade mt-7 text-muted lg:mt-12" style={delay(700)}>
           {hero.statement}
         </p>
         <div
           id="hero-actions"
-          className="hero-fade mt-8 flex w-fit flex-col gap-3 sm:flex-row sm:items-center"
+          className="hero-fade mt-7 flex w-fit flex-col gap-3 sm:flex-row sm:items-center"
           style={delay(900)}
         >
           <ButtonLink href={primaryCta.href}>{primaryCta.label}</ButtonLink>

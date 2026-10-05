@@ -27,7 +27,7 @@ systems Revivo can configure and build. Never write "Our Products" or "Request a
 - **Retired — never use:** "AI that gives sport a pulse", "Sport, intelligently built", "From silence to signal",
   "Build the unseen advantage", "Find the flatline", "AI for fitness and sports", any India-based positioning.
 - Capability language: "could build", "designed to", "illustrative", "potential outcome". Structure every capability as
-  Problem → What Revivo could build → Potential outcome → Relevant organizations → Typical decision-maker.
+  Problem → What Revivo could build → Potential outcome (no client-type or decision-maker lists — this is not a pitch deck).
 - Keep client examples varied (gyms, academies, teams, leagues, federations, events, venues, government and community
   programmes, foundations/CSR, sports businesses, media). Do not over-index on coaches or athletes.
 - Required qualifier in the explorer and panels: "Illustrative possibilities. Every Revivo system is designed around the
@@ -53,16 +53,17 @@ white `ink`, greys `muted`/`subtle`, graphite `line`, **lime `#CCFF00` only for 
 actions**, `amber` for form errors only.
 
 **Typography — the Revivo IQ family:** Barlow Condensed **700** for headlines, labels and buttons; Manrope **400/500**
-for body and navigation. Two families, three weights. Sizes: `text-hero` clamp(3rem→6.25rem), `text-title`
-clamp(2.25rem→4rem), `text-subtitle`, `text-lead` clamp(1.05rem→1.35rem), body 1.0625rem, `text-small`, and the
-uppercase `.label`. Headline max two lines on laptops.
+for body and navigation. Two families, three weights. Sizes (at a 1440px laptop): hero ≈76px
+(`text-hero` clamp 2.75→4.75rem), section titles ≈48px (`text-title` clamp 2→3.125rem), `text-subtitle` ≈24px,
+`text-lead` ≈18px, body 16px, `text-small` 13px, `.label` 12px uppercase. Headline max two lines on laptops.
+Content width ≈1200px; body copy `measure` 34rem.
 
 **Spacing:** `container-site` (≈1280px content; padding 20–24 / 32–48 / 56–72px), `section-y` (44–64px mobile,
 64–88px desktop). No spacer elements, no full-viewport sections except the ≈86svh hero.
 
 **Logo:** `src/components/brand/RevivoLogo.tsx` — horizontal lockup in header/footer (≥24px tall), symbol for icons.
 
-**Buttons:** condensed bold, near-square (`rounded-xs`), lime primary, outlined secondary.
+**Buttons:** condensed bold labels in rounded pills (`rounded-full`), lime primary, outlined secondary.
 
 Never use: purple/blue AI gradients, robots/brains, glass blobs, card grids, fake dashboards, background video,
 particles, SVG turbulence or large blur filters, scroll hijacking, typewriter/glitch effects, ECG/hospital-monitor visuals, wobbly or hand-drawn-looking lines.
@@ -71,16 +72,16 @@ particles, SVG turbulence or large blur filters, scroll hijacking, typewriter/gl
 
 Story: live sports signal → Revivo intelligence → solution domains → organized action.
 
-1. **Hero (`HeroSignal`)** — measured on the client from the real headline. A perfectly straight lime line draws
-   beneath the headline, makes one crisp pulse under the word "pulse", passes five evenly spaced data dots, then turns
-   down (one 18px rounded corner) just beside the copy — on the explorer's own axis whenever it clears the text — and
-   drops straight into the explorer entry (`#signal-entry-desktop` / `#signal-entry-mobile`). Plays once (~3s), then is
-   still. Geometry lives in `src/lib/signal.ts`: straight runs, one corner radius (`SIGNAL.radius`), right-angled
-   connectors (`orthogonal`) — never wobble, never a trip to the far edge of the page.
-2. **Explorer (`DomainExplorer`)** — the trunk enters the Revivo Intelligence Layer and branches to the four zones
-   (desktop: tree; below 1024px: vertical rail + accordion). Branches connect to measured HTML anchors (`useAnchors`).
-   Selected branch lit, others at reduced opacity. Capabilities open `DomainPanel` (desktop right panel ≈46vw; mobile
-   bottom sheet). One moving signal point at a time (`useTravel`, coordinated via `signal-bus`). No auto-cycling.
+1. **Hero (`HeroSignal`)** — pure SVG + CSS, measured from the real layout. A straight lime track (dim) runs beneath
+   the headline, makes one crisp pulse under "pulse", passes five data marks and flows into the **signal core** on the
+   right (concentric rings), then drops into the explorer. A bright light **runs through the track continuously**
+   (5s cycle) and the core ripples as it arrives. Paused off-screen; static under reduced motion. Geometry in
+   `src/lib/signal.ts`: straight runs, one corner radius, right-angled connectors — never wobble.
+2. **Explorer (`DomainExplorer`)** — progressive and interactive. A large "Revivo Intelligence Layer" button (with a
+   hand cue, "Tap to activate") waits for the visitor. Activating it sends a pulse to each of the four domains in turn;
+   choosing a domain sends a pulse to each of its four capabilities in turn; a capability opens `DomainPanel` (desktop
+   right panel ≈46vw; mobile bottom sheet). Desktop: tree; below 1024px: vertical rail. One moving pulse at a time
+   (`useTravel`). Server/no-JS render shows the whole map; reduced motion reveals instantly.
 3. **After the explorer** — the branches reconverge into one short line labelled "Built around your challenge"; the
    process uses small `SignalGlyph` accents; one final glyph on the submit button. The lower page stays calm.
 

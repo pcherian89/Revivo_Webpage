@@ -13,7 +13,7 @@ const variants: Record<Variant, string> = {
 
 export function buttonClasses(variant: Variant = "primary", className?: string) {
   return cn(
-    "group inline-flex min-h-12 items-center justify-center gap-2.5 rounded-xs px-7 font-display text-[1.0625rem] font-bold tracking-[0.03em] transition-colors duration-200",
+    "group inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 font-display text-base font-bold tracking-[0.03em] transition-colors duration-200",
     variants[variant],
     className,
   );

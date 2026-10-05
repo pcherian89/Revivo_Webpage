@@ -86,7 +86,7 @@ export function SiteHeader() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-flex min-h-11 items-center text-[0.9375rem] font-medium text-muted transition-colors duration-200 hover:text-ink"
+                    className="inline-flex min-h-11 items-center text-sm font-medium text-muted transition-colors duration-200 hover:text-ink"
                   >
                     {link.label}
                   </Link>

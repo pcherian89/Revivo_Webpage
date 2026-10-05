@@ -16,8 +16,6 @@ export type Capability = {
   build: readonly string[];
   /** One outcome-focused statement (never a guarantee) */
   outcome: string;
-  organizations: readonly string[];
-  decisionMaker: string;
   /** Optional scoping note, e.g. for R&D-level work */
   note?: string;
 };
@@ -32,8 +30,14 @@ export type Zone = {
 export const explorer = {
   title: "Explore the signal.",
   intro:
-    "One Revivo intelligence layer—AI, data, automation and decision support—connects four areas of sport. Choose an area, then a capability, to see what we could build.",
-  layer: { name: "Revivo Intelligence Layer", detail: "AI · data · automation · decision support" },
+    "One intelligence layer connects four areas of sport. Activate it, choose an area, then a capability to see what Revivo could build.",
+  layer: {
+    name: "Revivo Intelligence Layer",
+    detail: "AI · data · automation · decision support",
+    activate: "Tap to activate",
+    chooseZone: "Choose an area",
+    chooseCap: "Choose a capability",
+  },
   qualifier:
     "Illustrative possibilities. Every Revivo system is designed around the client’s workflows, users, data and objectives.",
   converge: "Built around your challenge",
@@ -41,8 +45,6 @@ export const explorer = {
     problem: "Common problem",
     build: "What Revivo could build",
     outcome: "Potential outcome",
-    organizations: "Relevant organizations",
-    decisionMaker: "Typical decision-maker",
     cta: "Discuss this challenge",
   },
 } as const;
@@ -67,8 +69,6 @@ export const zones: readonly Zone[] = [
         ],
         outcome:
           "Designed to give organizers one connected picture on event day and a far shorter path to the post-event report.",
-        organizations: ["Events and venues", "Leagues and federations", "Teams and clubs"],
-        decisionMaker: "Operations Director",
       },
       {
         id: "facility-asset-management",
@@ -83,12 +83,6 @@ export const zones: readonly Zone[] = [
         ],
         outcome:
           "Designed to surface urgent maintenance first and give managers clearer visibility of assets and space.",
-        organizations: [
-          "Venues and stadiums",
-          "Gyms and fitness businesses",
-          "Academies and performance centres",
-        ],
-        decisionMaker: "Facility Manager",
       },
       {
         id: "registration-administration",
@@ -104,8 +98,6 @@ export const zones: readonly Zone[] = [
         ],
         outcome:
           "Designed to cut manual administration and show staff exactly where every application stands.",
-        organizations: ["Academies", "Leagues and federations", "Government and community programmes"],
-        decisionMaker: "Federation or League Administrator",
       },
       {
         id: "workforce-volunteers",
@@ -119,8 +111,6 @@ export const zones: readonly Zone[] = [
           "Attendance and deployment reporting",
         ],
         outcome: "Designed to show who is qualified, confirmed and available before a shift begins.",
-        organizations: ["Events and venues", "Leagues and federations", "Foundations and CSR programmes"],
-        decisionMaker: "Operations Director",
       },
     ],
   },
@@ -142,8 +132,6 @@ export const zones: readonly Zone[] = [
           "Sponsor-ready ROI reporting",
         ],
         outcome: "Designed to make delivered value visible and renewal conversations evidence-based.",
-        organizations: ["Teams and clubs", "Leagues and federations", "Sports businesses and agencies"],
-        decisionMaker: "Commercial Director",
       },
       {
         id: "fan-ticket-intelligence",
@@ -158,8 +146,6 @@ export const zones: readonly Zone[] = [
         ],
         outcome:
           "Designed to support better-targeted campaigns and more informed attendance and ticketing decisions.",
-        organizations: ["Teams and clubs", "Leagues", "Events and venues"],
-        decisionMaker: "Marketing or Ticketing Director",
       },
       {
         id: "content-media-workflows",
@@ -174,8 +160,6 @@ export const zones: readonly Zone[] = [
           "Approval workflow with brand controls",
         ],
         outcome: "Designed to help teams publish faster while every asset stays approved and on-brand.",
-        organizations: ["Media and content organizations", "Teams and clubs", "Leagues and federations"],
-        decisionMaker: "Marketing Director or Head of Content",
       },
       {
         id: "membership-intelligence",
@@ -191,8 +175,6 @@ export const zones: readonly Zone[] = [
         ],
         outcome:
           "Designed to give owners a fair record of contribution and earlier sight of members at risk.",
-        organizations: ["Gyms and fitness businesses", "Clubs with memberships", "Academies"],
-        decisionMaker: "Owner or General Manager",
       },
     ],
   },
@@ -215,8 +197,6 @@ export const zones: readonly Zone[] = [
         ],
         outcome:
           "Designed to give staff one shared view of each athlete, with practitioners making every decision.",
-        organizations: ["Academies and performance centres", "Teams and clubs", "Federations"],
-        decisionMaker: "Performance Director",
       },
       {
         id: "video-performance-analysis",
@@ -230,8 +210,6 @@ export const zones: readonly Zone[] = [
           "Searchable footage archive",
         ],
         outcome: "Designed to turn footage into decision-ready clips and reports sooner.",
-        organizations: ["Teams and clubs", "Academies and performance centres", "Federations"],
-        decisionMaker: "Performance Director",
         note: "Advanced computer-vision analysis is scoped as a pilot or R&D engagement.",
       },
       {
@@ -247,8 +225,6 @@ export const zones: readonly Zone[] = [
           "Evidence verification",
         ],
         outcome: "Designed to make recruitment decisions more consistent and better evidenced.",
-        organizations: ["Teams and clubs", "Academies", "Federations and talent programmes"],
-        decisionMaker: "Head of Recruitment or Technical Director",
       },
       {
         id: "athlete-career-welfare",
@@ -264,8 +240,6 @@ export const zones: readonly Zone[] = [
         ],
         outcome:
           "Designed to connect athletes with suitable opportunities and the right support at the right time.",
-        organizations: ["Academies", "Federations and governing bodies", "Foundations and CSR programmes"],
-        decisionMaker: "Technical Director or Player Welfare Lead",
       },
     ],
   },
@@ -287,8 +261,6 @@ export const zones: readonly Zone[] = [
           "Risk-oversight reporting",
         ],
         outcome: "Designed to make concerns easier to raise and every case routed and recorded responsibly.",
-        organizations: ["Federations and governing bodies", "Academies and clubs", "Community programmes"],
-        decisionMaker: "Safeguarding Officer",
       },
       {
         id: "community-participation",
@@ -302,12 +274,6 @@ export const zones: readonly Zone[] = [
           "Outcome tracking",
         ],
         outcome: "Designed to show who programmes reach and where additional support is needed.",
-        organizations: [
-          "Government and community programmes",
-          "Foundations and CSR programmes",
-          "Federations",
-        ],
-        decisionMaker: "Programme Director",
       },
       {
         id: "programme-grant-impact",
@@ -321,8 +287,6 @@ export const zones: readonly Zone[] = [
           "Cross-programme comparison",
         ],
         outcome: "Designed to connect activity to outcomes and make funder reporting far less manual.",
-        organizations: ["Foundations and CSR programmes", "Government programmes", "Federations"],
-        decisionMaker: "Programme Director",
       },
       {
         id: "organizational-intelligence",
@@ -336,8 +300,6 @@ export const zones: readonly Zone[] = [
           "Alerts for decisions that need attention",
         ],
         outcome: "Designed to give leadership a timely view and surface the decisions that need attention.",
-        organizations: ["Leagues and federations", "Sports businesses and agencies", "Government programmes"],
-        decisionMaker: "Digital Transformation Lead",
       },
     ],
   },

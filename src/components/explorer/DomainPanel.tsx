@@ -153,22 +153,12 @@ export function DomainPanel({ selection, isDesktop, onClose, onSwitch, onDiscuss
                       <dt className="label text-lime">{L.outcome}</dt>
                       <dd className="mt-2 text-ink">{cap.outcome}</dd>
                     </div>
-                    <div className="grid gap-7 sm:grid-cols-2">
-                      <div>
-                        <dt className="label text-subtle">{L.organizations}</dt>
-                        <dd className="mt-2 text-muted">{cap.organizations.join(" · ")}</dd>
-                      </div>
-                      <div>
-                        <dt className="label text-subtle">{L.decisionMaker}</dt>
-                        <dd className="mt-2 text-muted">{cap.decisionMaker}</dd>
-                      </div>
-                    </div>
                   </dl>
 
                   <button
                     type="button"
                     onClick={() => onDiscuss(cap.name)}
-                    className="group mt-9 inline-flex min-h-12 items-center gap-2.5 rounded-xs bg-lime px-7 font-display text-[1.0625rem] font-bold tracking-[0.03em] text-canvas transition-colors hover:bg-ink"
+                    className="group mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-lime px-6 font-display text-base font-bold tracking-[0.03em] text-canvas transition-colors hover:bg-ink"
                   >
                     {L.cta}
                     <ArrowRight aria-hidden="true" className="size-4" />

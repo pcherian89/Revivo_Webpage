@@ -263,7 +263,7 @@ export function EnquiryForm({ idPrefix = "enquiry" }: { idPrefix?: string }) {
         <button
           type="submit"
           disabled={sending}
-          className="group inline-flex min-h-13 items-center justify-center gap-3 rounded-xs bg-lime px-7 font-display text-[1.0625rem] font-bold tracking-[0.03em] text-canvas transition-colors duration-200 hover:bg-ink disabled:cursor-wait disabled:opacity-70"
+          className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-lime px-6 font-display text-base font-bold tracking-[0.03em] text-canvas transition-colors duration-200 hover:bg-ink disabled:cursor-wait disabled:opacity-70"
         >
           {sending ? (
             <Loader2 aria-hidden="true" className="size-5 animate-spin motion-reduce:animate-none" />

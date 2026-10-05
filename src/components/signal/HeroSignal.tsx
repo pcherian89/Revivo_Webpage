@@ -1,31 +1,41 @@
 "use client";
 
-import { animate, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { dataMarks, PULSE_HALF, pulseSegment, SIGNAL, type Point } from "@/lib/signal";
-import { signalBus } from "@/lib/signal-bus";
 import { visibleRect } from "./visibleRect";
 
-type Geo = { w: number; h: number; a: string; marks: Point[]; b: string; end: Point };
+type Geo = {
+  w: number;
+  h: number;
+  /** Visible track: before and after the data marks */
+  a: string;
+  b: string;
+  /** One continuous path for the running light */
+  light: string;
+  /** Path from the start to the core (to time the core ripple) */
+  toCore: string;
+  marks: Point[];
+  core: { x: number; y: number; rings: number[] } | null;
+};
+
+const PERIOD = 5; // seconds per light cycle
+const TRAVEL = 0.7; // share of the cycle the light spends travelling
+const START = 2.4; // seconds before the first run (after the page has settled)
 
 /**
- * The hero signal: a precise lime line draws beneath the headline, makes one
- * crisp pulse under the word "pulse", passes through evenly spaced data marks,
- * then turns down beside the copy (straight runs, one corner radius) and drops
- * into exactly where the explorer's signal begins.
- * Plays once, then settles. Decorative only (aria-hidden).
+ * The hero signal. A precise lime track runs beneath the headline, makes one
+ * crisp pulse under "pulse", passes five data marks and flows into the Revivo
+ * signal core on the right, then drops into the explorer. A bright light keeps
+ * running through the track and the core ripples each time it arrives.
+ * Pure SVG + CSS; paused off-screen; static under reduced motion. Decorative.
  */
 export function HeroSignal() {
   const [geo, setGeo] = useState<Geo | null>(null);
-  const [drawn, setDrawn] = useState(false);
-  const reduce = useReducedMotion();
-  const started = useRef(false);
-  const aRefs = useRef<Array<SVGPathElement | null>>([]);
-  const bRefs = useRef<Array<SVGPathElement | null>>([]);
-  const marksRef = useRef<SVGGElement>(null);
-  const dotRef = useRef<SVGGElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const lightRef = useRef<SVGPathElement>(null);
+  const toCoreRef = useRef<SVGPathElement>(null);
 
-  // Measure the real layout (headline, "pulse", actions, explorer entry).
+  // Measure the real layout (headline, "pulse", copy, actions, explorer entry).
   useEffect(() => {
     const hero = document.getElementById("hero");
     if (!hero) return;
@@ -44,139 +54,114 @@ export function HeroSignal() {
     };
   }, []);
 
-  // Play the sequence once.
+  // Size the light to ~110px whatever the path length, and time the core ripple.
   useEffect(() => {
-    if (!geo || started.current) return;
-    started.current = true;
-    if (reduce) {
-      signalBus.markHeroDone();
-      return;
-    }
-    let cancelled = false;
-    const controls: Array<{ stop: () => void }> = [];
-    const dot = dotRef.current;
-    const setDot = (p: DOMPoint | Point) => dot?.setAttribute("transform", `translate(${p.x} ${p.y})`);
-    const draw = (paths: Array<SVGPathElement | null>, v: number) =>
-      paths.forEach((p) => p && (p.style.strokeDashoffset = String(1 - v)));
+    const svg = svgRef.current;
+    const light = lightRef.current;
+    if (!svg || !light || !geo) return;
+    const total = light.getTotalLength();
+    svg.style.setProperty("--sig-k", String(Math.min(0.12, 110 / total)));
+    const toCore = toCoreRef.current?.getTotalLength();
+    if (toCore) svg.style.setProperty("--sig-core-at", `${START + (toCore / total) * PERIOD * TRAVEL}s`);
+  }, [geo]);
 
-    const run = async () => {
-      const [a] = aRefs.current;
-      const [b] = bRefs.current;
-      if (!a || !b || !dot) return;
-      const lenA = a.getTotalLength();
-      const lenB = b.getTotalLength();
-      dot.style.opacity = "1";
-
-      const c1 = animate(0, 1, {
-        duration: 1.35,
-        delay: 0.25,
-        ease: [0.45, 0, 0.25, 1],
-        onUpdate: (v) => {
-          draw(aRefs.current, v);
-          setDot(a.getPointAtLength(v * lenA));
-        },
-      });
-      controls.push(c1);
-      await c1;
-      if (cancelled) return;
-
-      const marks = Array.from(marksRef.current?.children ?? []) as SVGElement[];
-      const start = a.getPointAtLength(lenA);
-      const bStart = b.getPointAtLength(0);
-      const c2 = animate(0, 1, {
-        duration: 0.4,
-        ease: "linear",
-        onUpdate: (v) => {
-          marks.forEach((m, i) => (m.style.opacity = v * marks.length > i ? "1" : "0"));
-          setDot({ x: start.x + (bStart.x - start.x) * v, y: start.y + (bStart.y - start.y) * v });
-        },
-      });
-      controls.push(c2);
-      await c2;
-      if (cancelled) return;
-
-      const c3 = animate(0, 1, {
-        duration: 1.3,
-        ease: [0.45, 0, 0.2, 1],
-        onUpdate: (v) => {
-          draw(bRefs.current, v);
-          setDot(b.getPointAtLength(v * lenB));
-        },
-      });
-      controls.push(c3);
-      await c3;
-      if (cancelled) return;
-      animate(dot, { opacity: 0 }, { duration: 0.4 });
-      setDrawn(true);
-      signalBus.markHeroDone();
-    };
-
-    // Hide everything, then draw.
-    draw(aRefs.current, 0);
-    draw(bRefs.current, 0);
-    Array.from(marksRef.current?.children ?? []).forEach((m) => ((m as SVGElement).style.opacity = "0"));
-    run();
-    return () => {
-      cancelled = true;
-      controls.forEach((c) => c.stop());
-    };
-  }, [geo, reduce]);
+  // Pause the running light while the hero is off-screen.
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => svg.classList.toggle("sig-paused", !e.isIntersecting));
+    io.observe(svg);
+    return () => io.disconnect();
+  }, [geo]);
 
   if (!geo) return null;
-  const finished = drawn || Boolean(reduce);
-  const pathProps = {
-    fill: "none",
-    pathLength: 1,
-    strokeDasharray: "1 1",
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    style: finished ? { strokeDashoffset: 0 } : undefined,
-  };
+  const common = { fill: "none", strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
 
   return (
     <svg
+      ref={svgRef}
       aria-hidden="true"
       focusable="false"
       className="pointer-events-none absolute inset-0 h-full w-full"
       viewBox={`0 0 ${geo.w} ${geo.h}`}
       width={geo.w}
       height={geo.h}
+      style={{ "--sig-period": `${PERIOD}s` } as CSSProperties}
     >
-      {[geo.a, geo.b].map((d, i) => {
-        const refs = i === 0 ? aRefs : bRefs;
-        return (
-          <g key={i}>
-            <path
-              {...pathProps}
-              ref={(el) => {
-                refs.current[1] = el;
-              }}
-              d={d}
-              stroke={SIGNAL.color}
-              strokeOpacity={SIGNAL.glowOpacity}
-              strokeWidth={SIGNAL.glowWidth}
+      {/* Signal core: quiet concentric rings */}
+      {geo.core && (
+        <g className="sig-fade">
+          {geo.core.rings.map((r, i) => (
+            <circle
+              key={r}
+              cx={geo.core!.x}
+              cy={geo.core!.y}
+              r={r}
+              fill="none"
+              stroke={i === 0 ? SIGNAL.color : "#F5F5F2"}
+              strokeOpacity={i === 0 ? 0.22 : 0.07}
+              strokeWidth={1}
             />
-            <path
-              {...pathProps}
-              ref={(el) => {
-                refs.current[0] = el;
-              }}
-              d={d}
-              stroke={SIGNAL.color}
-              strokeWidth={SIGNAL.width}
-            />
-          </g>
-        );
-      })}
-      <g ref={marksRef} fill={SIGNAL.color}>
-        {geo.marks.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r={2} />
+          ))}
+        </g>
+      )}
+
+      {/* The track (always visible, dim) */}
+      {[geo.a, geo.b].map((d) => (
+        <path
+          key={d.slice(0, 24)}
+          {...common}
+          className="sig-track"
+          pathLength={1}
+          d={d}
+          stroke={SIGNAL.color}
+          strokeOpacity={0.38}
+          strokeWidth={SIGNAL.width}
+        />
+      ))}
+      <g fill={SIGNAL.color} fillOpacity={0.6} className="sig-fade">
+        {geo.marks.map((p) => (
+          <circle key={p.x} cx={p.x} cy={p.y} r={2} />
         ))}
       </g>
-      <g ref={dotRef} transform={`translate(${geo.end.x} ${geo.end.y})`} style={{ opacity: 0 }}>
-        <circle r={SIGNAL.haloRadius} fill={SIGNAL.color} opacity={0.18} />
-        <circle r={SIGNAL.dotRadius} fill={SIGNAL.color} />
-      </g>
+
+      {/* The running light: a soft glow and a bright core */}
+      <path {...common} d={geo.toCore} ref={toCoreRef} stroke="none" />
+      <path
+        {...common}
+        ref={lightRef}
+        className="sig-light"
+        pathLength={1}
+        d={geo.light}
+        stroke={SIGNAL.color}
+        strokeOpacity={0.28}
+        strokeWidth={8}
+      />
+      <path
+        {...common}
+        className="sig-light"
+        pathLength={1}
+        d={geo.light}
+        stroke={SIGNAL.color}
+        strokeWidth={2.25}
+      />
+
+      {/* Core point and its ripple */}
+      {geo.core && (
+        <g className="sig-fade">
+          <circle
+            className="sig-ripple"
+            cx={geo.core.x}
+            cy={geo.core.y}
+            r={geo.core.rings[geo.core.rings.length - 1]}
+            fill="none"
+            stroke={SIGNAL.color}
+            strokeWidth={1.25}
+          />
+          <circle cx={geo.core.x} cy={geo.core.y} r={14} fill={SIGNAL.color} fillOpacity={0.12} />
+          <circle cx={geo.core.x} cy={geo.core.y} r={5} fill={SIGNAL.color} />
+        </g>
+      )}
     </svg>
   );
 }
@@ -202,48 +187,58 @@ function buildGeometry(hero: HTMLElement): Geo | null {
   const R = SIGNAL.radius;
   const desktop = window.matchMedia("(min-width: 64rem)").matches;
   const exitX = entry ? (entry.left + entry.right) / 2 : desktop ? w / 2 : 31;
-  const end = { x: exitX, y: h };
   const f = (n: number) => Math.round(n * 10) / 10;
 
-  // Shared start: a straight line, one pulse, a short straight, evenly spaced marks.
-  const lead = (y0: number, px: number, s: number, markGap: number) => {
-    const a = `M 0 ${f(y0)} H ${f(px - PULSE_HALF.before * s)}${pulseSegment(px, y0, s)} H ${f(px + PULSE_HALF.after * s + 16)}`;
-    const marksStart = px + PULSE_HALF.after * s + 16 + markGap;
-    const marks = dataMarks(marksStart, y0, 5, markGap);
-    const bStart = marksStart + markGap * 5;
-    return { a, marks, bStart };
+  const lead = (y0: number, px: number, s: number, gap: number) => {
+    const toMarks = `M 0 ${f(y0)} H ${f(px - PULSE_HALF.before * s)}${pulseSegment(px, y0, s)} H ${f(px + PULSE_HALF.after * s + 16)}`;
+    const marksStart = px + PULSE_HALF.after * s + 16 + gap;
+    const marks = dataMarks(marksStart, y0, 5, gap);
+    const bStart = marksStart + gap * 5;
+    return { toMarks, marks, bStart };
   };
 
   if (desktop) {
-    // Beneath the headline; the pulse sits under the word "pulse".
-    const y0 = h1.bottom + 16;
+    const y0 = h1.bottom + 14;
     const px = (word.left + word.right) / 2;
-    const { a, marks, bStart } = lead(y0, px, 1, 14);
-    // Turn down just beyond the copy — or exactly on the explorer's axis when it is clear of the text.
-    const textRight = Math.max(copy.right, actions.right);
-    let xV = Math.max(textRight + 40, bStart + R + 12);
-    // Prefer one continuous vertical on the explorer's axis whenever it clears the text.
-    const aligned = exitX >= Math.max(textRight + 20, bStart + R + 12);
-    if (aligned) xV = exitX;
-    else xV = Math.max(xV, exitX + 2 * R);
-    let b = `M ${f(bStart)} ${f(y0)} H ${f(xV - R)} A ${R} ${R} 0 0 1 ${f(xV)} ${f(y0 + R)}`;
-    if (aligned) b += ` V ${f(h)}`;
-    else {
-      const yJ = Math.max(actions.bottom + 40, y0 + 3 * R);
-      b += ` V ${f(yJ - R)} A ${R} ${R} 0 0 1 ${f(xV - R)} ${f(yJ)} H ${f(exitX + R)} A ${R} ${R} 0 0 0 ${f(exitX)} ${f(yJ + R)} V ${f(h)}`;
-    }
-    return { w, h, a, marks, b, end };
+    const { toMarks, marks, bStart } = lead(y0, px, 1, 14);
+
+    // Signal core in the empty right half, centred on the track.
+    const textRight = Math.max(h1.right, copy.right, actions.right);
+    const room = w - 48 - (textRight + 56);
+    const outer = Math.max(90, Math.min(210, room / 2));
+    const cx = textRight + 56 + Math.max(outer, room / 2);
+    const rings = [outer * 0.36, outer * 0.68, outer];
+
+    // From the core, straight down and across into the explorer's axis.
+    const yT = h - 34;
+    const down =
+      Math.abs(cx - exitX) < 3
+        ? ` V ${f(h)}`
+        : ` V ${f(yT - R)} A ${R} ${R} 0 0 1 ${f(cx - R)} ${f(yT)} H ${f(exitX + R)} A ${R} ${R} 0 0 0 ${f(exitX)} ${f(yT + R)} V ${f(h)}`;
+    const b = `M ${f(bStart)} ${f(y0)} H ${f(cx)}${down}`;
+    const toCore = `${toMarks} H ${f(cx)}`;
+    const light = `${toCore}${down}`;
+    return { w, h, a: toMarks, b, light, toCore, marks, core: { x: cx, y: y0, rings } };
   }
 
-  // Tablet / mobile: below the actions, turning at the text edge and stepping back to the left rail.
-  const y0 = actions.bottom + 36;
+  // Tablet / mobile: below the actions, turning at the text edge and stepping back to the rail.
+  const y0 = actions.bottom + 34;
   const px = Math.min(w * 0.42, copy.right - 200);
-  const { a, marks, bStart } = lead(y0, px, 0.85, 12);
+  const { toMarks, marks, bStart } = lead(y0, px, 0.85, 12);
   const xR = Math.max(bStart + R + 8, Math.min(copy.right, w - 20));
   const yL = y0 + 2 * R + 8;
-  const b =
-    `M ${f(bStart)} ${f(y0)} H ${f(xR - R)} A ${R} ${R} 0 0 1 ${f(xR)} ${f(y0 + R)}` +
+  const rest =
+    ` H ${f(xR - R)} A ${R} ${R} 0 0 1 ${f(xR)} ${f(y0 + R)}` +
     ` V ${f(yL - R)} A ${R} ${R} 0 0 1 ${f(xR - R)} ${f(yL)} H ${f(exitX + R)}` +
     ` A ${R} ${R} 0 0 0 ${f(exitX)} ${f(yL + R)} V ${f(h)}`;
-  return { w, h, a, marks, b, end };
+  return {
+    w,
+    h,
+    a: toMarks,
+    b: `M ${f(bStart)} ${f(y0)}${rest}`,
+    light: `${toMarks}${rest}`,
+    toCore: toMarks,
+    marks,
+    core: null,
+  };
 }
