@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
 import { EnquiryForm } from "@/components/enquiry/EnquiryForm";
 import { contactConfig } from "@/config/site";
-import { conversation } from "@/content/home";
+import { finalCta } from "@/content/home";
 
 export const metadata: Metadata = {
   title: "Start with your challenge",
   description:
-    "Tell Revivo what has gone quiet in your sports or fitness organization. A person reads every message and replies with questions, not a sales pitch.",
+    "Tell Revivo the process, bottleneck or decision in your sports organization that needs to work better. A person reads every message.",
   alternates: { canonical: "/contact" },
   openGraph: { url: "/contact" },
 };
 
 export default function ContactPage() {
   return (
-    <div className="scene pt-32 md:pt-40">
+    <div className="section-y pt-28 md:pt-36">
       <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <p className="eyebrow text-muted">Start with your challenge</p>
-          <h1 className="text-title mt-5">{conversation.title}</h1>
-          <p className="text-lead mt-5 text-muted">{conversation.support}</p>
+          <p className="label text-subtle">Start with your challenge</p>
+          <h1 className="text-title mt-5">{finalCta.title}</h1>
+          <p className="text-lead mt-5 text-muted">{finalCta.support}</p>
           {contactConfig.email && (
             <p className="text-small mt-8 text-subtle">
               Prefer email?{" "}

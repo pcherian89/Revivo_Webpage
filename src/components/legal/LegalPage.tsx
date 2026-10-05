@@ -11,7 +11,7 @@ export function LegalPage({ title, updated, intro, sections }: LegalPageProps) {
   return (
     <article className="container-site pt-32 pb-24 md:pt-40">
       <header className="measure">
-        <p className="eyebrow text-muted">Legal</p>
+        <p className="label text-subtle">Legal</p>
         <h1 className="text-title mt-5">{title}</h1>
         <p className="text-small mt-4 text-subtle">Last updated: {updated}</p>
         <div className="text-lead mt-8 text-muted">{intro}</div>

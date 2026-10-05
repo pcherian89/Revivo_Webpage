@@ -2,8 +2,16 @@
 
 import { AlertCircle, ArrowRight, Check, ChevronDown, Copy, Loader2, Mail } from "lucide-react";
 import Link from "next/link";
-import { useRef, useState, type ChangeEvent, type FormEvent, type ReactNode, type RefObject } from "react";
-import { RevivoLogo } from "@/components/brand/RevivoLogo";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+  type ReactNode,
+  type RefObject,
+} from "react";
+import { SignalGlyph } from "@/components/signal/SignalGlyph";
 import { contactConfig } from "@/config/site";
 import { enquiry, organizationTypes } from "@/content/enquiry";
 import {
@@ -40,7 +48,7 @@ const LABELS: Record<Exclude<ContactField, "website">, string> = {
   fullName: "Your name",
   organization: "Organization",
   organizationType: "Type of organization",
-  challenge: "What has gone quiet, or needs to work better?",
+  challenge: "What needs to work better?",
   currentProcess: "How is it handled today?",
   email: "Email",
   phone: "Phone or WhatsApp",
@@ -68,6 +76,16 @@ export function EnquiryForm({ idPrefix = "enquiry" }: { idPrefix?: string }) {
   const fallbackRef = useRef<HTMLDivElement>(null);
   const sentRef = useRef<HTMLDivElement>(null);
   const fid = (f: ContactField) => `${idPrefix}-${f}`;
+
+  // "Discuss this challenge" in the explorer pre-fills the challenge field.
+  useEffect(() => {
+    const onPrefill = (e: Event) => {
+      const text = (e as CustomEvent<string>).detail;
+      if (typeof text === "string") setValues((v) => (v.challenge.trim() ? v : { ...v, challenge: text }));
+    };
+    window.addEventListener("revivo:prefill", onPrefill);
+    return () => window.removeEventListener("revivo:prefill", onPrefill);
+  }, []);
 
   const focusLater = (ref: RefObject<HTMLElement | null>) =>
     requestAnimationFrame(() => ref.current?.focus());
@@ -142,7 +160,7 @@ export function EnquiryForm({ idPrefix = "enquiry" }: { idPrefix?: string }) {
   if (status.kind === "sent") {
     return (
       <div ref={sentRef} tabIndex={-1} role="status" className="py-4">
-        <RevivoLogo variant="mark" title="" className="h-auto w-14" />
+        <SignalGlyph className="h-7 w-16" />
         <p className="text-subtitle mt-6 text-ink">Thank you. We have your challenge.</p>
         <p className="measure mt-3 text-muted">
           We’ll read it properly and reply to <span className="text-ink">{values.email}</span>—usually with a
@@ -245,12 +263,12 @@ export function EnquiryForm({ idPrefix = "enquiry" }: { idPrefix?: string }) {
         <button
           type="submit"
           disabled={sending}
-          className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-lime px-7 text-base font-semibold text-canvas transition-colors duration-200 hover:bg-ink disabled:cursor-wait disabled:opacity-70"
+          className="group inline-flex min-h-13 items-center justify-center gap-3 rounded-xs bg-lime px-7 font-display text-[1.0625rem] font-bold tracking-[0.03em] text-canvas transition-colors duration-200 hover:bg-ink disabled:cursor-wait disabled:opacity-70"
         >
           {sending ? (
             <Loader2 aria-hidden="true" className="size-5 animate-spin motion-reduce:animate-none" />
           ) : (
-            <RevivoLogo variant="mark" title="" markColor="#0A0B0A" className="h-auto w-8" />
+            <SignalGlyph color="#0A0A0B" className="h-5 w-11" />
           )}
           {sending ? "Sending…" : enquiry.submit}
         </button>

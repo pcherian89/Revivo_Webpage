@@ -160,7 +160,7 @@ export function SiteHeader() {
               >
                 {primaryCta.label}
               </Link>
-              <p className="text-small mt-auto pt-10 text-subtle">{siteConfig.location}</p>
+              <p className="text-small mt-auto pt-10 text-subtle">{siteConfig.positioning}</p>
             </nav>
           </m.div>
         )}

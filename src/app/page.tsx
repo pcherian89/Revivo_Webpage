@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { ConversationScene } from "@/components/scenes/ConversationScene";
-import { FlatlineScene } from "@/components/scenes/FlatlineScene";
+import { DomainExplorer } from "@/components/explorer/DomainExplorer";
+import { FinalCtaScene } from "@/components/scenes/FinalCtaScene";
 import { HeroScene } from "@/components/scenes/HeroScene";
 import { ProcessScene } from "@/components/scenes/ProcessScene";
-import { StoryScene } from "@/components/scenes/StoryScene";
+import { siteConfig } from "@/config/site";
 import { jsonLdScript, organizationJsonLd, servicesJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: { absolute: "Revivo — AI that gives sport a pulse | Custom AI solutions for sport and fitness" },
+  title: { absolute: siteConfig.title },
   alternates: { canonical: "/" },
-  openGraph: { url: "/" },
+  openGraph: { url: "/", title: siteConfig.title, description: siteConfig.socialDescription },
 };
 
-/** Five scenes, one idea each: understand → recognize → believe → trust the process → start. */
+/** Hero signal → domain explorer → how Revivo works → final call to action. */
 export default function HomePage() {
   return (
     <>
@@ -21,10 +21,9 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLdScript([organizationJsonLd(), servicesJsonLd()]) }}
       />
       <HeroScene />
-      <FlatlineScene />
-      <StoryScene />
+      <DomainExplorer />
       <ProcessScene />
-      <ConversationScene />
+      <FinalCtaScene />
     </>
   );
 }

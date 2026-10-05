@@ -1,18 +1,19 @@
-/** Enquiry form copy and options (homepage scene 5 and /contact). */
+/** Enquiry form copy and options (homepage final scene and /contact). */
 
 export const enquiry = {
   submit: "Start with your challenge",
-  privacyNote: "Please don’t include medical or athlete-identifying details here.",
+  privacyNote: "Please don’t include medical, financial or athlete-identifying details here.",
 } as const;
 
 export const organizationTypes = [
-  "Independent coach or trainer",
-  "Fitness club or studio",
-  "Academy or coaching program",
+  "Gym or fitness business",
+  "Academy or performance centre",
   "Team or club",
-  "League, tournament or event",
-  "Venue",
-  "Federation or governing body",
-  "Sports foundation or NGO",
+  "League or federation",
+  "Event or venue",
+  "Government or community programme",
+  "Foundation or CSR programme",
+  "Sports business or agency",
+  "Media or content organization",
   "Other",
 ] as const;

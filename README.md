@@ -2,17 +2,18 @@
 
 The official website for **Revivo**, a specialist AI solutions builder for sports and fitness.
 
-> **AI that gives sport a pulse.**
+> **AI built for the pulse of sport.**
 
-The homepage is a short, five-scene presentation built on the logo's own idea — **flatline → alive**: find what has
-gone quiet in a sports or fitness organization and build the AI system that brings it back to life. It is not a
-product catalogue; every example is illustrative.
+Revivo is a global AI solutions-building company for the sports ecosystem. The homepage is deliberately short:
 
-1. **Hero** — "AI that gives sport a pulse." with the heartbeat signal
-2. **Find the flatline** — five recognisable problems, one open at a time
-3. **From silence to signal** — one illustrative transformation at a time (max three)
-4. **How we work** — Discover → Define → Prototype → Build
-5. **Conversation** — "What has gone quiet in your organization?" + a short enquiry form
+1. **Hero** — the master tagline and the Revivo Signal, which pulses once beneath the word "pulse" and flows down
+2. **Domain explorer** — the signal enters the Revivo Intelligence Layer and branches into four solution zones
+   (Operations & Infrastructure, Revenue & Engagement, Athlete Development & Performance, Governance & Impact);
+   each zone shows four capabilities, and each capability opens a detail panel
+3. **How Revivo works** — Discover → Define → Prototype → Build
+4. **Final call to action** — "What is your organization not seeing yet?" and a short enquiry form
+
+Every capability is illustrative — nothing on the site is presented as a finished product.
 
 **Pages**
 
@@ -76,38 +77,39 @@ npm run start   # serves it at http://localhost:3000
 ```
 src/
 ├─ app/                      Pages and site-wide settings
-│  ├─ page.tsx               Homepage (assembles the five scenes)
+│  ├─ page.tsx               Homepage (assembles the four scenes)
 │  ├─ contact/page.tsx       Contact page
 │  ├─ privacy/ terms/        Legal pages (edit wording directly here)
 │  ├─ api/contact/route.ts   Server code that receives the enquiry form
 │  ├─ layout.tsx             Shared layout, page titles and SEO defaults
-│  ├─ globals.css            ★ Colours, the six type sizes, grain, signal animation
-│  ├─ fonts.ts               ★ Font choice (Manrope)
+│  ├─ globals.css            ★ Colours, type sizes, spacing, hero text animation
+│  ├─ fonts.ts               ★ Fonts (Barlow Condensed + Manrope)
 │  ├─ sitemap.ts, robots.ts  Search-engine files
-│  ├─ opengraph-image.tsx    Image shown when the site is shared on social media
-│  └─ icon.svg               Browser-tab icon (the logo symbol)
-├─ config/site.ts            ★ Contact email, LinkedIn, WhatsApp, booking link, site URL
+│  └─ opengraph-image.tsx    Image shown when the site is shared on social media
+├─ config/site.ts            ★ Tagline, page title, contact email, LinkedIn, site URL
 ├─ content/
-│  ├─ home.ts                ★ ALL homepage text
+│  ├─ home.ts                ★ Hero, process and final call-to-action text
+│  ├─ explorer.ts            ★ The 4 zones and 16 capabilities (map + panels read from here)
 │  └─ enquiry.ts             ★ Form button text and organization types
 ├─ components/
-│  ├─ scenes/                One file per homepage scene
-│  ├─ signal/                The heartbeat signal (hero line, small pulses)
-│  ├─ brand/RevivoLogo.tsx   The official logo (traced from your lockups)
+│  ├─ scenes/                Hero, process and final CTA sections
+│  ├─ explorer/              The domain explorer, its signal map and detail panel
+│  ├─ signal/                The hero signal and small signal accents
+│  ├─ brand/RevivoLogo.tsx   The official logo
 │  ├─ enquiry/               The enquiry form
 │  ├─ layout/                Header (with mobile menu) and footer
 │  ├─ motion/                Animation helpers (reveal on scroll, reduced motion)
-│  └─ ui/                    Buttons, accessible tabs
-├─ lib/                      Heartbeat geometry, form validation, structured data
-scripts/check-copy.ts        Keeps homepage copy within its word limits
-public/grain.png             Subtle film-grain texture
+│  └─ ui/                    Buttons, accessible tabs, media-query hook
+├─ lib/signal.ts             Shape of the Revivo Signal (smooth curves, one pulse)
+scripts/check-copy.ts        Keeps copy within its word limits (4 zones × 4 capabilities)
 ```
 
 ★ = the files you are most likely to edit.
 
 ### Changing website copy
 
-All homepage wording is in **`src/content/home.ts`**. Change the text between the quotes and save. Then run
+Hero, process and final-CTA wording is in **`src/content/home.ts`**; the four zones and sixteen capabilities
+(problem, what Revivo could build, outcome, organizations, decision-maker) are in **`src/content/explorer.ts`**. Change the text between the quotes and save. Then run
 `npm run check:copy` — it fails if any text grows past its word limit, which keeps the homepage short. Privacy and
 terms wording is in `src/app/privacy/page.tsx` and `src/app/terms/page.tsx`.
 
@@ -133,7 +135,7 @@ wordmark currently uses the designer's placeholder typeface; when the final word
 - **Colours:** edit the `@theme` block at the top of `src/app/globals.css` (e.g. `--color-lime: #ccff00;`). Every
   part of the site uses these tokens, so one change updates everything. Note: the hero SVG and social image repeat a few
   hex values (logo, signal, social image) — search for the old hex code if you change the palette.
-- **Fonts:** edit `src/app/fonts.ts` (any font from `next/font/google`). The site uses one family and three weights.
+- **Fonts:** edit `src/app/fonts.ts`. The site matches Revivo IQ: Barlow Condensed (bold) + Manrope — two families, three weights.
 
 ---
 

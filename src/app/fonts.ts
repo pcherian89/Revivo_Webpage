@@ -1,13 +1,21 @@
-import { Manrope } from "next/font/google";
+import { Barlow_Condensed, Manrope } from "next/font/google";
 
 /**
- * One family, three weights (400 body · 500 interface · 600 headlines).
- * Manrope's calm geometric forms sit naturally beside the lowercase Revivo
- * wordmark. next/font self-hosts it at build time (no runtime Google requests).
+ * The same pairing as Revivo IQ, so both feel like one brand family:
+ *  - Barlow Condensed 700 → headlines, labels, buttons
+ *  - Manrope 400 / 500   → body copy and navigation
+ * Two families, three weights. next/font self-hosts them at build time.
  */
+export const displayFont = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: "700",
+  variable: "--font-barlow-condensed",
+  display: "swap",
+});
+
 export const sansFont = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
   variable: "--font-manrope",
   display: "swap",
 });

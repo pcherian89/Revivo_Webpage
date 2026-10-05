@@ -1,5 +1,5 @@
 import { contactConfig, siteConfig, siteUrl } from "@/config/site";
-import { flatlines } from "@/content/home";
+import { zones } from "@/content/explorer";
 
 /** schema.org data describing Revivo for search engines. Facts only. */
 export function organizationJsonLd() {
@@ -14,15 +14,14 @@ export function organizationJsonLd() {
     slogan: siteConfig.tagline,
     description: siteConfig.description,
     founder: { "@type": "Person", name: siteConfig.founder },
-    address: { "@type": "PostalAddress", addressCountry: siteConfig.country },
     areaServed: "Worldwide",
     knowsAbout: [
-      "AI solutions for sports",
-      "AI for fitness and coaching",
-      "Athlete and client progress tracking",
-      "Athlete-development pathways",
-      "Sports event operations",
-      "Sports analytics and data",
+      "AI solutions for sport",
+      "Sports operations and event technology",
+      "Sponsorship and fan intelligence",
+      "Athlete development and performance analysis",
+      "Safeguarding and governance in sport",
+      "Sports programme and grant impact",
       "Custom sports software development",
     ],
     ...(contactConfig.email
@@ -37,25 +36,25 @@ export function servicesJsonLd() {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${siteUrl}/#service`,
-    name: "Custom AI solutions for sport and fitness organizations",
-    serviceType: "Custom AI solution design and development for sport and fitness",
+    name: "Custom AI solutions for sports organizations",
+    serviceType: "Custom AI system design and development for sport",
     provider: { "@id": `${siteUrl}/#organization` },
     areaServed: "Worldwide",
     audience: {
       "@type": "Audience",
       audienceType:
-        "Coaches, academies, clubs, fitness studios, teams, leagues, events, venues, federations and sports foundations",
+        "Teams, clubs, leagues, federations, events and venues, academies, gyms, community programmes, foundations, sports businesses and media organizations",
     },
     description: siteConfig.description,
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Problems we help solve",
-      itemListElement: flatlines.items.map((f) => ({
+      name: "Solution areas",
+      itemListElement: zones.map((z) => ({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: f.name,
-          description: `${f.system} Scoped through discovery for each organization.`,
+          name: z.name,
+          description: `${z.summary} Illustrative capabilities, scoped through discovery for each organization.`,
         },
       })),
     },

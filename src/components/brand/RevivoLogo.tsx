@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 
 /**
- * Official Revivo logo, traced from the "Flatline → Alive" lockups.
+ * Official Revivo logo, traced from the approved logo lockups.
  * - "lockup" (A, horizontal): header, footer, documents — never below 24px tall.
  * - "mark"   (C, symbol only): icons and favicons only.
  * The mark is always lime (or black on lime); never outlined or glowing.

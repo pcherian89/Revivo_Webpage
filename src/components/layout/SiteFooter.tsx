@@ -14,7 +14,7 @@ export function SiteFooter() {
             <Link href="/" aria-label="Revivo, home" className="inline-flex min-h-11 items-center text-ink">
               <RevivoLogo title="" className="h-7 w-auto" />
             </Link>
-            <p className="text-small mt-4 text-subtle">{siteConfig.location}</p>
+            <p className="text-small mt-4 text-subtle">{siteConfig.positioning}</p>
           </div>
 
           <ul className="text-small flex flex-col gap-1 md:items-end">
@@ -37,7 +37,7 @@ export function SiteFooter() {
 
         <div className="text-small mt-10 flex flex-col gap-2 text-subtle sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {siteConfig.name}. Custom AI solutions for sport and fitness.
+            © {year} {siteConfig.name}. Custom AI solutions for sport.
           </p>
           <ul className="flex gap-6">
             <li>

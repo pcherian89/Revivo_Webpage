@@ -15,11 +15,14 @@ export const siteUrl = (
 
 export const siteConfig = {
   name: "Revivo",
-  tagline: "AI that gives sport a pulse.",
+  /** The master tagline — exactly as written. */
+  tagline: "AI built for the pulse of sport.",
+  title: "Revivo — AI Built for the Pulse of Sport",
   description:
-    "Revivo designs and builds custom AI solutions for sport and fitness—helping coaches track progress, clients see it, and organizations run, grow and protect what matters.",
-  location: "India-based, working internationally",
-  country: "IN",
+    "Revivo designs custom AI systems for sports operations, commercial growth, athlete development, performance, governance and impact.",
+  socialDescription:
+    "Custom AI solutions built around the people, decisions and systems that keep sport moving.",
+  positioning: "Custom AI solutions for sports organizations worldwide.",
   founder: "Pothen Cherian",
 } as const;
 
@@ -28,14 +31,14 @@ export const contactConfig = {
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
   /** Company LinkedIn page, e.g. "https://www.linkedin.com/company/…" */
   linkedin: "",
-  /** Optional WhatsApp click-to-chat link, e.g. "https://wa.me/91XXXXXXXXXX" */
+  /** Optional WhatsApp click-to-chat link, e.g. "https://wa.me/XXXXXXXXXXXX" */
   whatsapp: "",
   /** Optional booking link (Calendly, Cal.com, etc.) */
   booking: "",
 } as const;
 
 export const navLinks = [
-  { label: "What we solve", href: "/#what-we-solve" },
+  { label: "Capabilities", href: "/#explore" },
   { label: "How we work", href: "/#how-we-work" },
 ] as const;
 

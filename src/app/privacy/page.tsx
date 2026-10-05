@@ -27,7 +27,7 @@ export default function PrivacyPage() {
       intro={
         <p>
           This policy explains what information Revivo collects through this website, why we collect it and
-          how we handle it. Revivo is an early-stage company based in India.
+          how we handle it. Revivo is an early-stage company.
         </p>
       }
       sections={[
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
             <p>
               We rely on trusted providers to operate this website and deliver enquiries—for example, website
               hosting and an email-delivery service. They process information on our behalf and only as needed
-              to provide their services. Some providers may store or process data outside India.
+              to provide their services. Some providers may store or process data in other countries.
             </p>
           ),
         },
