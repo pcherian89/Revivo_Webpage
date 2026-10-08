@@ -13,7 +13,7 @@ const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 export function HeroScene() {
   const { headline } = hero;
   return (
-    <section id="hero" aria-labelledby="hero-heading" className="relative flex min-h-[72svh] flex-col">
+    <section id="hero" aria-labelledby="hero-heading" className="relative flex flex-col lg:min-h-[min(72svh,42rem)]">
       <HeroSignal />
       <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-24 lg:pt-28 lg:pb-16">
         <p className="label hero-fade text-subtle" style={delay(0)}>

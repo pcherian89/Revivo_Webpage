@@ -61,7 +61,7 @@ for body and navigation. Two families, three weights. Sizes (at a 1440px laptop)
 Content width ≈1200px; body copy `measure` 34rem.
 
 **Spacing:** `container-site` (≈1280px content; padding 20–24 / 32–48 / 56–72px), `section-y` (44–64px mobile,
-64–88px desktop). No spacer elements, no full-viewport sections except the ≈86svh hero.
+64–88px desktop). No spacer elements, no full-viewport sections. Hero: content height on phones/tablets; min(72svh, 42rem) from 1024px.
 
 **Logo:** `src/components/brand/RevivoLogo.tsx` — horizontal lockup in header/footer (≥24px tall), symbol for icons.
 
