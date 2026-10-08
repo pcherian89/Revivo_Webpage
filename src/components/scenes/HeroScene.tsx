@@ -19,21 +19,27 @@ export function HeroScene() {
         <p className="label hero-fade text-subtle" style={delay(0)}>
           {hero.eyebrow}
         </p>
-        <h1 id="hero-heading" className="text-hero mt-4 max-w-4xl">
+        {/* One statement on two lines; the running pulse sits beneath the whole headline. */}
+        <h1 id="hero-heading" className="text-hero mt-4 max-w-4xl leading-[0.92]">
           <span className="hero-fade block" style={delay(250)}>
-            {headline.first}
+            <span id="hero-pulse-word" className="text-lime">
+              {headline.line1.pulse}
+            </span>
+            {headline.line1.rest}
           </span>{" "}
           <span className="hero-mask">
             <span style={delay(520)}>
-              {headline.before}
-              <span id="hero-pulse-word" className="text-lime">
-                {headline.pulse}
-              </span>
-              {headline.after}
+              {headline.line2.before}
+              <span className="text-lime">{headline.line2.ai}</span>
+              {headline.line2.after}
             </span>
           </span>
         </h1>
-        <p id="hero-copy" className="text-lead measure hero-fade mt-7 text-muted lg:mt-12" style={delay(700)}>
+        <p
+          id="hero-copy"
+          className="text-lead measure hero-fade mt-[72px] text-muted lg:mt-[80px]"
+          style={delay(700)}
+        >
           {hero.statement}
         </p>
         <div

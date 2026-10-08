@@ -19,8 +19,10 @@ export const siteUrl = (
 export const siteConfig = {
   name: "Revivo",
   /** The master tagline — exactly as written. */
-  tagline: "AI built for the pulse of sport.",
-  title: "Revivo — AI Built for the Pulse of Sport",
+  tagline: "Pulse of sport. Power of AI.",
+  title: "Revivo — Pulse of Sport. Power of AI.",
+  /** Title used when the site is shared on social media. */
+  socialTitle: "Pulse of Sport. Power of AI.",
   description:
     "Revivo designs custom AI systems for sports operations, commercial growth, athlete development, performance, governance and impact.",
   socialDescription:

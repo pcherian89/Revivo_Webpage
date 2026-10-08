@@ -15,14 +15,16 @@ systems Revivo can configure and build. Never write "Our Products" or "Request a
 
 ## 2. Approved language
 
-- **Master tagline (exactly as written, hero h1 only): "AI built for the pulse of sport."** — rendered on two
-  lines: "AI built for / the pulse of sport." with only the word "pulse" in lime. No other slogans on the homepage.
+- **Master tagline (exactly as written, hero h1 only): "Pulse of sport. Power of AI."** — two sentences, one
+  statement, one `h1`, on two lines ("Pulse of sport." / "Power of AI."), same size and weight, line-height ≈0.92.
+  Only "Pulse" and "AI" in lime. The running pulse sits beneath the whole headline, never between the lines.
+  No other slogans on the homepage. (Previous tagline "AI built for the pulse of sport." is retired.)
 - Eyebrow: "CUSTOM AI SOLUTIONS FOR SPORT"
 - Supporting copy: "Revivo designs custom AI systems for sports organizations—from operations and commercial growth to
   athlete development, performance, governance and impact."
 - Primary action everywhere: **"Start with your challenge"** (`/#start`). Hero secondary: "Explore the signal" (`#explore`).
 - Process statement: "We start with the problem—not the technology." Final CTA: "What is your organization not seeing yet?"
-- Page title: "Revivo — AI Built for the Pulse of Sport". Social description: "Custom AI solutions built around the
+- Page title: "Revivo — Pulse of Sport. Power of AI." Social title: "Pulse of Sport. Power of AI." Social description: "Custom AI solutions built around the
   people, decisions and systems that keep sport moving."
 - **Retired — never use:** "AI that gives sport a pulse", "Sport, intelligently built", "From silence to signal",
   "Build the unseen advantage", "Find the flatline", "AI for fitness and sports", any India-based positioning.
@@ -73,8 +75,9 @@ particles, SVG turbulence or large blur filters, scroll hijacking, typewriter/gl
 Story: live sports signal → Revivo intelligence → solution domains → organized action.
 
 1. **Hero (`HeroSignal`)** — pure SVG + CSS, measured from the real layout. A straight lime track (dim) runs beneath
-   the headline, makes one crisp pulse under "pulse", passes five data marks and flows into the **signal core** on the
-   right (concentric rings), then drops into the explorer. A bright light **runs through the track continuously**
+   the whole two-line headline (≈28px desktop / 24px mobile), makes one crisp pulse under "Pulse", passes five data marks and flows into the **signal core** on the
+   right (concentric rings), then drops into the explorer. Below 1024px the same order holds (headline → pulse →
+   copy → buttons): the line runs along the right gutter past the copy and buttons, then steps back to the rail. A bright light **runs through the track continuously**
    and the core ripples as it arrives. The light is driven by the shared **signal clock** (`src/lib/signal-clock.ts`):
    one light, one timeline — it flows from the hero straight down the explorer trunk into the Intelligence Layer and
    lights it up (core flash). Paused off-screen; static under reduced motion. Geometry in `src/lib/signal.ts`:

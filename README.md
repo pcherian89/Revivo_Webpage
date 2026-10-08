@@ -2,11 +2,11 @@
 
 The official website for **Revivo**, a specialist AI solutions builder for sports and fitness.
 
-> **AI built for the pulse of sport.**
+> **Pulse of sport. Power of AI.**
 
 Revivo is a global AI solutions-building company for the sports ecosystem. The homepage is deliberately short:
 
-1. **Hero** — the master tagline and the Revivo Signal, which pulses once beneath the word "pulse" and flows down
+1. **Hero** — the master tagline and the Revivo Signal, which runs beneath the headline, pulses under "Pulse" and flows down
 2. **Domain explorer** — the signal enters the Revivo Intelligence Layer and branches into four solution zones
    (Operations & Infrastructure, Revenue & Engagement, Athlete Development & Performance, Governance & Impact);
    each zone shows four capabilities, and each capability opens a detail panel

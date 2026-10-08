@@ -8,8 +8,11 @@
 
 export const hero = {
   eyebrow: "Custom AI solutions for sport",
-  /** The master tagline. Exactly as written, on two lines. */
-  headline: { first: "AI built for", before: "the ", pulse: "pulse", after: " of sport." },
+  /** The master tagline: two sentences, one statement, one h1. "Pulse" and "AI" in lime. */
+  headline: {
+    line1: { pulse: "Pulse", rest: " of sport." },
+    line2: { before: "Power of ", ai: "AI", after: "." },
+  },
   statement:
     "Revivo designs custom AI systems for sports organizations—from operations and commercial growth to athlete development, performance, governance and impact.",
   secondaryAction: { label: "Explore the signal", href: "#explore" },

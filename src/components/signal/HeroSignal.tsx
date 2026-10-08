@@ -233,7 +233,7 @@ function buildGeometry(hero: HTMLElement): Geo | null {
   };
 
   if (desktop) {
-    const y0 = h1.bottom + 14;
+    const y0 = h1.bottom + 28; // ≈28px beneath the whole two-line headline
     const px = (word.left + word.right) / 2;
     const { toMarks, marks, bStart } = lead(y0, px, 1, 14);
 
@@ -268,17 +268,18 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     };
   }
 
-  // Tablet / mobile: below the actions, turning at the text edge and stepping back to the rail.
-  // Keep the whole step (two corners) inside the hero, so it meets the explorer line exactly.
-  const y0 = Math.min(actions.bottom + 34, h - (2 * R + 8) - R - 8);
-  const px = Math.min(w * 0.42, copy.right - 200);
+  // Tablet / mobile: the same order as desktop — beneath the headline, then along the right
+  // gutter past the copy and buttons, and back to the explorer rail below the buttons.
+  const y0 = h1.bottom + 24;
+  const px = Math.max((word.left + word.right) / 2, PULSE_HALF.before * 0.85 + 8);
   const { toMarks, marks, bStart } = lead(y0, px, 0.85, 12);
-  const xR = Math.max(bStart + R + 8, Math.min(copy.right, w - 20));
-  const yL = y0 + 2 * R + 8;
+  const textRight = Math.max(copy.right, actions.right, word.right);
+  const xR = Math.max(bStart + R + 8, Math.min(w - 10, textRight + 40));
+  const yB = Math.max(actions.bottom + 20, h - R - 10);
   const rest =
     ` H ${f(xR - R)} A ${R} ${R} 0 0 1 ${f(xR)} ${f(y0 + R)}` +
-    ` V ${f(yL - R)} A ${R} ${R} 0 0 1 ${f(xR - R)} ${f(yL)} H ${f(exitX + R)}` +
-    ` A ${R} ${R} 0 0 0 ${f(exitX)} ${f(yL + R)} V ${f(h)}`;
+    ` V ${f(yB - R)} A ${R} ${R} 0 0 1 ${f(xR - R)} ${f(yB)} H ${f(exitX + R)}` +
+    ` A ${R} ${R} 0 0 0 ${f(exitX)} ${f(yB + R)} V ${f(h)}`;
   return {
     w,
     h,
@@ -288,6 +289,7 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     toCore: toMarks,
     marks,
     core: null,
-    texture: `linear-gradient(to bottom, transparent ${f(y0 - 70)}px, #000 ${f(y0 + 10)}px)`,
+    // Lit perforations only below the buttons, never behind the words.
+    texture: `linear-gradient(to bottom, transparent ${f(actions.bottom + 4)}px, #000 ${f(actions.bottom + 24)}px)`,
   };
 }
