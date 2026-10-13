@@ -4,6 +4,7 @@ import { FinalCtaScene } from "@/components/scenes/FinalCtaScene";
 import { HeroScene } from "@/components/scenes/HeroScene";
 import { ProcessScene } from "@/components/scenes/ProcessScene";
 import { siteConfig } from "@/config/site";
+import { relatedProducts } from "@/content/products";
 import { jsonLdScript, organizationJsonLd, servicesJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLdScript([organizationJsonLd(), servicesJsonLd()]) }}
       />
       <HeroScene />
-      <DomainExplorer />
+      <DomainExplorer relatedProducts={relatedProducts()} />
       <ProcessScene />
       <FinalCtaScene />
     </>

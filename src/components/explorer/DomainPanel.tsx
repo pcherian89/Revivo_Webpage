@@ -4,6 +4,7 @@ import { AnimatePresence, m } from "motion/react";
 import { ArrowRight, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { explorer, zones } from "@/content/explorer";
+import type { RelatedProduct } from "@/content/products";
 import { cn } from "@/lib/cn";
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
   onClose: (restoreFocus?: boolean) => void;
   onSwitch: (cap: number) => void;
   onDiscuss: (capName: string) => void;
+  /** Owner-approved Revivo products per capability id (empty until a product is showcased) */
+  relatedProducts?: Record<string, RelatedProduct[]>;
 };
 
 const EASE = [0.25, 1, 0.5, 1] as const;
@@ -22,7 +25,7 @@ const EASE = [0.25, 1, 0.5, 1] as const;
  * the close button all close it; focus is trapped inside and restored after.
  * Choosing another capability replaces the content instead of stacking panels.
  */
-export function DomainPanel({ selection, isDesktop, onClose, onSwitch, onDiscuss }: Props) {
+export function DomainPanel({ selection, isDesktop, onClose, onSwitch, onDiscuss, relatedProducts }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const open = Boolean(selection);
@@ -65,6 +68,7 @@ export function DomainPanel({ selection, isDesktop, onClose, onSwitch, onDiscuss
   const zone = selection ? zones[selection.zone] : null;
   const cap = zone && selection ? zone.capabilities[selection.cap] : null;
   const L = explorer.panelLabels;
+  const related = (cap && relatedProducts?.[cap.id]) || [];
 
   return (
     <AnimatePresence>
@@ -137,22 +141,50 @@ export function DomainPanel({ selection, isDesktop, onClose, onSwitch, onDiscuss
                     </div>
                     <div>
                       <dt className="label text-subtle">{L.build}</dt>
+                      <dd className="mt-2 text-muted">
+                        {cap.build}
+                        {cap.note && <p className="text-small mt-3 text-subtle">{cap.note}</p>}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="label text-subtle">{L.ai}</dt>
                       <dd className="mt-3">
                         <ul className="space-y-2.5">
-                          {cap.build.map((b) => (
+                          {cap.ai.map((b) => (
                             <li key={b} className="flex gap-3 text-muted">
                               <span aria-hidden="true" className="mt-[0.6rem] h-px w-4 shrink-0 bg-lime" />
                               {b}
                             </li>
                           ))}
                         </ul>
-                        {cap.note && <p className="text-small mt-3 text-subtle">{cap.note}</p>}
+                        <p className="text-small mt-3 text-subtle">{L.aiNote}</p>
                       </dd>
                     </div>
                     <div>
-                      <dt className="label text-lime">{L.outcome}</dt>
-                      <dd className="mt-2 text-ink">{cap.outcome}</dd>
+                      <dt className="label text-lime">{L.benefit}</dt>
+                      <dd className="mt-2 text-ink">{cap.benefit}</dd>
                     </div>
+                    {related.length > 0 && (
+                      <div>
+                        <dt className="label text-subtle">Related Revivo product</dt>
+                        <dd className="mt-2">
+                          <ul className="space-y-2">
+                            {related.map((p) => (
+                              <li key={p.id}>
+                                <a
+                                  href={p.href}
+                                  className="inline-flex min-h-11 items-center gap-2 font-medium text-ink hover:text-lime"
+                                >
+                                  {p.name}
+                                  <ArrowRight aria-hidden="true" className="size-4" />
+                                </a>
+                                {p.summary && <p className="text-small text-muted">{p.summary}</p>}
+                              </li>
+                            ))}
+                          </ul>
+                        </dd>
+                      </div>
+                    )}
                   </dl>
 
                   <button

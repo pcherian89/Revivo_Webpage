@@ -10,7 +10,8 @@ export function SignalNode({
   state,
   className,
 }: {
-  anchor: string;
+  /** Omit for a node that no connector targets */
+  anchor?: string;
   state: "on" | "dim" | "off";
   className?: string;
 }) {

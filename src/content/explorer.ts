@@ -1,21 +1,29 @@
 /**
- * DOMAIN EXPLORER CONTENT — the single source for the four solution zones and
- * their sixteen capabilities. The signal map, the HTML index and the detail
- * panels all read from this file, so labels always stay consistent.
+ * DOMAIN EXPLORER CONTENT — the single source for the four solution areas and
+ * their sixteen capabilities. The signal map, the HTML index, the detail panels
+ * and the search-engine data all read from this file, so labels stay consistent.
  *
  * These are illustrative capabilities Revivo can configure and build — never
- * describe them as finished products. Outcomes are "designed to", not promises.
+ * describe them as finished products, and never claim an AI function or
+ * integration already exists. People stay responsible for approvals and decisions.
+ *
+ * Related Revivo products are linked to capabilities in `src/content/products.ts`,
+ * not here, so unannounced products never reach the page.
  */
 
 export type Capability = {
   id: string;
   name: string;
-  /** One concise statement of the client's problem */
+  /** One line shown under the name in the explorer */
+  short: string;
+  /** A recognisable real-world problem */
   problem: string;
-  /** Three to five representative capabilities or workflows */
-  build: readonly string[];
-  /** One outcome-focused statement (never a guarantee) */
-  outcome: string;
+  /** The proposed system and its practical features, in plain English (workflows + automation) */
+  build: string;
+  /** Two or three specific, realistic examples of AI assistance */
+  ai: readonly string[];
+  /** The practical improvement — never a promised result */
+  benefit: string;
   /** Optional scoping note, e.g. for R&D-level work */
   note?: string;
 };
@@ -30,10 +38,10 @@ export type Zone = {
 export const explorer = {
   title: "Explore the signal.",
   intro:
-    "One intelligence layer connects four areas of sport. Activate it, choose an area, then a capability to see what Revivo could build.",
+    "Revivo combines easy-to-use workflows, automation that removes repetitive tasks and AI that helps people decide. Activate the layer, choose an area, then a capability to see what Revivo could build.",
   layer: {
     name: "Revivo Intelligence Layer",
-    detail: "AI · data · automation · decision support",
+    detail: "Workflows · automation · AI assistance",
     activate: "Tap to activate",
     chooseZone: "Choose an area",
     chooseCap: "Choose a capability",
@@ -41,265 +49,304 @@ export const explorer = {
   qualifier:
     "Illustrative possibilities. Every Revivo system is designed around the client’s workflows, users, data and objectives.",
   panelLabels: {
-    problem: "Common problem",
-    build: "What Revivo could build",
-    outcome: "Potential outcome",
+    problem: "The problem",
+    build: "What Revivo can build",
+    ai: "How AI helps",
+    aiNote: "AI prepares and suggests. Your team reviews, approves and decides.",
+    benefit: "The benefit",
     cta: "Discuss this challenge",
   },
 } as const;
 
 export const zones: readonly Zone[] = [
   {
-    id: "operations",
-    name: "Operations & Infrastructure",
-    summary: "Events, venues, administration and the people who run them.",
+    id: "events-operations",
+    name: "Events & Operations",
+    summary: "Plan events, organise teams and manage everyday sports operations.",
     capabilities: [
       {
-        id: "event-venue-operations",
-        name: "Event and venue operations",
+        id: "event-planning-coordination",
+        name: "Event Planning & Coordination",
+        short: "Manage event plans, tasks, committees, deadlines and progress in one place.",
         problem:
-          "Event days run on scattered rosters, accreditation spreadsheets, radio calls and chat groups—so readiness is unclear and reporting starts from scratch afterwards.",
-        build: [
-          "Staff scheduling and role assignment",
-          "Accreditation status and access lists",
-          "Match-day readiness checklists by area",
-          "Incident logging with clear escalation routes",
-          "Automated post-event reporting",
+          "Event plans live in spreadsheets, email threads and group chats, so committees lose track of who owns each task and deadlines slip without anyone noticing.",
+        build:
+          "An event workspace to build plans from templates, assign tasks to committees and people, set deadlines and follow progress on one timeline. Automatic reminders chase overdue tasks.",
+        ai: [
+          "Turn meeting notes into action items with suggested owners and dates.",
+          "Draft a starting plan based on past events of a similar size.",
+          "Prepare a weekly progress summary that highlights risks to the timeline.",
         ],
-        outcome:
-          "Designed to give organizers one connected picture on event day and a far shorter path to the post-event report.",
+        benefit:
+          "Organisers can see what is done, what is late and who is responsible, without chasing updates through chats and spreadsheets.",
       },
       {
-        id: "facility-asset-management",
-        name: "Facility and asset management",
+        id: "venue-facility-management",
+        name: "Venue & Facility Management",
+        short: "Organise bookings, maintenance, equipment and facility schedules.",
         problem:
-          "Maintenance requests arrive by phone and message, equipment goes untracked, and bookings rarely reflect how spaces are really used.",
-        build: [
-          "Maintenance intake and prioritization",
-          "Equipment and asset register with condition history",
-          "Booking and space-utilization insight",
-          "Inspection checklists and reports",
+          "Bookings, maintenance requests and equipment checks are handled by phone, paper and separate calendars, leading to double bookings, missed repairs and unused space.",
+        build:
+          "A facility system with a shared booking calendar, a simple maintenance request form, an equipment register with condition history and inspection checklists. Booking confirmations and servicing reminders go out automatically.",
+        ai: [
+          "Sort incoming maintenance requests by urgency for the facility manager to confirm.",
+          "Spot booking patterns, such as regularly unused slots or peak-time clashes.",
+          "Suggest inspection and servicing schedules based on how spaces and equipment are used.",
         ],
-        outcome:
-          "Designed to surface urgent maintenance first and give managers clearer visibility of assets and space.",
+        benefit:
+          "Managers can share space fairly, deal with urgent repairs first and know the condition of every key asset.",
       },
       {
         id: "registration-administration",
-        name: "Registration and administration",
+        name: "Registration & Administration",
+        short: "Manage registrations, documents, eligibility checks and approvals.",
         problem:
-          "Registrations, documents, fees and schedules are handled across forms, spreadsheets and messages, creating delays and endless follow-up.",
-        build: [
-          "Online registration and eligibility capture",
-          "Document verification workflow",
-          "Fee and payment-status tracking",
-          "Scheduling and allocation",
-          "Automated participant and parent communication",
+          "Registrations arrive through forms, emails and paper, and staff spend hours checking documents, confirming eligibility and chasing missing information.",
+        build:
+          "Online registration with clear forms, document upload, eligibility rules, an approval workflow and a live status for every application. Applicants receive automatic updates and reminders about anything missing.",
+        ai: [
+          "Read uploaded documents and pre-fill key details for staff to confirm.",
+          "Flag incomplete or inconsistent applications before they reach a reviewer.",
+          "Answer common applicant questions using the organisation’s own rules.",
         ],
-        outcome:
-          "Designed to cut manual administration and show staff exactly where every application stands.",
+        benefit:
+          "Staff spend less time on data entry and follow-up, and applicants always know where their registration stands.",
       },
       {
-        id: "workforce-volunteers",
-        name: "Workforce and volunteer coordination",
+        id: "staff-volunteer-management",
+        name: "Staff & Volunteer Management",
+        short: "Assign responsibilities, manage shifts and track attendance.",
         problem:
-          "Recruiting, credentialing, training and rostering staff and volunteers happens in separate lists, so gaps only appear on the day.",
-        build: [
-          "Recruitment and application screening",
-          "Credential and training-compliance tracking",
-          "Shift allocation and confirmations",
-          "Attendance and deployment reporting",
+          "Staff and volunteer details, availability and shifts sit in separate lists and chat groups, so gaps and no-shows often appear only on the day.",
+        build:
+          "A system to register people, record skills and accreditations, assign roles, publish shift rosters and check attendance on the day. Shift confirmations and reminders are sent automatically.",
+        ai: [
+          "Suggest shift assignments that match skills, availability and fair workloads.",
+          "Highlight shifts at risk of being understaffed so coordinators can act early.",
+          "Draft role briefings for each shift from the event plan.",
         ],
-        outcome: "Designed to show who is qualified, confirmed and available before a shift begins.",
-      },
-    ],
-  },
-  {
-    id: "revenue",
-    name: "Revenue & Engagement",
-    summary: "Sponsors, fans, content and members—the commercial engine of sport.",
-    capabilities: [
-      {
-        id: "sponsorship-intelligence",
-        name: "Sponsorship intelligence",
-        problem:
-          "Inventory, contracted deliverables and activation evidence live in different files, so proposals are slow and sponsor value is hard to prove.",
-        build: [
-          "Prospect research and proposal support",
-          "Inventory and rights tracking",
-          "Contracted deliverable tracking",
-          "Activation evidence capture",
-          "Sponsor-ready ROI reporting",
-        ],
-        outcome: "Designed to make delivered value visible and renewal conversations evidence-based.",
-      },
-      {
-        id: "fan-ticket-intelligence",
-        name: "Fan and ticket intelligence",
-        problem:
-          "Ticketing and fan data sit in separate systems, so campaigns stay broad, attendance is hard to forecast and pricing relies on instinct.",
-        build: [
-          "Attendance forecasting",
-          "Fan segmentation",
-          "Personalized campaign support",
-          "Ticket-pricing recommendations for human review",
-        ],
-        outcome:
-          "Designed to support better-targeted campaigns and more informed attendance and ticketing decisions.",
-      },
-      {
-        id: "content-media-workflows",
-        name: "Content and media workflows",
-        problem:
-          "Match recaps, player graphics, social copy and sponsor content are produced by hand, and approvals slow everything down.",
-        build: [
-          "Recaps drafted from approved match data",
-          "Templated player and result graphics",
-          "Social copy drafts for review",
-          "Sponsor-branded content variations",
-          "Approval workflow with brand controls",
-        ],
-        outcome: "Designed to help teams publish faster while every asset stays approved and on-brand.",
-      },
-      {
-        id: "membership-intelligence",
-        name: "Membership and fitness-business intelligence",
-        problem:
-          "Leads pass between staff, trials go unfollowed, and nobody can say who earned a membership—or which members are about to leave.",
-        build: [
-          "Lead ownership with time-stamped journeys",
-          "Staff-contribution tracking",
-          "Trial follow-up prompts",
-          "Commission attribution on agreed rules",
-          "Renewal and retention-risk signals",
-        ],
-        outcome:
-          "Designed to give owners a fair record of contribution and earlier sight of members at risk.",
+        benefit:
+          "Coordinators can see who is confirmed, qualified and present for every shift, with fewer calls and messages.",
       },
     ],
   },
   {
-    id: "performance",
-    name: "Athlete Development & Performance",
-    summary: "From first assessment to career—development made visible.",
+    id: "growth-engagement",
+    name: "Growth & Engagement",
+    summary: "Promote events, engage audiences and manage commercial activities.",
     capabilities: [
       {
-        id: "athlete-management",
-        name: "Athlete management and development",
+        id: "social-media-campaigns",
+        name: "Social Media & Campaign Management",
+        short: "Plan campaigns, coordinate posts, manage approvals and track results.",
         problem:
-          "Check-ins, training logs and recovery notes are scattered, so staff struggle to see availability or long-term development.",
-        build: [
-          "Wellness check-ins",
-          "Training and workload logs",
-          "Recovery summaries",
-          "Availability tracking and staff alerts",
-          "Long-term development view",
+          "Campaign plans, content approvals and performance reports are spread across spreadsheets, messaging apps and social media accounts.",
+        build:
+          "A platform to plan campaigns, manage content calendars, assign responsibilities, approve posts and view performance across connected accounts.",
+        ai: [
+          "Draft campaign plans and post ideas for your team to edit.",
+          "Suggest improvements to captions and content before approval.",
+          "Identify engagement patterns and prepare performance summaries for review.",
         ],
-        outcome:
-          "Designed to give staff one shared view of each athlete, with practitioners making every decision.",
+        benefit:
+          "Teams can coordinate campaigns more easily, reduce repetitive work and understand what is performing well.",
       },
       {
-        id: "video-performance-analysis",
-        name: "Video and performance analysis",
+        id: "sponsorship-management",
+        name: "Sponsorship Management",
+        short: "Manage sponsor opportunities, commitments, activations and reports.",
         problem:
-          "Footage piles up faster than analysts can tag it, so clips, opposition reports and match summaries arrive too late to use.",
-        build: [
-          "Structured tagging and event-coding workflows",
-          "Player clip libraries",
-          "Opposition and match report templates",
-          "Searchable footage archive",
+          "Sponsor prospects, contract commitments and proof of delivery are kept in different files, so proposals take too long and showing sponsors their value is difficult.",
+        build:
+          "A sponsorship workspace to track prospects and proposals, record what each contract promises, schedule activations and store photos, figures and other evidence against each commitment. Renewal dates trigger reminders.",
+        ai: [
+          "Draft tailored proposals from your available inventory and a prospect’s interests.",
+          "Check delivered activations against contract commitments and flag gaps.",
+          "Prepare sponsor reports from the collected evidence for your team to review.",
         ],
-        outcome: "Designed to turn footage into decision-ready clips and reports sooner.",
-        note: "Advanced computer-vision analysis is scoped as a pilot or R&D engagement.",
+        benefit:
+          "Teams can deliver what was promised, report it clearly and go into renewal conversations with evidence ready.",
       },
       {
-        id: "talent-recruitment",
-        name: "Talent identification and recruitment",
+        id: "fan-engagement-ticketing",
+        name: "Fan Engagement & Ticketing",
+        short: "Understand audiences, manage engagement campaigns and analyse attendance.",
         problem:
-          "Scouting reports, data and video live in different places, making players hard to compare and shortlists hard to justify.",
-        build: [
-          "Standardized scouting reports",
-          "Player comparison on agreed criteria",
-          "Shortlist creation and review",
-          "Searchable talent pool",
-          "Evidence verification",
+          "Ticket sales, fan contacts and campaign results are held in separate systems, so messages go to everyone and attendance is hard to predict.",
+        build:
+          "A connected view of ticket sales and fan contacts, with audience groups, email and messaging campaigns, and attendance reports for every fixture or event. Reminders and follow-ups can run automatically.",
+        ai: [
+          "Group fans by behaviour, such as first-time buyers or lapsed season-ticket holders.",
+          "Forecast likely attendance from past sales, fixtures and timing.",
+          "Suggest which audiences to target and draft messages for review.",
         ],
-        outcome: "Designed to make recruitment decisions more consistent and better evidenced.",
+        benefit:
+          "Teams can send more relevant messages, plan promotion and staffing with better information and see what drives attendance.",
+      },
+      {
+        id: "membership-customer-management",
+        name: "Membership & Customer Management",
+        short: "Track enquiries, memberships, renewals and customer engagement.",
+        problem:
+          "Enquiries and trial members are followed up inconsistently, renewal dates are missed and it is hard to tell which members are losing interest.",
+        build:
+          "A membership system to record enquiries, follow each lead through to sign-up, manage memberships and renewals, and keep a history of every conversation. Follow-up tasks and renewal reminders are created automatically.",
+        ai: [
+          "Highlight members whose attendance or engagement is dropping, for staff to contact.",
+          "Suggest the next follow-up step for each enquiry or trial member.",
+          "Draft personalised welcome and renewal messages for staff to send.",
+        ],
+        benefit:
+          "Fewer enquiries slip through, renewals are handled on time and staff can reach members before they leave.",
+      },
+    ],
+  },
+  {
+    id: "athletes-performance",
+    name: "Athletes & Performance",
+    summary: "Support athlete development, training, performance and future opportunities.",
+    capabilities: [
+      {
+        id: "athlete-management-development",
+        name: "Athlete Management & Development",
+        short: "Maintain athlete profiles, assessments, development plans and progress records.",
+        problem:
+          "Athlete information is scattered across notebooks, spreadsheets and messages, so development is hard to follow across seasons or when an athlete changes coach or squad.",
+        build:
+          "One profile per athlete holding assessments, goals, development plans, coach notes and progress records, with controls over who can see what. Review dates and missing assessments prompt reminders.",
+        ai: [
+          "Summarise an athlete’s progress across assessments and coach notes.",
+          "Draft development goals from assessment results for the coach to adjust.",
+          "Compare results with the athlete’s own earlier records and highlight changes.",
+        ],
+        benefit:
+          "Coaches and staff share a clear, long-term picture of each athlete, while coaches make every development decision.",
+      },
+      {
+        id: "training-performance-monitoring",
+        name: "Training & Performance Monitoring",
+        short: "Plan training, track workloads and review performance over time.",
+        problem:
+          "Training plans, session records and results are kept in different apps and notebooks, so coaches struggle to see whether training is going to plan.",
+        build:
+          "A tool to plan training cycles and sessions, log completed sessions and workloads, record test and match results, and view trends across weeks and seasons. Athletes get session reminders and quick logging forms.",
+        ai: [
+          "Highlight where completed training differs from the plan, for the coach to review.",
+          "Summarise weekly training load and performance trends in plain language.",
+          "Suggest session adjustments within limits the coach sets.",
+        ],
+        benefit:
+          "Coaches spend less time collating records and more time coaching, with a clearer picture behind each training decision.",
+      },
+      {
+        id: "video-analysis-scouting",
+        name: "Video Analysis & Scouting",
+        short: "Organise match footage, review performances and support recruitment decisions.",
+        problem:
+          "Match footage, scouting reports and player data live in different places, so clips take too long to find and shortlisted players are hard to compare.",
+        build:
+          "A video library with structured tagging, clip collections for players and opponents, standard scouting report templates and shortlists that bring reports, data and video together.",
+        ai: [
+          "Make footage searchable through tags and transcribed commentary.",
+          "Summarise several scouting reports on a player into one overview.",
+          "Compare shortlisted players on the criteria your staff agree.",
+        ],
+        benefit:
+          "Analysts and scouts can find the right footage faster, and recruitment decisions rest on consistent, well-organised evidence.",
+        note: "Automated player tracking from video (computer vision) is scoped as a pilot or R&D engagement.",
       },
       {
         id: "athlete-career-welfare",
-        name: "Athlete career and welfare",
+        name: "Athlete Career & Welfare",
+        short: "Manage career opportunities, scholarships and athlete support processes.",
         problem:
-          "Athletes lack verified profiles and clear routes to scholarships, careers and welfare support.",
-        build: [
-          "Verified athlete profiles",
-          "Sports CV creation",
-          "Scholarship and college matching",
-          "Career-planning support",
-          "Access to welfare resources",
+          "Athletes miss scholarships and career openings because information is scattered, and welfare support requests are handled informally with little follow-up.",
+        build:
+          "A portal where athletes keep a verified sports CV, find and apply for scholarships and opportunities, and request support, while staff follow each application and welfare case through clear, confidential steps.",
+        ai: [
+          "Match athletes with scholarships and opportunities that fit their profile.",
+          "Help athletes draft CVs and application statements for staff to check.",
+          "Point athletes to the right support using the organisation’s own guidance.",
         ],
-        outcome:
-          "Designed to connect athletes with suitable opportunities and the right support at the right time.",
+        benefit:
+          "Athletes can see more suitable opportunities, and staff can make sure every support request is followed up.",
       },
     ],
   },
   {
-    id: "governance",
-    name: "Governance & Impact",
-    summary: "Safeguarding, participation and the evidence that sport changes lives.",
+    id: "management-reporting",
+    name: "Management & Reporting",
+    summary: "Track programmes, bring information together and make informed decisions.",
     capabilities: [
       {
-        id: "safeguarding-compliance",
-        name: "Safeguarding and compliance",
+        id: "dashboards-reporting",
+        name: "Dashboards & Reporting",
+        short: "View progress, deadlines, performance and important updates in one place.",
         problem:
-          "Concerns are hard to raise safely, cases are tracked inconsistently, and policies are difficult to find when they matter most.",
-        build: [
-          "Anonymous and confidential reporting",
-          "Case categorization and routing",
-          "Policy search assistant",
-          "Escalation with controlled access",
-          "Risk-oversight reporting",
+          "Information sits across spreadsheets, systems and messages, so reports are rebuilt by hand every month and leaders rarely have a current view.",
+        build:
+          "Dashboards that bring data from your existing tools together, show progress, deadlines and key figures for each team, and produce recurring reports automatically on a set schedule.",
+        ai: [
+          "Write plain-language summaries of what has changed since the last report.",
+          "Answer questions about your data, such as “Which programmes are behind schedule?”",
+          "Highlight unusual figures or approaching deadlines that need attention.",
         ],
-        outcome: "Designed to make concerns easier to raise and every case routed and recorded responsibly.",
+        benefit:
+          "Leaders get an up-to-date view without waiting for manual reports, and teams spend less time compiling spreadsheets.",
       },
       {
-        id: "community-participation",
-        name: "Community and participation programmes",
+        id: "sports-programme-management",
+        name: "Sports Programme Management",
+        short: "Track initiatives, participation, activities, milestones and outcomes.",
         problem:
-          "Programmes struggle to see who they reach, whether inclusion goals are met and where delivery needs help.",
-        build: [
-          "Participation tracking",
-          "Reach and inclusion monitoring",
-          "Delivery visibility by site",
-          "Outcome tracking",
+          "Programmes run across many sites, coaches and partners that report in different formats, so it is hard to know who is taking part and what is on track.",
+        build:
+          "A programme system to plan initiatives and milestones, record sessions and attendance at each site, track who takes part and follow progress. Coaches log sessions from their phones, and missing records trigger reminders.",
+        ai: [
+          "Turn session notes and coach feedback into a short programme update.",
+          "Highlight sites where participation or delivery is falling behind.",
+          "Spot gaps in reach, such as age groups or areas with low take-up.",
         ],
-        outcome: "Designed to show who programmes reach and where additional support is needed.",
+        benefit:
+          "Programme managers can see who they reach and where help is needed, without collecting updates by hand.",
       },
       {
-        id: "programme-grant-impact",
-        name: "Programme and grant impact",
+        id: "funding-impact-reporting",
+        name: "Funding & Impact Reporting",
+        short: "Monitor grants, spending, deliverables and programme results.",
         problem:
-          "Evidence for funders is gathered by hand from many sources, so outcomes are hard to measure and programmes hard to compare.",
-        build: [
-          "Evidence-collection workflows",
-          "Outcome-measurement frameworks",
-          "Funder-ready reporting",
-          "Cross-programme comparison",
+          "Grant conditions, budgets, deliverables and evidence for funders are tracked separately, so reporting is slow and spending is hard to link to results.",
+        build:
+          "A funding tracker for applications, grant conditions, budgets and spending, deliverables and reporting deadlines, with evidence such as photos, attendance and participant stories stored against each grant.",
+        ai: [
+          "Draft funder reports from programme data and collected evidence.",
+          "Check spending and deliverables against grant conditions and flag gaps.",
+          "Help prepare new applications from earlier proposals and results.",
         ],
-        outcome: "Designed to connect activity to outcomes and make funder reporting far less manual.",
+        benefit:
+          "Teams can meet reporting deadlines with less effort and show funders clearly how money was used and what it achieved.",
       },
       {
-        id: "organizational-intelligence",
-        name: "Organizational and programme intelligence",
+        id: "governance-compliance",
+        name: "Governance & Compliance",
+        short: "Organise policies, compliance checks, safeguarding and reporting responsibilities.",
         problem:
-          "Information is spread across spreadsheets and messaging tools, reports are rebuilt every month, and leaders lack a clear view.",
-        build: [
-          "Connected organizational data",
-          "Automated recurring reports",
-          "Leadership summaries",
-          "Alerts for decisions that need attention",
+          "Policies are hard to find, compliance tasks depend on memory and safeguarding concerns are recorded inconsistently, leaving gaps when it matters most.",
+        build:
+          "A governance hub with a searchable policy library, compliance calendars and checklists, confidential concern reporting and case records with controlled access. Due dates for checks and training trigger reminders.",
+        ai: [
+          "Answer policy questions in plain language, with a link to the source document.",
+          "Draft compliance checklists from your policies for review.",
+          "Suggest categories for incoming reports so the designated officer can prioritise.",
         ],
-        outcome: "Designed to give leadership a timely view and surface the decisions that need attention.",
+        benefit:
+          "People can find the right policy quickly, responsibilities are not forgotten and every concern reaches the right person.",
       },
     ],
   },
 ];
+
+/** Every capability with its area, in display order (for indexes and search-engine data). */
+export const allCapabilities = zones.flatMap((zone) =>
+  zone.capabilities.map((capability) => ({ zone, capability })),
+);
