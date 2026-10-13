@@ -46,8 +46,8 @@ const EMPTY: Values = {
 
 const LABELS: Record<Exclude<ContactField, "website">, string> = {
   fullName: "Your name",
-  organization: "Organization",
-  organizationType: "Type of organization",
+  organization: "Organisation",
+  organizationType: "Type of organisation",
   challenge: "What needs to work better?",
   currentProcess: "How is it handled today?",
   email: "Email",

@@ -7,7 +7,7 @@ import { organizationTypes } from "@/content/enquiry";
  */
 export const contactSchema = z.object({
   fullName: z.string().trim().min(2, "Please enter your name.").max(120, "Please shorten your name."),
-  organization: z.string().trim().min(2, "Please enter your organization’s name.").max(160),
+  organization: z.string().trim().min(2, "Please enter your organisation’s name.").max(160),
   organizationType: z.enum(organizationTypes, { error: "Please choose the closest option." }),
   challenge: z
     .string()
@@ -24,7 +24,7 @@ export const contactSchema = z.object({
     .trim()
     .min(1, "Please enter your email.")
     .max(200)
-    .pipe(z.email("Please enter a valid email, e.g. name@organization.com.")),
+    .pipe(z.email("Please enter a valid email, e.g. name@organisation.com.")),
   phone: z
     .string()
     .trim()

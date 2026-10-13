@@ -28,14 +28,14 @@ export function servicesJsonLd() {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${siteUrl}/#service`,
-    name: "Custom AI solutions for sports organizations",
-    serviceType: "Custom AI system design and development for sport",
+    name: "AI-powered digital solutions for sports organisations",
+    serviceType: "AI-powered digital solution design and development for sport",
     provider: { "@id": `${siteUrl}/#organization` },
     areaServed: "Worldwide",
     audience: {
       "@type": "Audience",
       audienceType:
-        "Teams, clubs, leagues, federations, events and venues, academies, gyms, community programmes, foundations, sports businesses and media organizations",
+        "Teams, clubs, leagues, federations, events and venues, academies, gyms, community programmes, foundations, sports businesses and media organisations",
     },
     description: siteConfig.description,
     hasOfferCatalog: {
@@ -50,7 +50,7 @@ export function servicesJsonLd() {
           itemOffered: {
             "@type": "Service",
             name: c.name,
-            description: `${c.short} ${c.problem} ${c.benefit} Illustrative capability, scoped through discovery for each organization.`,
+            description: `${c.short} ${c.problem} ${c.benefit} Illustrative capability, scoped through discovery for each organisation.`,
           },
         })),
       })),
