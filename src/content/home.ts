@@ -10,7 +10,7 @@ export const hero = {
   eyebrow: "Digital solutions for sport",
   /** The master tagline: two sentences, one statement, one h1. "Pulse" and "AI" in lime. */
   headline: {
-    line1: { pulse: "Pulse", rest: " of sport." },
+    line1: { pulse: "Pulse", rest: " of Sport." },
     line2: { before: "Power of ", ai: "AI", after: "." },
   },
   statement:
