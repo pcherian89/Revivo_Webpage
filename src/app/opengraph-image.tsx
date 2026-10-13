@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Revivo — Pulse of sport. Power of AI. Custom AI solutions for sport.";
+export const alt = "Revivo — Pulse of sport. Power of AI. AI-powered digital solutions for sport.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -38,7 +38,9 @@ export default function OpengraphImage() {
       <div style={{ marginTop: 56, fontSize: 60, fontWeight: 700, letterSpacing: -1.5 }}>
         Pulse of sport. Power of AI.
       </div>
-      <div style={{ marginTop: 18, fontSize: 26, color: "#C4C4BF" }}>Custom AI solutions for sport</div>
+      <div style={{ marginTop: 18, fontSize: 26, color: "#C4C4BF" }}>
+        AI-powered digital solutions for sport
+      </div>
     </div>,
     size,
   );

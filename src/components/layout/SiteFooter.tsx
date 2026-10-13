@@ -64,7 +64,7 @@ export function SiteFooter() {
 
         <div className="text-small mt-10 flex flex-col gap-2 text-subtle sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {siteConfig.name}. Custom AI solutions for sport.
+            © {year} {siteConfig.name}. AI-powered digital solutions for sport.
           </p>
           <ul className="flex gap-6">
             <li>

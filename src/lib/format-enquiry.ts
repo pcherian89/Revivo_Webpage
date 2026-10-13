@@ -17,5 +17,5 @@ export function formatEnquiry(d: ContactInput) {
 }
 
 export function enquirySubject(d: Pick<ContactInput, "organization">) {
-  return `Revivo enquiry — ${d.organization || "New organization"}`;
+  return `Revivo enquiry — ${d.organization || "New organisation"}`;
 }

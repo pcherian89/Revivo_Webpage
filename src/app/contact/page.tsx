@@ -6,7 +6,7 @@ import { finalCta } from "@/content/home";
 export const metadata: Metadata = {
   title: "Start with your challenge",
   description:
-    "Tell Revivo the process, bottleneck or decision in your sports organization that needs to work better. A person reads every message.",
+    "Tell Revivo the process, bottleneck or decision in your sports organisation that needs to work better. A person reads every message.",
   alternates: { canonical: "/contact" },
   openGraph: { url: "/contact" },
 };

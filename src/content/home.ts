@@ -7,14 +7,14 @@
  */
 
 export const hero = {
-  eyebrow: "Custom AI solutions for sport",
+  eyebrow: "Digital solutions for sport",
   /** The master tagline: two sentences, one statement, one h1. "Pulse" and "AI" in lime. */
   headline: {
     line1: { pulse: "Pulse", rest: " of sport." },
     line2: { before: "Power of ", ai: "AI", after: "." },
   },
   statement:
-    "Revivo designs custom AI systems for sports organizations—from operations and commercial growth to athlete development, performance, governance and impact.",
+    "Revivo builds AI-powered digital solutions for sport, helping organisations manage events, engage audiences, develop athletes and make better decisions.",
   secondaryAction: { label: "Explore the signal", href: "#explore" },
 } as const;
 
@@ -32,7 +32,7 @@ export const process = {
 } as const;
 
 export const finalCta = {
-  title: "What is your organization not seeing yet?",
+  title: "What is your organisation not seeing yet?",
   support: "Bring us the process, bottleneck or decision that needs to work better.",
   signal: {
     label: "Your signal",

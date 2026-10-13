@@ -14,6 +14,6 @@ export const organizationTypes = [
   "Government or community programme",
   "Foundation or CSR programme",
   "Sports business or agency",
-  "Media or content organization",
+  "Media or content organisation",
   "Other",
 ] as const;

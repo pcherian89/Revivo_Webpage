@@ -24,10 +24,10 @@ export const siteConfig = {
   /** Title used when the site is shared on social media. */
   socialTitle: "Pulse of Sport. Power of AI.",
   description:
-    "Revivo designs custom AI systems for sports operations, commercial growth, athlete development, performance, governance and impact.",
+    "Revivo builds AI-powered digital solutions for sport, helping organisations manage events, engage audiences, develop athletes and make better decisions.",
   socialDescription:
-    "Custom AI solutions built around the people, decisions and systems that keep sport moving.",
-  positioning: "Custom AI solutions for sports organizations worldwide.",
+    "AI-powered digital solutions built around the people, decisions and systems that keep sport moving.",
+  positioning: "AI-powered digital solutions for sports organisations worldwide.",
   founder: "Pothen Cherian",
 } as const;
 
