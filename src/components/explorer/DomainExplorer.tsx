@@ -13,6 +13,7 @@ import {
 } from "react";
 import { useMediaQuery } from "@/components/ui/useMediaQuery";
 import { explorer, zones } from "@/content/explorer";
+import type { RelatedProduct } from "@/content/products";
 import { cn } from "@/lib/cn";
 import { DIM_LIME, MID_LIME, orthogonal, SIGNAL, type Point } from "@/lib/signal";
 import { flash, signalClock } from "@/lib/signal-clock";
@@ -44,7 +45,12 @@ const useHydrated = () =>
  * 4. A capability opens a detail panel.
  * Without JavaScript (and for search engines) everything is shown at once.
  */
-export function DomainExplorer() {
+export function DomainExplorer({
+  relatedProducts,
+}: {
+  /** Owner-approved Revivo products per capability id, computed on the server */
+  relatedProducts?: Record<string, RelatedProduct[]>;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const reduce = Boolean(useReducedMotion());
   const isDesktop = useMediaQuery("(min-width: 64rem)");
@@ -332,11 +338,12 @@ export function DomainExplorer() {
                         aria-controls="explore-caps"
                         onClick={() => chooseZone(i)}
                         className={cn(
-                          "text-subtitle mt-3 min-h-11 max-w-[13rem] rounded-full px-2 transition-colors duration-200",
+                          "text-subtitle mt-3 min-h-11 max-w-[13rem] rounded-full px-2 whitespace-pre-line transition-colors duration-200",
                           on ? "text-ink" : "text-muted hover:text-ink",
                         )}
                       >
-                        {z.name}
+                        {/* Break after "&" so every area title sits on the same two lines */}
+                        {z.name.replace(" & ", " &\n")}
                       </button>
                       <p className={cn("text-small mt-1 max-w-[14rem]", on ? "text-muted" : "text-subtle")}>
                         {z.summary}
@@ -377,7 +384,8 @@ export function DomainExplorer() {
                           )}
                         >
                           <span className="font-medium">{c.name}</span>
-                          <span className="text-small inline-flex items-center gap-1 text-subtle group-hover:text-lime">
+                          <span className="text-small text-muted">{c.short}</span>
+                          <span className="text-small mt-1 inline-flex items-center gap-1 text-subtle group-hover:text-lime">
                             View possibilities <ArrowRight aria-hidden="true" className="size-3.5" />
                           </span>
                         </button>
@@ -401,6 +409,7 @@ export function DomainExplorer() {
             {zones.map((z, i) => {
               const visible = i < zonesVisible;
               const on = i === openZone;
+              const expanded = on || staticAll; // server / no-JS: every area open, all 16 capabilities listed
               return (
                 <m.li
                   key={z.id}
@@ -418,7 +427,7 @@ export function DomainExplorer() {
                       <button
                         type="button"
                         id={`zone-acc-${z.id}`}
-                        aria-expanded={on}
+                        aria-expanded={expanded}
                         aria-controls={`zone-acc-panel-${z.id}`}
                         onClick={() => chooseZone(i)}
                         className={cn(
@@ -429,7 +438,7 @@ export function DomainExplorer() {
                         {z.name}
                       </button>
                     </h3>
-                    {on && (
+                    {expanded && (
                       <div
                         id={`zone-acc-panel-${z.id}`}
                         role="region"
@@ -456,11 +465,17 @@ export function DomainExplorer() {
                                   onClick={(e) => openCapability(j, e)}
                                   className={cn(
                                     "flex min-h-12 w-full items-center gap-3 py-2 text-left",
-                                    activeCap === j ? "text-lime" : "text-ink",
+                                    on && activeCap === j ? "text-lime" : "text-ink",
                                   )}
                                 >
-                                  <SignalNode anchor={`cap-${j}`} state={activeCap === j ? "on" : "dim"} />
-                                  <span className="flex-1 font-medium">{c.name}</span>
+                                  <SignalNode
+                                    anchor={on ? `cap-${j}` : undefined}
+                                    state={on && activeCap === j ? "on" : "dim"}
+                                  />
+                                  <span className="flex flex-1 flex-col">
+                                    <span className="font-medium">{c.name}</span>
+                                    <span className="text-small text-muted">{c.short}</span>
+                                  </span>
                                   <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-subtle" />
                                 </button>
                               </m.li>
@@ -490,6 +505,7 @@ export function DomainExplorer() {
         onClose={closePanel}
         onSwitch={(cap) => selection && setSelection({ zone: selection.zone, cap })}
         onDiscuss={discuss}
+        relatedProducts={relatedProducts}
       />
     </section>
   );

@@ -8,7 +8,7 @@ Revivo is a global AI solutions-building company for the sports ecosystem. The h
 
 1. **Hero** — the master tagline and the Revivo Signal, which runs beneath the headline, pulses under "Pulse" and flows down
 2. **Domain explorer** — the signal enters the Revivo Intelligence Layer and branches into four solution zones
-   (Operations & Infrastructure, Revenue & Engagement, Athlete Development & Performance, Governance & Impact);
+   (Events & Operations, Growth & Engagement, Athletes & Performance, Management & Reporting);
    each zone shows four capabilities, and each capability opens a detail panel
 3. **How Revivo works** — Discover → Define → Prototype → Build, on a rail with a light running through it
 4. **Final call to action** — "What is your organization not seeing yet?", a "Your signal" line that reacts as
@@ -111,7 +111,7 @@ scripts/check-copy.ts        Keeps copy within its word limits (4 zones × 4 cap
 ### Changing website copy
 
 Hero, process and final-CTA wording is in **`src/content/home.ts`**; the four zones and sixteen capabilities
-(problem, what Revivo could build, potential outcome) are in **`src/content/explorer.ts`**. Change the text between the quotes and save. Then run
+(problem, what Revivo can build, how AI helps, benefit) are in **`src/content/explorer.ts`**. Change the text between the quotes and save. Then run
 `npm run check:copy` — it fails if any text grows past its word limit, which keeps the homepage short. Privacy and
 terms wording is in `src/app/privacy/page.tsx` and `src/app/terms/page.tsx`.
 

@@ -15,15 +15,7 @@ export function organizationJsonLd() {
     description: siteConfig.description,
     founder: { "@type": "Person", name: siteConfig.founder },
     areaServed: "Worldwide",
-    knowsAbout: [
-      "AI solutions for sport",
-      "Sports operations and event technology",
-      "Sponsorship and fan intelligence",
-      "Athlete development and performance analysis",
-      "Safeguarding and governance in sport",
-      "Sports programme and grant impact",
-      "Custom sports software development",
-    ],
+    knowsAbout: ["AI solutions for sport", ...zones.map((z) => z.name), "Custom sports software development"],
     ...(contactConfig.email
       ? { contactPoint: { "@type": "ContactPoint", contactType: "sales", email: contactConfig.email } }
       : {}),
@@ -50,12 +42,17 @@ export function servicesJsonLd() {
       "@type": "OfferCatalog",
       name: "Solution areas",
       itemListElement: zones.map((z) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: z.name,
-          description: `${z.summary} Illustrative capabilities, scoped through discovery for each organization.`,
-        },
+        "@type": "OfferCatalog",
+        name: z.name,
+        description: z.summary,
+        itemListElement: z.capabilities.map((c) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: c.name,
+            description: `${c.short} ${c.problem} ${c.benefit} Illustrative capability, scoped through discovery for each organization.`,
+          },
+        })),
       })),
     },
   };

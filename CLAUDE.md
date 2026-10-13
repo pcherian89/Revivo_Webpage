@@ -10,8 +10,10 @@ organizations to understand operational, commercial, performance, participation,
 designs and builds the appropriate AI-powered system around their workflows.
 
 Revivo is **not**: only a coaching, athlete-performance or fitness company; a fixed catalogue of products; an
-India-specific company; or Revivo IQ. **There are no finished products.** The sixteen capabilities are illustrative
-systems Revivo can configure and build. Never write "Our Products" or "Request a demo".
+India-specific company; or Revivo IQ. The sixteen capabilities are illustrative systems Revivo can configure and
+build. Never write "Our Products" or "Request a demo". **Products are not a website category.** Revivo products are
+linked to capabilities internally in `src/content/products.ts` (many-to-many) and appear only as a "Related Revivo
+product" link in a capability panel once the owner approves it (`showcase: true` plus a product page).
 
 ## 2. Approved language
 
@@ -28,14 +30,19 @@ systems Revivo can configure and build. Never write "Our Products" or "Request a
   people, decisions and systems that keep sport moving."
 - **Retired — never use:** "AI that gives sport a pulse", "Sport, intelligently built", "From silence to signal",
   "Build the unseen advantage", "Find the flatline", "AI for fitness and sports", any India-based positioning.
-- Capability language: "could build", "designed to", "illustrative", "potential outcome". Structure every capability as
-  Problem → What Revivo could build → Potential outcome (no client-type or decision-maker lists — this is not a pitch deck).
+- Capability language: plain English a sports administrator understands; never claim a product, integration or AI
+  function already exists. Each capability has a one-line `short` description and a panel structured as
+  The problem → What Revivo can build (workflows + automation) → How AI helps (2–3 specific examples, distinct from
+  ordinary automation) → The benefit (no promised results). Humans stay responsible for approvals and decisions.
+- The four areas (approved October 2026): Events & Operations, Growth & Engagement, Athletes & Performance,
+  Management & Reporting. The Intelligence Layer is a visual device, never a separately deployed platform.
 - Keep client examples varied (gyms, academies, teams, leagues, federations, events, venues, government and community
   programmes, foundations/CSR, sports businesses, media). Do not over-index on coaches or athletes.
 - Required qualifier in the explorer and panels: "Illustrative possibilities. Every Revivo system is designed around the
   client's workflows, users, data and objectives."
-- Copy limits (enforced by `npm run check:copy`): hero statement ≤35 words, explorer intro ≤40, capability problem
-  and outcome ≤35, build items 3–5 of ≤12 words, process step ≤20, exactly 4 zones × 4 capabilities.
+- Copy limits (enforced by `npm run check:copy`): hero statement ≤35 words, explorer intro ≤40, capability short ≤14,
+  problem ≤35, build ≤45, benefit ≤30, 2–3 AI examples of ≤16 words, process step ≤20, exactly 4 zones × 4
+  capabilities. The check also fails if an unapproved product name appears in the copy.
 
 ## 3. Prohibited claims (never add, even if asked casually — confirm with the owner first)
 
@@ -102,6 +109,7 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
 ## 6. Component structure
 
 - `src/content/explorer.ts` — the four zones and sixteen capabilities (single source for map, HTML and panels).
+- `src/content/products.ts` — internal product ↔ capability links; only showcased products reach the browser.
 - `src/content/home.ts` — hero, process and final CTA copy. `src/content/enquiry.ts` — form options.
 - `src/components/scenes/` — `HeroScene`, `ProcessScene`, `FinalCtaScene`.
 - `src/components/explorer/` — `DomainExplorer`, `DomainPanel`, `SignalNode`, `useAnchors`, `useTravel`.
