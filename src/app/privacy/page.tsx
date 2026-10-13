@@ -23,7 +23,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy policy"
-      updated="6 October 2026"
+      updated="13 October 2026"
       intro={
         <p>
           This policy explains what information Revivo collects through this website, why we collect it and
@@ -38,11 +38,8 @@ export default function PrivacyPage() {
               <p>When you submit an enquiry, we collect the details you choose to provide, such as:</p>
               <ul>
                 <li>your name, work email and (optionally) phone number;</li>
-                <li>your organization’s name, type and country;</li>
-                <li>
-                  your description of the problem, current process, users, desired outcome, timeline and
-                  budget.
-                </li>
+                <li>your organisation’s name and type;</li>
+                <li>your description of what needs to work better and how it is handled today.</li>
               </ul>
               <p>
                 Please do not submit sensitive personal information—such as medical, health or

@@ -17,8 +17,8 @@ product" link in a capability panel once the owner approves it (`showcase: true`
 
 ## 2. Approved language
 
-- **Master tagline (exactly as written, hero h1 only): "Pulse of sport. Power of AI."** — two sentences, one
-  statement, one `h1`, on two lines ("Pulse of sport." / "Power of AI."), same size and weight, line-height ≈0.92.
+- **Master tagline (exactly as written, hero h1 only): "Pulse of Sport. Power of AI."** — two sentences, one
+  statement, one `h1`, on two lines ("Pulse of Sport." / "Power of AI."), same size and weight, line-height ≈0.92.
   Only "Pulse" and "AI" in lime. The running pulse sits beneath the whole headline, never between the lines.
   No other slogans on the homepage. (Previous tagline "AI built for the pulse of sport." is retired.)
 - Eyebrow: "DIGITAL SOLUTIONS FOR SPORT"

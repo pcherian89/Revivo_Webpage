@@ -2,7 +2,7 @@
 
 The official website for **Revivo**, a specialist AI solutions builder for sports and fitness.
 
-> **Pulse of sport. Power of AI.**
+> **Pulse of Sport. Power of AI.**
 
 Revivo is a global AI solutions-building company for the sports ecosystem. The homepage is deliberately short:
 
