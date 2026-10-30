@@ -17,17 +17,19 @@ product" link in a capability panel once the owner approves it (`showcase: true`
 
 ## 2. Approved language
 
-- **Master tagline (exactly as written, hero h1 only): "Pulse of Sport. Power of AI."** — two sentences, one
-  statement, one `h1`, on two lines ("Pulse of Sport." / "Power of AI."), same size and weight, line-height ≈0.92.
-  Only "Pulse" and "AI" in lime. The running pulse sits beneath the whole headline, never between the lines.
-  No other slogans on the homepage. (Previous tagline "AI built for the pulse of sport." is retired.)
+- **Master tagline (exactly as written, hero h1 only): "Pulse of Sport. Mind of the Game."** (approved Oct 2026) — two
+  sentences, one statement, one `h1`, on two lines ("Pulse of Sport." / "Mind of the Game."), same size and weight,
+  line-height ≈0.92. Only "Pulse" and "Mind" in lime. The running pulse sits beneath the whole headline, never between
+  the lines. No other slogans on the homepage. "AI" stays out of the tagline (overused) and appears once in the hero,
+  in the supporting copy ("AI-powered digital solutions"). Retired taglines: "AI built for the pulse of sport.",
+  "Pulse of Sport. Power of AI."
 - Eyebrow: "DIGITAL SOLUTIONS FOR SPORT"
 - Supporting copy: "Revivo builds AI-powered digital solutions for sport, helping organisations manage events, engage
   audiences, develop athletes and make better decisions." (one phrase per area, in area order)
 - British English throughout visible copy (organisation, programme, analyse).
 - Primary action everywhere: **"Start a conversation"** (`/#start`) — replaced "Start with your challenge" (sounded like a game). Panel action "Discuss this with us"; form button "Send message". Hero secondary: "Explore the signal" (`#explore`).
 - Process statement: "We start with the problem—not the technology." Final CTA: "What is your organisation not seeing yet?"
-- Page title: "Revivo — Pulse of Sport. Power of AI." Social title: "Pulse of Sport. Power of AI." Social description: "AI-powered digital solutions built around the
+- Page title: "Revivo — Pulse of Sport. Mind of the Game." Social title: "Pulse of Sport. Mind of the Game." Social description: "AI-powered digital solutions built around the
   people, decisions and systems that keep sport moving."
 - **Retired — never use:** "AI that gives sport a pulse", "Sport, intelligently built", "From silence to signal",
   "Build the unseen advantage", "Find the flatline", "AI for fitness and sports", any India-based positioning.

@@ -477,9 +477,8 @@ export function TreeHome({ relatedProducts }: { relatedProducts?: Record<string,
               )}
             >
               <span className="text-lime">{hero.headline.line1.pulse}</span>
-              {hero.headline.line1.rest} {hero.headline.line2.before}
-              <span className="text-lime">{hero.headline.line2.ai}</span>
-              {hero.headline.line2.after}
+              {hero.headline.line1.rest} <span className="text-lime">{hero.headline.line2.accent}</span>
+              {hero.headline.line2.rest}
             </h1>
             <button
               type="button"

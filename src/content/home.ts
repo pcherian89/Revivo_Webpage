@@ -8,10 +8,10 @@
 
 export const hero = {
   eyebrow: "Digital solutions for sport",
-  /** The master tagline: two sentences, one statement, one h1. "Pulse" and "AI" in lime. */
+  /** The master tagline: two sentences, one statement, one h1. "Pulse" and "Mind" in lime. */
   headline: {
     line1: { pulse: "Pulse", rest: " of Sport." },
-    line2: { before: "Power of ", ai: "AI", after: "." },
+    line2: { accent: "Mind", rest: " of the Game." },
   },
   statement:
     "Revivo builds AI-powered digital solutions for sport, helping organisations manage events, engage audiences, develop athletes and make better decisions.",

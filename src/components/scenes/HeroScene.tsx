@@ -33,9 +33,8 @@ export function HeroScene() {
           </span>{" "}
           <span className="hero-mask">
             <span style={delay(520)}>
-              {headline.line2.before}
-              <span className="text-lime">{headline.line2.ai}</span>
-              {headline.line2.after}
+              <span className="text-lime">{headline.line2.accent}</span>
+              {headline.line2.rest}
             </span>
           </span>
         </h1>
