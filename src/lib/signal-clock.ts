@@ -17,6 +17,8 @@ export type Segment = {
   paths: SVGPathElement[];
   length: number;
   events?: SignalEvent[];
+  /** Length of the light on this segment (defaults to DASH) */
+  dash?: number;
   /** Called each frame with the light's head position on this segment (null when it is elsewhere). */
   onMove?: (pt: DOMPoint | null) => void;
 };
@@ -34,9 +36,10 @@ let start = 0;
 let prevD = -1;
 
 function prepare(seg: Segment) {
+  const dash = seg.dash ?? DASH;
   for (const p of seg.paths) {
-    p.style.strokeDasharray = `${DASH} ${seg.length + DASH * 2}`;
-    p.style.strokeDashoffset = String(DASH); // hidden before its start
+    p.style.strokeDasharray = `${dash} ${seg.length + DASH * 2}`;
+    p.style.strokeDashoffset = String(dash); // hidden before its start
   }
 }
 
@@ -54,7 +57,7 @@ function frame(now: number) {
   let offset = 0;
   for (const seg of ordered) {
     const local = d - offset;
-    const off = String(DASH - local);
+    const off = String((seg.dash ?? DASH) - local);
     for (const p of seg.paths) p.style.strokeDashoffset = off;
     if (seg.onMove) {
       const on = local >= 0 && local <= seg.length;

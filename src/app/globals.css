@@ -272,3 +272,9 @@
     display: none;
   }
 }
+
+/* Tree preview: the server render shows every capability (for search engines and no-JS);
+   with JavaScript on, keep it hidden until the interactive tree takes over. */
+html.js [data-ssr="true"] .tree-reveal {
+  visibility: hidden;
+}
