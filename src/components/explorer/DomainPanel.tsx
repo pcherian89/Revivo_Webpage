@@ -15,6 +15,8 @@ type Props = {
   onDiscuss: (capName: string) => void;
   /** Owner-approved Revivo products per capability id (empty until a product is showcased) */
   relatedProducts?: Record<string, RelatedProduct[]>;
+  /** Overrides the panel's call to action (e.g. on the tree preview) */
+  ctaLabel?: string;
 };
 
 const EASE = [0.25, 1, 0.5, 1] as const;
@@ -25,7 +27,15 @@ const EASE = [0.25, 1, 0.5, 1] as const;
  * the close button all close it; focus is trapped inside and restored after.
  * Choosing another capability replaces the content instead of stacking panels.
  */
-export function DomainPanel({ selection, isDesktop, onClose, onSwitch, onDiscuss, relatedProducts }: Props) {
+export function DomainPanel({
+  selection,
+  isDesktop,
+  onClose,
+  onSwitch,
+  onDiscuss,
+  relatedProducts,
+  ctaLabel,
+}: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const open = Boolean(selection);
@@ -192,7 +202,7 @@ export function DomainPanel({ selection, isDesktop, onClose, onSwitch, onDiscuss
                     onClick={() => onDiscuss(cap.name)}
                     className="group mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-lime px-6 font-display text-base font-bold tracking-[0.03em] text-canvas transition-colors hover:bg-ink"
                   >
-                    {L.cta}
+                    {ctaLabel ?? L.cta}
                     <ArrowRight aria-hidden="true" className="size-4" />
                   </button>
 

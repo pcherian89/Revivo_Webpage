@@ -5,12 +5,14 @@
 export const conversation = {
   /** Replaces "Start with your challenge" in the preview (owner felt it sounded like a game) */
   label: "Start a conversation",
+  submit: "Send message",
+  discuss: "Discuss this with us",
 };
 
 export const treeCopy = {
   powerOn: "Power on",
   powerOnAria: "Power on the Revivo Intelligence Layer",
-  powerHint: "Tap the dot to power on",
+  powerHint: "Tap to power on",
   chooseZone: "Choose an area",
   chooseCap: "Choose a capability",
   overview: "See all 16",

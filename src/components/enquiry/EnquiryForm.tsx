@@ -67,7 +67,14 @@ const ORDER: ContactField[] = [
 ];
 
 /** The short, problem-led enquiry. Used on the homepage (scene 5) and /contact. */
-export function EnquiryForm({ idPrefix = "enquiry" }: { idPrefix?: string }) {
+export function EnquiryForm({
+  idPrefix = "enquiry",
+  submitLabel = enquiry.submit,
+}: {
+  idPrefix?: string;
+  /** Overrides the submit button text (e.g. on the tree preview) */
+  submitLabel?: string;
+}) {
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>({ kind: "idle" });
@@ -271,7 +278,7 @@ export function EnquiryForm({ idPrefix = "enquiry" }: { idPrefix?: string }) {
           ) : (
             <SignalGlyph color="#0A0A0B" className="h-5 w-11" />
           )}
-          {sending ? "Sending…" : enquiry.submit}
+          {sending ? "Sending…" : submitLabel}
         </button>
         <p className="text-small text-subtle" aria-live="polite">
           {sending ? "Sending your challenge…" : "A person reads every message."}

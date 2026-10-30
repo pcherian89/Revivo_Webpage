@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -10,6 +11,8 @@ import { navLinks, primaryCta, siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
 
 export function SiteHeader() {
+  // The tree preview is a bare page: no header at all
+  const bare = usePathname() === "/preview";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -66,10 +69,12 @@ export function SiteHeader() {
   }, [open, close]);
 
   const solid = scrolled || open;
+  if (bare) return null;
 
   return (
     <>
       <header
+        data-site-chrome
         className={cn(
           "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300 ease-out",
           solid ? "border-line bg-canvas/95 backdrop-blur-md" : "border-transparent bg-transparent",

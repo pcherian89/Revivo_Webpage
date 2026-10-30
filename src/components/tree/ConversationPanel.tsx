@@ -140,7 +140,7 @@ export function ConversationPanel({
               <ChallengeAside />
 
               <div className="mt-10 border-t border-line pt-8">
-                <EnquiryForm idPrefix="talk" />
+                <EnquiryForm idPrefix="talk" submitLabel={conversation.submit} />
               </div>
             </div>
           </m.div>

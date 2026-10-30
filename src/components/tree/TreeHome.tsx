@@ -345,20 +345,16 @@ export function TreeHome({ relatedProducts }: { relatedProducts?: Record<string,
 
   /* ---------------- render ---------------- */
 
-  const hint = !hydrated
-    ? null
-    : !powered
-      ? treeCopy.powerHint
-      : route.zone == null && !overview
-        ? treeCopy.chooseZone
-        : !overview
-          ? treeCopy.chooseCap
-          : null;
   const panelSel = route.zone != null && route.cap != null ? { zone: route.zone, cap: route.cap } : null;
   const iDot = p["i-dot"];
 
   return (
-    <div ref={stageRef} className="relative min-h-[100svh] pb-20" data-ssr={hydrated ? undefined : "true"}>
+    <div
+      ref={stageRef}
+      data-bare-page
+      className="relative min-h-[100svh] pb-12"
+      data-ssr={hydrated ? undefined : "true"}
+    >
       {geo && (
         <Perforation
           mask="linear-gradient(#000, #000)"
@@ -469,162 +465,157 @@ export function TreeHome({ relatedProducts }: { relatedProducts?: Record<string,
         </svg>
       )}
 
-      <div className="container-site relative z-10 pt-24 lg:pt-28">
-        {/* Who Revivo is — readable before any click */}
-        <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:items-end lg:gap-12">
-          <div>
-            <p className="label text-subtle">{hero.eyebrow}</p>
-            <h1 className="text-hero mt-4 leading-[0.92]">
-              <span className="block">
-                <span className="text-lime">{hero.headline.line1.pulse}</span>
-                {hero.headline.line1.rest}
-              </span>
-              <span className="block">
-                {hero.headline.line2.before}
-                <span className="text-lime">{hero.headline.line2.ai}</span>
-                {hero.headline.line2.after}
-              </span>
+      <div className="container-site relative z-10">
+        {/* Switched off, the screen holds only the running light and the logo.
+            Powered on, the tagline appears above it and the tree grows below. */}
+        <div className="pt-[max(9rem,34svh)]">
+          <div className="relative mx-auto w-full max-w-[36rem]">
+            <h1
+              className={cn(
+                "text-title absolute inset-x-0 bottom-full mb-12 text-center leading-[1] transition-opacity duration-700",
+                powered ? "opacity-100 delay-300" : "opacity-0",
+              )}
+            >
+              <span className="text-lime">{hero.headline.line1.pulse}</span>
+              {hero.headline.line1.rest} {hero.headline.line2.before}
+              <span className="text-lime">{hero.headline.line2.ai}</span>
+              {hero.headline.line2.after}
             </h1>
-          </div>
-          <div>
-            <p className="text-lead measure text-muted">{hero.statement}</p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={openTalk}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-lime px-6 font-display text-base font-bold tracking-[0.03em] text-canvas transition-colors hover:bg-ink"
+            <button
+              type="button"
+              onClick={powerOn}
+              aria-expanded={powered}
+              aria-controls="tree-areas"
+              aria-label={
+                powered ? `Revivo — ${treeCopy.intelligence}. Show the four areas` : treeCopy.powerOnAria
+              }
+              className="group relative block w-full rounded-lg"
+            >
+              <svg
+                viewBox="0 154 558 108"
+                className="block h-auto w-full overflow-visible"
+                aria-hidden="true"
               >
-                {conversation.label}
-                <ArrowRight aria-hidden="true" className="size-4" />
-              </button>
-              <button
-                type="button"
-                onClick={powered ? toggleOverview : powerOn}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-6 font-display text-base font-bold tracking-[0.03em] text-ink transition-colors hover:border-lime"
-              >
-                {!powered ? treeCopy.powerOn : overview ? treeCopy.closeOverview : treeCopy.overview}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* The root: the Revivo logo. Tap it to power on. */}
-        <div className="relative mx-auto mt-12 w-full max-w-[32rem] lg:mt-12">
-          <p
-            aria-live="polite"
-            className={cn("label mb-3 flex min-h-6 items-center gap-2 text-lime", !hint && "invisible")}
-            style={{ paddingLeft: `${(MARK_START.x / LOGO.w) * 100}%` }}
-          >
-            {!powered && <Pointer aria-hidden="true" className="size-4" />}
-            {hint ?? " "}
-          </p>
-          <button
-            type="button"
-            onClick={powerOn}
-            aria-expanded={powered}
-            aria-controls="tree-areas"
-            aria-label={
-              powered ? `Revivo — ${treeCopy.intelligence}. Show the four areas` : treeCopy.powerOnAria
-            }
-            className="group relative block w-full rounded-lg"
-          >
-            <svg viewBox="0 154 558 108" className="block h-auto w-full overflow-visible" aria-hidden="true">
-              <defs>
-                <clipPath id="tree-wordmark-clip">
-                  <path d={WORDMARK_PATH} />
-                </clipPath>
-              </defs>
-              <path
-                d={MARK_PATH}
-                fill="none"
-                stroke={powered ? SIGNAL.color : MID_LIME}
-                strokeWidth="10.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                style={{ transition: "stroke 700ms ease-out" }}
-              />
-              <path
-                ref={setPath("mark-glow")}
-                className="sig-light"
-                d={MARK_PATH}
-                fill="none"
-                stroke={SIGNAL.color}
-                strokeOpacity={0.35}
-                strokeWidth={22}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                ref={setPath("mark-core")}
-                className="sig-light"
-                d={MARK_PATH}
-                fill="none"
-                stroke="#F5F5F2"
-                strokeWidth={3.5}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle
-                ref={endDotRef}
-                cx={END_DOT.x}
-                cy={END_DOT.y}
-                r="7.96"
-                fill={powered ? SIGNAL.color : MID_LIME}
-                style={{
-                  transformBox: "fill-box",
-                  transformOrigin: "center",
-                  transition: "fill 700ms ease-out",
-                }}
-              />
-              <path
-                d={WORDMARK_PATH}
-                fill={powered ? "#F5F5F2" : "#8C8C88"}
-                style={{ transition: "fill 700ms ease-out" }}
-              />
-              {/* The light passing through the letters */}
-              <g clipPath="url(#tree-wordmark-clip)">
+                <defs>
+                  <clipPath id="tree-wordmark-clip">
+                    <path d={WORDMARK_PATH} />
+                  </clipPath>
+                </defs>
                 <path
-                  ref={setPath("word")}
+                  d={MARK_PATH}
+                  fill="none"
+                  stroke={powered ? SIGNAL.color : MID_LIME}
+                  strokeWidth="10.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ transition: "stroke 700ms ease-out" }}
+                />
+                <path
+                  ref={setPath("mark-glow")}
                   className="sig-light"
-                  d={powered ? WORD_TO_I : WORD_FULL}
+                  d={MARK_PATH}
                   fill="none"
                   stroke={SIGNAL.color}
-                  strokeWidth={110}
-                  strokeLinecap="butt"
+                  strokeOpacity={0.35}
+                  strokeWidth={22}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
-              </g>
-              {/* The dot of the i — the Revivo Intelligence Layer */}
-              <circle
-                ref={iDotRef}
-                cx={I_DOT.x}
-                cy={I_DOT.y}
-                r="8.9"
-                fill={SIGNAL.color}
-                opacity={powered ? 1 : 0}
-                style={{
-                  transformBox: "fill-box",
-                  transformOrigin: "center",
-                  transition: "opacity 500ms ease-out",
-                }}
-              />
-            </svg>
-            {/* measured points on the logo */}
-            {(
-              [
-                ["mark-start", MARK_START],
-                ["i-dot", I_DOT],
-                ["i-bottom", I_BOTTOM],
-              ] as const
-            ).map(([name, pt]) => (
-              <span
-                key={name}
-                data-anchor={name}
-                aria-hidden="true"
-                className="absolute size-px"
-                style={at(pt)}
-              />
-            ))}
-          </button>
+                <path
+                  ref={setPath("mark-core")}
+                  className="sig-light"
+                  d={MARK_PATH}
+                  fill="none"
+                  stroke="#F5F5F2"
+                  strokeWidth={3.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle
+                  ref={endDotRef}
+                  cx={END_DOT.x}
+                  cy={END_DOT.y}
+                  r="7.96"
+                  fill={powered ? SIGNAL.color : MID_LIME}
+                  style={{
+                    transformBox: "fill-box",
+                    transformOrigin: "center",
+                    transition: "fill 700ms ease-out",
+                  }}
+                />
+                <path
+                  d={WORDMARK_PATH}
+                  fill={powered ? "#F5F5F2" : "#8C8C88"}
+                  style={{ transition: "fill 700ms ease-out" }}
+                />
+                {/* The light passing through the letters */}
+                <g clipPath="url(#tree-wordmark-clip)">
+                  <path
+                    ref={setPath("word")}
+                    className="sig-light"
+                    d={powered ? WORD_TO_I : WORD_FULL}
+                    fill="none"
+                    stroke={SIGNAL.color}
+                    strokeWidth={110}
+                    strokeLinecap="butt"
+                  />
+                </g>
+                {/* Switched off: a soft ring keeps opening out of the dot — this is the switch */}
+                {!powered && (
+                  <circle
+                    className="tree-ring"
+                    cx={END_DOT.x}
+                    cy={END_DOT.y}
+                    r="9"
+                    fill="none"
+                    stroke={SIGNAL.color}
+                    strokeWidth="2"
+                  />
+                )}
+                {/* The dot of the i — the Revivo Intelligence Layer */}
+                <circle
+                  ref={iDotRef}
+                  cx={I_DOT.x}
+                  cy={I_DOT.y}
+                  r="8.9"
+                  fill={SIGNAL.color}
+                  opacity={powered ? 1 : 0}
+                  style={{
+                    transformBox: "fill-box",
+                    transformOrigin: "center",
+                    transition: "opacity 500ms ease-out",
+                  }}
+                />
+              </svg>
+              {/* measured points on the logo */}
+              {(
+                [
+                  ["mark-start", MARK_START],
+                  ["i-dot", I_DOT],
+                  ["i-bottom", I_BOTTOM],
+                ] as const
+              ).map(([name, pt]) => (
+                <span
+                  key={name}
+                  data-anchor={name}
+                  aria-hidden="true"
+                  className="absolute size-px"
+                  style={at(pt)}
+                />
+              ))}
+              {/* The instruction sits right under the dot it refers to */}
+              {hydrated && !powered && (
+                <span
+                  aria-hidden="true"
+                  className="label absolute mt-5 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap text-lime"
+                  style={{ left: at(END_DOT).left, top: "100%" }}
+                >
+                  <Pointer className="size-4" />
+                  {treeCopy.powerHint}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* The tree */}
@@ -632,8 +623,25 @@ export function TreeHome({ relatedProducts }: { relatedProducts?: Record<string,
           {powered && (wideTree ? renderDesktopTree() : renderPhoneTree())}
         </div>
 
-        {powered && (
-          <p className="text-small mx-auto mt-14 max-w-xl text-center text-subtle">{explorer.qualifier}</p>
+        {powered && hydrated && (
+          <div className="mt-14 flex flex-col items-center gap-5 text-center">
+            <button
+              type="button"
+              onClick={toggleOverview}
+              className="inline-flex min-h-11 items-center rounded-full border border-line-strong px-5 font-display text-base font-bold tracking-[0.03em] text-ink transition-colors hover:border-lime"
+            >
+              {overview ? treeCopy.closeOverview : treeCopy.overview}
+            </button>
+            <p className="text-small max-w-xl text-subtle">{explorer.qualifier}</p>
+            <p className="text-small flex gap-6 text-subtle">
+              <a href="/privacy" className="inline-flex min-h-11 items-center hover:text-ink">
+                Privacy
+              </a>
+              <a href="/terms" className="inline-flex min-h-11 items-center hover:text-ink">
+                Terms
+              </a>
+            </p>
+          </div>
         )}
       </div>
 
@@ -646,6 +654,7 @@ export function TreeHome({ relatedProducts }: { relatedProducts?: Record<string,
         }
         onDiscuss={discuss}
         relatedProducts={relatedProducts}
+        ctaLabel={conversation.discuss}
       />
       <ConversationPanel open={route.view === "talk"} isDesktop={isDesktop} onClose={closeTalk} />
     </div>
