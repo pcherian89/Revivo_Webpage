@@ -25,7 +25,7 @@ product" link in a capability panel once the owner approves it (`showcase: true`
 - Supporting copy: "Revivo builds AI-powered digital solutions for sport, helping organisations manage events, engage
   audiences, develop athletes and make better decisions." (one phrase per area, in area order)
 - British English throughout visible copy (organisation, programme, analyse).
-- Primary action everywhere: **"Start with your challenge"** (`/#start`). Hero secondary: "Explore the signal" (`#explore`).
+- Primary action everywhere: **"Start a conversation"** (`/#start`) — replaced "Start with your challenge" (sounded like a game). Panel action "Discuss this with us"; form button "Send message". Hero secondary: "Explore the signal" (`#explore`).
 - Process statement: "We start with the problem—not the technology." Final CTA: "What is your organisation not seeing yet?"
 - Page title: "Revivo — Pulse of Sport. Power of AI." Social title: "Pulse of Sport. Power of AI." Social description: "AI-powered digital solutions built around the
   people, decisions and systems that keep sport moving."

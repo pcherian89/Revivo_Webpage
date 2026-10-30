@@ -36,12 +36,12 @@ export const finalCta = {
   support: "Bring us the process, bottleneck or decision that needs to work better.",
   signal: {
     label: "Your signal",
-    idle: "Start typing — every challenge begins as a signal.",
+    idle: "Start typing — every conversation begins as a signal.",
     active: "Signal received. Keep going.",
   },
   nextLabel: "What happens next",
   next: [
-    "We read your challenge properly.",
+    "We read your message properly.",
     "We reply with a few focused questions.",
     "If there is a fit, we suggest a first conversation.",
   ],

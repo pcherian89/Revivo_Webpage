@@ -1,7 +1,7 @@
 /** Enquiry form copy and options (homepage final scene and /contact). */
 
 export const enquiry = {
-  submit: "Start with your challenge",
+  submit: "Send message",
   privacyNote: "Please don’t include medical, financial or athlete-identifying details here.",
 } as const;
 

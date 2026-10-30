@@ -4,7 +4,7 @@ import { ChallengeAside } from "@/components/scenes/FinalCtaScene";
 import { finalCta } from "@/content/home";
 
 export const metadata: Metadata = {
-  title: "Start with your challenge",
+  title: "Start a conversation",
   description:
     "Tell Revivo the process, bottleneck or decision in your sports organisation that needs to work better. A person reads every message.",
   alternates: { canonical: "/contact" },
@@ -16,7 +16,7 @@ export default function ContactPage() {
     <div className="section-y pt-28 md:pt-36">
       <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <p className="label text-subtle">Start with your challenge</p>
+          <p className="label text-subtle">Start a conversation</p>
           <h1 className="text-title mt-5">{finalCta.title}</h1>
           <p className="text-lead mt-5 text-muted">{finalCta.support}</p>
           <ChallengeAside />

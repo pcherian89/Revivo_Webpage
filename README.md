@@ -167,7 +167,7 @@ cp .env.example .env.local
 4. Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` (locally in `.env.local`, and on Vercel).
 5. Restart the server and send a test enquiry.
 
-**If email is not configured**, the form still validates, then shows a clear message with an **"Email your challenge"**
+**If email is not configured**, the form still validates, then shows a clear message with an **"Email your message"**
 button (opens the visitor's email app with their answers filled in, using `NEXT_PUBLIC_CONTACT_EMAIL`) and a
 **"Copy your answers"** button. Submissions are never silently lost.
 

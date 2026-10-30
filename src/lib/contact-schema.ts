@@ -12,7 +12,7 @@ export const contactSchema = z.object({
   challenge: z
     .string()
     .trim()
-    .min(15, "Please describe the challenge in a sentence or two.")
+    .min(15, "Please describe what needs to work better in a sentence or two.")
     .max(2000, "Please keep this under 2,000 characters."),
   currentProcess: z
     .string()

@@ -16,7 +16,7 @@ export function FinalCtaScene() {
     >
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <p className="label text-subtle">Start with your challenge</p>
+          <p className="label text-subtle">Start a conversation</p>
           <h2 id="start-heading" className="text-title mt-3">
             {finalCta.title}
           </h2>

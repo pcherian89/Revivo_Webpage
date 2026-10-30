@@ -84,7 +84,7 @@ export function EnquiryForm({
   const sentRef = useRef<HTMLDivElement>(null);
   const fid = (f: ContactField) => `${idPrefix}-${f}`;
 
-  // "Discuss this challenge" in the explorer pre-fills the challenge field.
+  // "Discuss this with us" in the explorer pre-fills the challenge field.
   useEffect(() => {
     const onPrefill = (e: Event) => {
       const text = (e as CustomEvent<string>).detail;
@@ -169,7 +169,7 @@ export function EnquiryForm({
     return (
       <div ref={sentRef} tabIndex={-1} role="status" className="py-4">
         <SignalGlyph className="h-7 w-16" />
-        <p className="text-subtitle mt-6 text-ink">Thank you. We have your challenge.</p>
+        <p className="text-subtitle mt-6 text-ink">Thank you. We have your message.</p>
         <p className="measure mt-3 text-muted">
           We’ll read it properly and reply to <span className="text-ink">{values.email}</span>—usually with a
           few questions about how the work happens today.
@@ -281,7 +281,7 @@ export function EnquiryForm({
           {sending ? "Sending…" : submitLabel}
         </button>
         <p className="text-small text-subtle" aria-live="polite">
-          {sending ? "Sending your challenge…" : "A person reads every message."}
+          {sending ? "Sending your message…" : "A person reads every message."}
         </p>
       </div>
     </form>
@@ -495,7 +495,7 @@ function Fallback({
       <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
         {mailto && (
           <ActionLink href={mailto} icon={<Mail aria-hidden="true" className="size-4" />}>
-            Email your challenge
+            Email your message
           </ActionLink>
         )}
         <button

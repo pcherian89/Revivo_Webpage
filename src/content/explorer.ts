@@ -54,7 +54,7 @@ export const explorer = {
     ai: "How AI helps",
     aiNote: "AI prepares and suggests. Your team reviews, approves and decides.",
     benefit: "The benefit",
-    cta: "Discuss this challenge",
+    cta: "Discuss this with us",
   },
 } as const;
 

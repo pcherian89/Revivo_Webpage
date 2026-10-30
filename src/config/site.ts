@@ -51,4 +51,4 @@ export const navLinks = [
 ] as const;
 
 /** The one primary action, used everywhere. */
-export const primaryCta = { label: "Start with your challenge", href: "/#start" } as const;
+export const primaryCta = { label: "Start a conversation", href: "/#start" } as const;
