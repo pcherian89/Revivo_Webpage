@@ -1,8 +1,15 @@
 import type { CSSProperties } from "react";
+import { getImageProps } from "next/image";
 import { HeroSignal } from "@/components/signal/HeroSignal";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { primaryCta } from "@/config/site";
 import { hero } from "@/content/home";
+import { pilotHero } from "@/content/pilot-images";
+
+const {
+  props: { srcSet: heroSrcSet, sizes: heroSizes },
+} = getImageProps({ src: pilotHero, alt: "", fill: true, sizes: "62vw" });
+const heroPhoto = { srcSet: heroSrcSet, sizes: heroSizes };
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
@@ -18,6 +25,23 @@ export function HeroScene() {
       aria-labelledby="hero-heading"
       className="relative flex flex-col lg:min-h-[min(72svh,42rem)]"
     >
+      {/* IMAGE PILOT: desktop/laptop only; sits under the signal and never sets the hero's height. */}
+      <div
+        aria-hidden="true"
+        className="hero-photo pointer-events-none absolute inset-y-0 right-0 hidden lg:block"
+      >
+        {/* Only screens ≥1024px download it: phones get a 1×1 placeholder. */}
+        <picture>
+          <source media="(min-width: 1024px)" srcSet={heroPhoto.srcSet} sizes={heroPhoto.sizes} />
+          <img
+            alt=""
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "38% 50%" }}
+          />
+        </picture>
+      </div>
       <HeroSignal />
       <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-24 lg:pt-28 lg:pb-16">
         <p className="label hero-fade text-subtle" style={delay(0)}>

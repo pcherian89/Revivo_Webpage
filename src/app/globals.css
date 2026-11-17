@@ -307,3 +307,16 @@ body:has([data-bare-page]) [data-site-chrome] {
     opacity: 0.6;
   }
 }
+
+/* IMAGE PILOT (local preview only): hero photograph on the right, fading under the copy and into the explorer. */
+.hero-photo {
+  left: calc(max(clamp(1.25rem, 0.2rem + 4.4vw, 4.5rem), (100% - 75rem) / 2) + 26rem);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 38%),
+    linear-gradient(to bottom, transparent 0%, #000 14%, #000 70%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 38%),
+    linear-gradient(to bottom, transparent 0%, #000 14%, #000 70%, transparent 100%);
+  mask-composite: intersect;
+}

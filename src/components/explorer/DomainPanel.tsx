@@ -2,8 +2,10 @@
 
 import { AnimatePresence, m } from "motion/react";
 import { ArrowRight, X } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { explorer, zones } from "@/content/explorer";
+import { pilotPanelImages } from "@/content/pilot-images";
 import type { RelatedProduct } from "@/content/products";
 import { cn } from "@/lib/cn";
 
@@ -140,6 +142,23 @@ export function DomainPanel({
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
                 >
+                  {pilotPanelImages[cap.id] && (
+                    /* IMAGE PILOT: full-bleed 2:1 header that fades into the panel */
+                    <div
+                      aria-hidden="true"
+                      className="relative -mx-6 -mt-8 mb-6 aspect-[2/1] overflow-hidden md:-mx-10"
+                    >
+                      <Image
+                        src={pilotPanelImages[cap.id].src}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 46vw, 100vw"
+                        className="object-cover"
+                        style={{ objectPosition: pilotPanelImages[cap.id].position }}
+                      />
+                      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_55%,var(--color-surface)_100%)]" />
+                    </div>
+                  )}
                   <h2 id="domain-panel-title" className="text-subtitle text-ink">
                     {cap.name}
                   </h2>
