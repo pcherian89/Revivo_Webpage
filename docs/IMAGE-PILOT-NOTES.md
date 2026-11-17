@@ -11,11 +11,11 @@ without its own), and capability-specific panel headers.
 
 | File | Status | Notes for the audit |
 |---|---|---|
-| 01-hero | Integrated | Row of US-style flags and an American-looking skyline; bright white touchline runs just under the lime signal; floodlight pole crosses the signal core. Sunset. |
-| 02-area-events-operations | Integrated | Feather flags carry lettering-like marks; steel bottle and notebook props repeat across images. Sunset. |
-| 03-area-growth-engagement | Integrated | Stadium sunset again; realistic AI-generated faces with face paint. |
-| 04-area-athletes-performance | Integrated (Batch 1) | Strong lime/green kit trims, lights and hurdles compete with the signal colour. |
-| 05-area-management-reporting | Integrated (Batch 1) | Match-day control room: reads as event operations, not management/reporting; lime lanyards and trims. |
+| 01-hero | Final Batch 1 | New render with a lime wave in the photo. Its flat left stretch ran ~50px under the site's signal and reached the hero copy: muted in CSS (`.hero-photo-quiet`, desaturated masked copy, source untouched); the lime roof line rising into the signal core is kept. Purple-pink dusk sky. |
+| 02-area-events-operations | Final Batch 1 | New. Lime hi-vis and lime stadium lighting; dusk sky. |
+| 03-area-growth-engagement | Final Batch 1 | New. Realistic AI-generated faces; lime light ring along the roof; dusk sky. |
+| 04-area-athletes-performance | Final Batch 1 | New. Indoor sprint scene; close in subject to 14 and 17. |
+| 05-area-management-reporting | Final Batch 1 | New. Strategy meeting around printed papers — fits the area. |
 | 06-cap-event-planning-coordination | Integrated (Batch 2) | Same file as 02 — no distinct image yet. |
 | 07-cap-venue-facility-management | Integrated (Batch 2) | Lime/green strip lighting in the stands. Sunset. |
 | 08-cap-registration-administration | Integrated (Batch 2) | Preview resolution (824×390, board crop) — replace. Lettering/logo-like marks on shirt and lanyard. |
@@ -32,6 +32,15 @@ without its own), and capability-specific panel headers.
 | 19-cap-sports-programme-management | Integrated (Batch 4) | Preview resolution (824×392, board crop) — replace. Good subject (grassroots). Concept-board label visible on the bottom edge; identifiable children. |
 | 20-cap-funding-impact-reporting | Integrated (Batch 4) | Preview resolution (824×392, board crop) — replace. Subject mismatch (fan crowd); face paint, child; label visible on the bottom edge. |
 | 21-cap-governance-compliance | Integrated (Batch 4) | Preview resolution (824×390, board crop) — replace. Document with text-like lines; label visible on the bottom edge. |
+
+## Final Batch 1 (hero and four areas) — integration notes
+
+- The five SHA-256 checksums in the batch's ASSET-MANIFEST.csv do not match the supplied files (dimensions match;
+  all five are new images, not copies of earlier assets).
+- Area images 02–05 are mapped, but every capability now has its own file, so they only appear if a capability
+  image is removed. Capability files 06, 13 and 18 are still copies of the earlier 02/05 renders.
+- Hero first-request conversion: LCP 2.1 s on a cold cache at 1440 @2x, 0.18 s once cached. Pre-generate or confirm
+  Netlify Image CDN behaviour before launch.
 
 ## Set-wide themes to check in the final audit
 

@@ -320,3 +320,15 @@ body:has([data-bare-page]) [data-site-chrome] {
     linear-gradient(to bottom, transparent 0%, #000 14%, #000 70%, transparent 100%);
   mask-composite: intersect;
 }
+/* IMAGE PILOT: mutes the photo's lime wave where it would double the site's signal (left, 50–74% height). */
+.hero-photo-quiet {
+  filter: saturate(0) brightness(0.3);
+  -webkit-mask-image:
+    linear-gradient(to right, #000 0%, #000 40%, transparent 58%),
+    linear-gradient(to bottom, transparent 48%, #000 55%, #000 68%, transparent 76%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, #000 0%, #000 40%, transparent 58%),
+    linear-gradient(to bottom, transparent 48%, #000 55%, #000 68%, transparent 76%);
+  mask-composite: intersect;
+}

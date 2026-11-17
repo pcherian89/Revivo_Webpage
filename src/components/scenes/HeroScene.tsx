@@ -41,6 +41,17 @@ export function HeroScene() {
             style={{ objectPosition: "72% 50%" }}
           />
         </picture>
+        {/* The photo's own lime wave runs just under the site's signal on the left: show that
+            stretch from a muted copy of the same image so the animated signal stays the only lime line. */}
+        <picture className="hero-photo-quiet absolute inset-0">
+          <source media="(min-width: 1024px)" srcSet={heroPhoto.srcSet} sizes={heroPhoto.sizes} />
+          <img
+            alt=""
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "72% 50%" }}
+          />
+        </picture>
       </div>
       <HeroSignal />
       <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-24 lg:pt-28 lg:pb-16">
