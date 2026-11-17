@@ -31,12 +31,6 @@ export function ProcessScene() {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const box = list.getBoundingClientRect();
-        // The photograph (wide screens) ends where the rail begins.
-        const section = list.closest("section");
-        if (section) {
-          const top = section.getBoundingClientRect().top;
-          section.style.setProperty("--process-photo-h", `${Math.round(box.top - top)}px`);
-        }
         const glyphs = Array.from(list.querySelectorAll<HTMLElement>("[data-step-glyph]")).map((g) => {
           const r = g.getBoundingClientRect();
           return { x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height / 2 };
@@ -86,29 +80,29 @@ export function ProcessScene() {
     }) as CSSProperties;
 
   return (
-    <section id="how-we-work" aria-labelledby="process-heading" className="section-y relative">
-      {/* Wide screens (≥1280px): one existing photograph in the open space beside the heading, fading to black
-          before the rail, so no text sits over it and the lime rail stays dominant. */}
-      <div
-        aria-hidden="true"
-        className="process-photo pointer-events-none absolute top-0 right-0 hidden xl:block"
-      >
-        <Image
-          src={processImage.src}
-          alt=""
-          fill
-          sizes="40vw"
-          className="object-cover"
-          style={{ objectPosition: processImage.position, filter: processImage.tone }}
-        />
-      </div>
-      <div className="container-site relative">
-        <p className="label text-subtle">How Revivo works</p>
-        <h2 id="process-heading" className="text-title mt-3 max-w-3xl">
-          {process.title}
-        </h2>
+    <section id="how-we-work" aria-labelledby="process-heading" className="section-y process-section">
+      <div className="container-site">
+        <header className="relative pb-10 md:pb-12">
+          {/* Wide screens (≥1280px): one existing photograph in the open space beside the heading.
+              It fades out on every side and ends where the rail begins, so no text sits over it
+              and the lime rail stays the only saturated colour. */}
+          <div aria-hidden="true" className="process-photo pointer-events-none absolute hidden xl:block">
+            <Image
+              src={processImage.src}
+              alt=""
+              fill
+              sizes="45vw"
+              className="object-cover"
+              style={{ objectPosition: processImage.position, filter: processImage.tone }}
+            />
+          </div>
+          <p className="label relative text-subtle">How Revivo works</p>
+          <h2 id="process-heading" className="text-title relative mt-3 max-w-3xl">
+            {process.title}
+          </h2>
+        </header>
 
-        <ol ref={listRef} className="relative mt-10 grid gap-8 md:mt-12 lg:grid-cols-4 lg:gap-10">
+        <ol ref={listRef} className="relative grid gap-8 lg:grid-cols-4 lg:gap-10">
           {rail && (
             <svg
               ref={svgRef}
