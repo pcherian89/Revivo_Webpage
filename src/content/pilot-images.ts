@@ -85,3 +85,6 @@ export function areaImage(zoneId: string): PanelImage | undefined {
 export function panelImage(capId: string, zoneId: string): PanelImage | undefined {
   return capabilityImages[capId] ?? areaImages[zoneId];
 }
+
+/** How Revivo works: one existing image as a quiet atmospheric layer (desktop only). */
+export const processImage: PanelImage = { src: eventPlanning, position: "50% 35%" };

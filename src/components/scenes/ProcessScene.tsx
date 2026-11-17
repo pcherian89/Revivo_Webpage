@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import Image from "next/image";
 import { FieldGlyph } from "@/components/signal/SignalGlyph";
+import { processImage } from "@/content/pilot-images";
 import { process } from "@/content/home";
 import { DIM_LIME, SIGNAL } from "@/lib/signal";
 
@@ -29,6 +31,12 @@ export function ProcessScene() {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const box = list.getBoundingClientRect();
+        // The photograph (wide screens) ends where the rail begins.
+        const section = list.closest("section");
+        if (section) {
+          const top = section.getBoundingClientRect().top;
+          section.style.setProperty("--process-photo-h", `${Math.round(box.top - top)}px`);
+        }
         const glyphs = Array.from(list.querySelectorAll<HTMLElement>("[data-step-glyph]")).map((g) => {
           const r = g.getBoundingClientRect();
           return { x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height / 2 };
@@ -78,8 +86,23 @@ export function ProcessScene() {
     }) as CSSProperties;
 
   return (
-    <section id="how-we-work" aria-labelledby="process-heading" className="section-y">
-      <div className="container-site">
+    <section id="how-we-work" aria-labelledby="process-heading" className="section-y relative">
+      {/* Wide screens (≥1280px): one existing photograph in the open space beside the heading, fading to black
+          before the rail, so no text sits over it and the lime rail stays dominant. */}
+      <div
+        aria-hidden="true"
+        className="process-photo pointer-events-none absolute top-0 right-0 hidden xl:block"
+      >
+        <Image
+          src={processImage.src}
+          alt=""
+          fill
+          sizes="40vw"
+          className="object-cover"
+          style={{ objectPosition: processImage.position, filter: processImage.tone }}
+        />
+      </div>
+      <div className="container-site relative">
         <p className="label text-subtle">How Revivo works</p>
         <h2 id="process-heading" className="text-title mt-3 max-w-3xl">
           {process.title}

@@ -369,3 +369,22 @@
   will-change: transform;
   transform: translateZ(0);
 }
+
+/* How Revivo works (≥1280px): an atmospheric photograph in the space right of the heading. It fades
+   to black on its left and towards the rail, so the steps and the lime rail sit on clean black. */
+.process-photo {
+  /* starts past the heading's maximum width (max-w-3xl), so it never sits behind the words */
+  left: calc(max(clamp(1.25rem, 0.2rem + 4.4vw, 4.5rem), (100% - 75rem) / 2) + 48rem + 2rem);
+  height: var(--process-photo-h, 15rem); /* set from the rail's position: ends where the rail begins */
+  opacity: 0.55;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 30%),
+    linear-gradient(to bottom, transparent 0%, #000 18%, #000 55%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 30%),
+    linear-gradient(to bottom, transparent 0%, #000 18%, #000 55%, transparent 100%);
+  mask-composite: intersect;
+  will-change: transform;
+  transform: translateZ(0);
+}
