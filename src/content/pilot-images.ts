@@ -9,6 +9,9 @@ import venue from "@/assets/pilot/07-cap-venue-facility-management.png";
 import registration from "@/assets/pilot/08-cap-registration-administration.png";
 import staff from "@/assets/pilot/09-cap-staff-volunteer-management.png";
 import socialMedia from "@/assets/pilot/10-cap-social-media-campaigns.png";
+import fanEngagement from "@/assets/pilot/12-cap-fan-engagement-ticketing.png";
+import membership from "@/assets/pilot/13-cap-membership-customer-management.png";
+import athleteManagement from "@/assets/pilot/14-cap-athlete-management-development.png";
 import sponsorship from "@/assets/pilot/11-cap-sponsorship-management.png";
 import training from "@/assets/pilot/15-cap-training-performance-monitoring.png";
 import video from "@/assets/pilot/16-cap-video-analysis-scouting.png";
@@ -38,7 +41,11 @@ const capabilityImages: Record<string, PanelImage> = {
   "registration-administration": { src: registration, position: "50% 40%" },
   "staff-volunteer-management": { src: staff, position: "40% 40%" },
   "social-media-campaigns": { src: socialMedia, position: "50% 40%" },
+  // Batch 3. 13 is the same file as the Management & Reporting area image (provisional).
   "sponsorship-management": { src: sponsorship, position: "50% 45%" },
+  "fan-engagement-ticketing": { src: fanEngagement, position: "50% 35%" },
+  "membership-customer-management": { src: membership, position: "50% 40%" },
+  "athlete-management-development": { src: athleteManagement, position: "60% 35%" },
   "training-performance-monitoring": { src: training, position: "50% 35%" },
   "video-analysis-scouting": { src: video, position: "50% 40%" },
 };
