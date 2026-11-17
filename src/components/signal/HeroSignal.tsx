@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { flash, signalClock } from "@/lib/signal-clock";
 import { dataMarks, PULSE_HALF, pulseSegment, SIGNAL, type Point } from "@/lib/signal";
-import { moveSpot, Perforation, waveOut } from "./Perforation";
 import { visibleRect } from "./visibleRect";
 
 type Geo = {
@@ -18,8 +17,6 @@ type Geo = {
   toCore: string;
   marks: Point[];
   core: { x: number; y: number; rings: number[] } | null;
-  /** Where the perforated texture shows */
-  texture: string;
 };
 
 /**
@@ -37,8 +34,6 @@ export function HeroSignal() {
   const glowRef = useRef<SVGPathElement>(null);
   const toCoreRef = useRef<SVGPathElement>(null);
   const rippleRef = useRef<SVGCircleElement>(null);
-  const spotRef = useRef<HTMLDivElement>(null);
-  const waveRef = useRef<HTMLDivElement>(null);
 
   // Measure the real layout (headline, "pulse", copy, actions, explorer entry).
   useEffect(() => {
@@ -78,7 +73,6 @@ export function HeroSignal() {
               {
                 at: toCore,
                 fire: () => {
-                  waveOut(waveRef.current);
                   flash(
                     rippleRef.current,
                     [
@@ -91,7 +85,6 @@ export function HeroSignal() {
               },
             ]
           : [],
-      onMove: (pt) => moveSpot(spotRef.current, pt),
     });
     const io = new IntersectionObserver(([e]) => signalClock.setVisible("hero", e.isIntersecting));
     io.observe(svg);
@@ -106,17 +99,11 @@ export function HeroSignal() {
 
   return (
     <>
-      <Perforation
-        mask={geo.texture}
-        spotRef={spotRef}
-        waveRef={waveRef}
-        wave={geo.core && { x: geo.core.x, y: geo.core.y, size: geo.core.rings[2] * 2 }}
-      />
       <svg
         ref={svgRef}
         aria-hidden="true"
         focusable="false"
-        className="pointer-events-none absolute inset-0 h-full w-full"
+        className="gpu-layer pointer-events-none absolute inset-0 h-full w-full"
         viewBox={`0 0 ${geo.w} ${geo.h}`}
         width={geo.w}
         height={geo.h}
@@ -238,16 +225,15 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     const px = (word.left + word.right) / 2;
     const { toMarks, marks, bStart } = lead(y0, px, 1, 14);
 
-    // Signal core in the empty right half, centred on the track.
-    const textRight = Math.max(h1.right, copy.right, actions.right);
-    const room = w - 48 - (textRight + 56);
-    const outer = Math.max(60, Math.min(210, room / 2));
-    // Never let the rings run off the right edge on narrower laptop windows.
-    const cx = Math.min(textRight + 56 + Math.max(outer, room / 2), w - 24 - outer);
+    // The line no longer crosses the photograph: just past the copy and buttons (or at the
+    // explorer's axis, whichever is further right) the signal core sits on the track, and the
+    // line turns down there, running beneath the buttons to the centre and into the explorer.
+    const clearRight = Math.max(copy.right, actions.right) + 36;
+    const cx = Math.max(exitX, clearRight);
+    const outer = 40;
     const rings = [outer * 0.36, outer * 0.68, outer];
 
-    // From the core, straight down and across into the explorer's axis.
-    const yT = h - 34;
+    const yT = Math.min(h - R - 8, actions.bottom + 44);
     const down =
       Math.abs(cx - exitX) < 3
         ? ` V ${f(h)}`
@@ -255,7 +241,6 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     const b = `M ${f(bStart)} ${f(y0)} H ${f(cx)}${down}`;
     const toCore = `${toMarks} H ${f(cx)}`;
     const light = `${toCore}${down}`;
-    const texture = `radial-gradient(ellipse ${f(outer * 2.3)}px ${f(Math.max(outer * 1.7, h - y0))}px at ${f(cx)}px ${f(y0)}px, #000 30%, transparent 100%)`;
     return {
       w,
       h,
@@ -265,7 +250,6 @@ function buildGeometry(hero: HTMLElement): Geo | null {
       toCore,
       marks,
       core: { x: cx, y: y0, rings },
-      texture,
     };
   }
 
@@ -291,7 +275,5 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     toCore: toMarks,
     marks,
     core: null,
-    // Lit perforations only below the buttons (and the photo band), never behind the words.
-    texture: `linear-gradient(to bottom, transparent ${f((band ?? actions).bottom + 4)}px, #000 ${f((band ?? actions).bottom + 24)}px)`,
   };
 }

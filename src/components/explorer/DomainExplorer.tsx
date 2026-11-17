@@ -19,7 +19,6 @@ import type { RelatedProduct } from "@/content/products";
 import { cn } from "@/lib/cn";
 import { DIM_LIME, MID_LIME, orthogonal, SIGNAL, type Point } from "@/lib/signal";
 import { flash, signalClock } from "@/lib/signal-clock";
-import { moveSpot, Perforation, waveOut } from "@/components/signal/Perforation";
 import { DomainPanel } from "./DomainPanel";
 import { SignalNode } from "./SignalNode";
 import { useAnchors } from "./useAnchors";
@@ -69,8 +68,6 @@ export function DomainExplorer({
   const triggerRef = useRef<HTMLElement | null>(null);
   const coreRef = useRef<HTMLButtonElement>(null);
   const coreNodeRef = useRef<HTMLDivElement>(null);
-  const spotRef = useRef<HTMLDivElement>(null);
-  const waveRef = useRef<HTMLDivElement>(null);
   const paths = useRef(new Map<string, SVGPathElement | null>());
   const runId = useRef(0);
   const { dotRef, travel } = useTravel(!reduce);
@@ -171,7 +168,6 @@ export function DomainExplorer({
         {
           at: length - 2,
           fire: () => {
-            waveOut(waveRef.current);
             if (!window.matchMedia("(min-width: 64rem)").matches) {
               flash(coreNodeRef.current, [{ transform: "scale(1.8)" }, { transform: "scale(1)" }], 700);
               return;
@@ -193,7 +189,6 @@ export function DomainExplorer({
           },
         },
       ],
-      onMove: (pt) => moveSpot(spotRef.current, pt),
     });
     const io = new IntersectionObserver(([e]) => signalClock.setVisible("trunk", e.isIntersecting));
     io.observe(section);
@@ -248,14 +243,6 @@ export function DomainExplorer({
         )}
       </AnimatePresence>
 
-      {geo && (
-        <Perforation
-          mask={textureMask(geo.pts, isDesktop)}
-          spotRef={spotRef}
-          waveRef={waveRef}
-          wave={coreWave(geo.pts, isDesktop)}
-        />
-      )}
       {geo && (
         <SignalMap
           geo={geo}
@@ -526,7 +513,10 @@ export function DomainExplorer({
                                       className="aspect-[4/3] w-11 shrink-0 min-[380px]:w-12 md:w-20"
                                     />
                                   )}
-                                  <ArrowRight aria-hidden="true" className="hidden size-4 shrink-0 text-subtle md:block" />
+                                  <ArrowRight
+                                    aria-hidden="true"
+                                    className="hidden size-4 shrink-0 text-subtle md:block"
+                                  />
                                 </button>
                               </m.li>
                             );
@@ -648,7 +638,7 @@ function SignalMap({
     <svg
       aria-hidden="true"
       focusable="false"
-      className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+      className="gpu-layer pointer-events-none absolute inset-0 z-0 h-full w-full"
       viewBox={`0 0 ${geo.w} ${geo.h}`}
       width={geo.w}
       height={geo.h}
@@ -708,27 +698,6 @@ function SignalMap({
       </g>
     </svg>
   );
-}
-
-/** The perforated texture gathers around the Intelligence Layer and its trunk. */
-function textureMask(p: Record<string, Point>, isDesktop: boolean) {
-  if (isDesktop && p["core-in"] && p["core-out"]) {
-    const cx = p["core-in"].x;
-    const cy = (p["core-in"].y + p["core-out"].y) / 2;
-    return `radial-gradient(ellipse 380px 320px at ${Math.round(cx)}px ${Math.round(cy)}px, #000 35%, transparent 100%)`;
-  }
-  const core = p.core ?? p.entry;
-  if (!core) return "none";
-  // Phones/tablets: keep the lit dots in the gutter around the rail, clear of the text column.
-  return `radial-gradient(ellipse 36px ${Math.round(core.y * 0.75 + 60)}px at ${Math.round(core.x)}px ${Math.round(core.y * 0.6)}px, #000 30%, transparent 100%)`;
-}
-
-/** The wave of lit perforations sent out when the light reaches the Intelligence Layer. */
-function coreWave(p: Record<string, Point>, isDesktop: boolean) {
-  if (isDesktop && p["core-in"] && p["core-out"]) {
-    return { x: p["core-in"].x, y: (p["core-in"].y + p["core-out"].y) / 2, size: 460 };
-  }
-  return p.core ? { x: p.core.x, y: p.core.y, size: 170 } : null;
 }
 
 /** Desktop: a wide, dim band of the area's photograph behind its row of capabilities. */

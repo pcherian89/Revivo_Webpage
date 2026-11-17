@@ -72,7 +72,7 @@ export function SiteHeader() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300 ease-out",
-          solid ? "border-line bg-canvas/95 backdrop-blur-md" : "border-transparent bg-transparent",
+          solid ? "border-line bg-canvas/95" : "border-transparent bg-transparent",
         )}
       >
         <div className="container-site flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">

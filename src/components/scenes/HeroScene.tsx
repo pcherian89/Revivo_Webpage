@@ -33,17 +33,19 @@ export function HeroScene() {
         aria-hidden="true"
         className="hero-photo pointer-events-none absolute inset-y-0 right-0 hidden lg:block"
       >
-        {/* Only screens ≥1024px download it: phones get a 1×1 placeholder. */}
-        <picture>
-          <source media="(min-width: 1024px)" srcSet={heroPhoto.srcSet} sizes={heroPhoto.sizes} />
-          <img
-            alt=""
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            fetchPriority="high"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "72% 50%" }}
-          />
-        </picture>
+        {/* The whole photograph at its own 16:9 shape (nothing cropped off the right edge),
+            vertically centred in the hero. Only screens ≥1024px download it. */}
+        <div className="hero-photo-frame absolute inset-x-0 top-1/2 aspect-[16/9] -translate-y-1/2">
+          <picture>
+            <source media="(min-width: 1024px)" srcSet={heroPhoto.srcSet} sizes={heroPhoto.sizes} />
+            <img
+              alt=""
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </picture>
+        </div>
       </div>
       <HeroSignal />
       <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-16 lg:pt-28 lg:pb-16">

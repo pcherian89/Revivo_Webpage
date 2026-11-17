@@ -85,16 +85,17 @@ particles, SVG turbulence or large blur filters, scroll hijacking, typewriter/gl
 Story: live sports signal → Revivo intelligence → solution domains → organized action.
 
 1. **Hero (`HeroSignal`)** — pure SVG + CSS, measured from the real layout. A straight lime track (dim) runs beneath
-   the whole two-line headline (≈28px desktop / 24px mobile), makes one crisp pulse under "Pulse", passes five data marks and flows into the **signal core** on the
-   right (concentric rings), then drops into the explorer. Below 1024px the same order holds (headline → pulse →
+   the whole two-line headline (≈28px desktop / 24px mobile), makes one crisp pulse under "Pulse", passes five data marks and flows into a small **signal core**
+   (concentric rings) just past the copy, where it turns down — beneath the buttons to the centre axis and into the
+   explorer. It never crosses the hero photograph, which sits to the right of that turn, shown whole at 16:9. Below 1024px the same order holds (headline → pulse →
    copy → buttons): the line runs along the right gutter past the copy and buttons, then steps back to the rail. A bright light **runs through the track continuously**
    and the core ripples as it arrives. The light is driven by the shared **signal clock** (`src/lib/signal-clock.ts`):
    one light, one timeline — it flows from the hero straight down the explorer trunk into the Intelligence Layer and
    lights it up (core flash). Paused off-screen; static under reduced motion. Geometry in `src/lib/signal.ts`:
-   straight runs, one corner radius, right-angled connectors — never wobble. Texture: **Perforated Signal**
-   (`Perforation`) — invisible at rest (no faint background grids or field markings: they read as misplaced and vanish
-   on dim screens). Where the running light passes, the perforations around it glow lime (moved by the signal clock's
-   `onMove`); when it reaches the hero core and the Intelligence Layer, a ring of lit perforations ripples out (`waveOut`).
+   straight runs, one corner radius, right-angled connectors — never wobble. No background
+   texture: the "Perforated Signal" dot texture was removed (owner decision, Nov 2026) — it made scrolling feel
+   jittery. No faint grids or field markings either. Performance: the signal SVGs and the masked photographs sit on
+   their own compositor layers (`.gpu-layer`); no backdrop-filter blur on the sticky header.
 2. **Explorer (`DomainExplorer`)** — progressive and interactive. A large "Revivo Intelligence Layer" button (with a
    hand cue, "Tap to activate") waits for the visitor. Activating it sends a pulse to each of the four domains in turn;
    choosing a domain sends a pulse to each of its four capabilities in turn; a capability opens `DomainPanel` (desktop
