@@ -35,10 +35,9 @@ New 1672×941 compositions, manifest SHA-256 verified:
 | 01 Hero | Purple-magenta sky close to the banned "AI gradient" mood; lime roof arc competes with the core rings. |
 | 09 Staff & Volunteers | Gibberish wordmarks on jackets and accreditations. |
 | 13 Membership | Monogram crest on a jacket reads like a luxury brand. |
-| 15 Training | Tick-like chest logo on the coach; wall of screens hints at a monitoring suite. |
-| 20 Funding & Impact | Growth-arrow bar-chart screen implies results. |
+| 15 Training | Tick-like chest logo on the coach. |
 | 12 Fan Engagement | Heaviest lime (banners, scarves, turnstile). |
-| 11 Sponsorship | Odd gold cast on one handshake hand (artefact); lime bar chart on laptop (no numbers). |
+| 11 Sponsorship | Odd gold cast on one handshake hand (artefact). |
 | 07 Venue & Facility | Reads as stewarding rather than bookings/maintenance; near-duplicate of 02. |
 
 ## Set-level
