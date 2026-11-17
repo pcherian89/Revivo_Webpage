@@ -25,7 +25,7 @@ const TRACK = `M 0 ${Y} H ${PX - 34 * 1.2}${pulseSegment(PX, Y, 1.2)} H ${W}`;
  */
 export function Gateway() {
   const router = useRouter();
-  const [leaving, setLeaving] = useState(false);
+  const [phase, setPhase] = useState<"idle" | "firing" | "leaving">("idle");
 
   // Old deep links (/#start, /#explore…) now live on /home: send them straight there.
   useEffect(() => {
@@ -37,12 +37,24 @@ export function Gateway() {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return; // new tab etc.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     e.preventDefault();
-    setLeaving(true);
-    window.setTimeout(() => router.push("/home"), 600);
+    if (phase !== "idle") return;
+    // The heartbeat fires once, the scene fades, and the homepage (and its own pulse) takes over.
+    setPhase("firing");
+    window.setTimeout(() => setPhase("leaving"), 380);
+    window.setTimeout(() => router.push("/home"), 820);
   };
 
   return (
-    <div data-gateway-page className={leaving ? "gateway gw-leaving" : "gateway"}>
+    <div
+      data-gateway-page
+      className={
+        phase === "idle"
+          ? "gateway"
+          : phase === "firing"
+            ? "gateway gw-firing"
+            : "gateway gw-firing gw-leaving"
+      }
+    >
       <div className="gw-stage">
         <style dangerouslySetInnerHTML={{ __html: ART_CSS }} />
         <div aria-hidden="true" className="gw-art photo absolute inset-0 bg-cover bg-center" />

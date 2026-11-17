@@ -442,7 +442,19 @@ body:has([data-gateway-page]) footer {
   z-index: 90;
   overflow: hidden;
   background: var(--color-canvas);
-  transition: opacity 600ms var(--ease-out-quart);
+  transition: opacity 450ms var(--ease-out-quart);
+}
+/* Entering: the heartbeat fires once along the track (gw-firing), then the scene fades. */
+.gateway.gw-firing .gw-light {
+  animation: gw-fire 450ms var(--ease-out-quart) forwards;
+}
+@keyframes gw-fire {
+  from {
+    stroke-dashoffset: 0.12;
+  }
+  to {
+    stroke-dashoffset: -1;
+  }
 }
 .gateway.gw-leaving {
   opacity: 0;
@@ -467,23 +479,23 @@ body:has([data-gateway-page]) footer {
 .gw-identity {
   position: absolute;
   left: 50%;
-  top: 26%;
-  width: 22cqw;
+  top: 28%;
+  width: 18cqw;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.6cqw;
+  gap: 1.2cqw;
 }
 .gw-pulse {
-  width: 30cqw;
+  width: 26cqw;
   height: auto;
   overflow: visible;
 }
 .gw-enter {
   position: absolute;
   left: 50%;
-  top: 45%;
+  top: 42.5%;
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -497,7 +509,7 @@ body:has([data-gateway-page]) footer {
     mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 80%, transparent 100%);
   }
   .gw-identity {
-    top: 24%;
+    top: 29%;
     width: 24cqw;
   }
   .gw-pulse {
