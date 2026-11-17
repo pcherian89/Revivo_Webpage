@@ -28,14 +28,18 @@ import video from "@/assets/pilot/16-cap-video-analysis-scouting.png";
  */
 export const pilotHero: StaticImageData = hero;
 
-type PanelImage = { src: StaticImageData; position?: string };
+/**
+ * `tone` is a subtle CSS filter that evens out an image's brightness/saturation so the
+ * 21 photographs read as one family on the site (source files are left untouched).
+ */
+type PanelImage = { src: StaticImageData; position?: string; tone?: string };
 
 /** One image per area: the header for any capability without its own image. */
 const areaImages: Record<string, PanelImage> = {
   "events-operations": { src: areaEvents, position: "60% 45%" },
   "growth-engagement": { src: areaGrowth, position: "50% 40%" },
   "athletes-performance": { src: areaAthletes, position: "50% 30%" },
-  "management-reporting": { src: areaManagement, position: "50% 40%" },
+  "management-reporting": { src: areaManagement, position: "50% 40%", tone: "brightness(0.93)" },
 };
 
 /** Capability-specific images, keyed by capability id. */
@@ -48,16 +52,28 @@ const capabilityImages: Record<string, PanelImage> = {
   "social-media-campaigns": { src: socialMedia, position: "50% 35%" },
   // Final batch 3 (11–15): full-resolution 1672×941.
   "sponsorship-management": { src: sponsorship, position: "50% 25%" },
-  "fan-engagement-ticketing": { src: fanEngagement, position: "50% 25%" },
-  "membership-customer-management": { src: membership, position: "50% 30%" },
-  "athlete-management-development": { src: athleteManagement, position: "50% 25%" },
-  "training-performance-monitoring": { src: training, position: "50% 25%" },
-  "video-analysis-scouting": { src: video, position: "50% 30%" },
+  "fan-engagement-ticketing": { src: fanEngagement, position: "50% 25%", tone: "saturate(0.9)" },
+  "membership-customer-management": { src: membership, position: "50% 30%", tone: "brightness(0.94)" },
+  "athlete-management-development": {
+    src: athleteManagement,
+    position: "50% 25%",
+    tone: "brightness(0.9) contrast(1.05)",
+  },
+  "training-performance-monitoring": { src: training, position: "50% 25%", tone: "saturate(0.92)" },
+  "video-analysis-scouting": { src: video, position: "50% 30%", tone: "brightness(1.05)" },
   // Final batch 4 (16–21): full-resolution 1672×941.
-  "athlete-career-welfare": { src: careerWelfare, position: "50% 30%" },
-  "dashboards-reporting": { src: dashboards, position: "50% 30%" },
-  "sports-programme-management": { src: programmes, position: "50% 35%" },
-  "funding-impact-reporting": { src: funding, position: "50% 30%" },
+  "athlete-career-welfare": {
+    src: careerWelfare,
+    position: "50% 30%",
+    tone: "brightness(0.94) saturate(0.95)",
+  },
+  "dashboards-reporting": { src: dashboards, position: "50% 30%", tone: "brightness(1.08)" },
+  "sports-programme-management": { src: programmes, position: "50% 35%", tone: "saturate(0.92)" },
+  "funding-impact-reporting": {
+    src: funding,
+    position: "50% 30%",
+    tone: "brightness(0.88) contrast(1.06) saturate(1.05)",
+  },
   "governance-compliance": { src: governance, position: "50% 30%" },
 };
 

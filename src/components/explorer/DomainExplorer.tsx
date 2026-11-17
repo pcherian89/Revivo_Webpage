@@ -523,10 +523,10 @@ export function DomainExplorer({
                                       img={panelImage(c.id, z.id)}
                                       sizes="80px"
                                       state={on && activeCap === j ? "on" : "idle"}
-                                      className="aspect-[4/3] w-14 shrink-0 md:w-20"
+                                      className="aspect-[4/3] w-11 shrink-0 min-[380px]:w-12 md:w-20"
                                     />
                                   )}
-                                  <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-subtle" />
+                                  <ArrowRight aria-hidden="true" className="hidden size-4 shrink-0 text-subtle md:block" />
                                 </button>
                               </m.li>
                             );
@@ -766,7 +766,7 @@ function AreaBackdrop({
           fill
           sizes="100vw"
           className="object-cover"
-          style={{ objectPosition: img.position }}
+          style={{ objectPosition: img.position, filter: img.tone }}
         />
       </div>
     </m.div>
@@ -791,7 +791,7 @@ function AreaStrip({ zoneId, reduce }: { zoneId: string; reduce: boolean }) {
         fill
         sizes="(min-width: 768px) 90vw, 100vw"
         className="object-cover"
-        style={{ objectPosition: img.position }}
+        style={{ objectPosition: img.position, filter: img.tone }}
       />
     </m.div>
   );
@@ -828,7 +828,7 @@ function Preview({
         fill
         sizes={sizes}
         className="object-cover"
-        style={{ objectPosition: img.position }}
+        style={{ objectPosition: img.position, filter: img.tone }}
       />
     </span>
   );

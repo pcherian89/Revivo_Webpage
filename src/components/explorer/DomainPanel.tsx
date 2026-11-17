@@ -155,7 +155,7 @@ export function DomainPanel({
                         fill
                         sizes="(min-width: 1024px) 46vw, 100vw"
                         className="object-cover"
-                        style={{ objectPosition: headerImage.position }}
+                        style={{ objectPosition: headerImage.position, filter: headerImage.tone }}
                       />
                       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_58%,var(--color-surface)_100%)]" />
                     </div>

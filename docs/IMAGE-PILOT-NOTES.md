@@ -23,6 +23,12 @@ present them as Revivo clients, partners, events, products or results.
 - Explorer, phones/tablets: a short 12:5 (3:1 on tablets) strip of the area image above its capabilities (`AreaStrip`).
 - Capability panels: 06–21 as before.
 
+## Tone balancing (final QA)
+
+Per-image `tone` filters in `src/content/pilot-images.ts` even out the set in its rendered placements (source PNGs
+untouched): 14 and 20 brought down to the collection's brightness, 13/17/05 slightly darker, 16/18 slightly lifted,
+12/15/19 slightly less saturated. Rendered panel means now fall within 59–64 (were 41–72).
+
 ## Creative direction (clarified by the owner)
 
 Conceptual and futuristic technology imagery (AI-assisted tracking, analytics, conceptual dashboards and interfaces)
