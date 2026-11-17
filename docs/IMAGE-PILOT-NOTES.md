@@ -16,11 +16,11 @@ without its own), and capability-specific panel headers.
 | 03-area-growth-engagement | Final Batch 1 | New. Realistic AI-generated faces; lime light ring along the roof; dusk sky. |
 | 04-area-athletes-performance | Final Batch 1 | New. Indoor sprint scene; close in subject to 14 and 17. |
 | 05-area-management-reporting | Final Batch 1 | New. Strategy meeting around printed papers — fits the area. |
-| 06-cap-event-planning-coordination | Integrated (Batch 2) | Same file as 02 — no distinct image yet. |
-| 07-cap-venue-facility-management | Integrated (Batch 2) | Lime/green strip lighting in the stands. Sunset. |
-| 08-cap-registration-administration | Integrated (Batch 2) | Preview resolution (824×390, board crop) — replace. Lettering/logo-like marks on shirt and lanyard. |
-| 09-cap-staff-volunteer-management | Integrated (Batch 2) | Preview resolution (824×390, board crop) — replace. Lime hi-vis vests. |
-| 10-cap-social-media-campaigns | Integrated (Batch 2) | Preview resolution (824×392, board crop) — replace. Leftover label strip on the bottom edge; scene repeats 16 (camera at a pitch). |
+| 06-cap-event-planning-coordination | Final Batch 2 | New, distinct image (no longer a copy of 02). 1672×941; manifest SHA-256 verified. |
+| 07-cap-venue-facility-management | Final Batch 2 | New. 1672×941; manifest SHA-256 verified. |
+| 08-cap-registration-administration | Final Batch 2 | New, full resolution (replaces the 824px board crop). 1672×941; manifest SHA-256 verified. |
+| 09-cap-staff-volunteer-management | Final Batch 2 | New, full resolution (replaces the 824px board crop). 1672×941; manifest SHA-256 verified. |
+| 10-cap-social-media-campaigns | Final Batch 2 | New, full resolution (replaces the 824px board crop and its label strip). 1672×941; manifest SHA-256 verified. |
 | 11-cap-sponsorship-management | Integrated (Batch 3) | 1536×1024 (3:2), new render of the hospitality-box scene. Blank monitor, steel bottle and notebook props repeat; sunset. |
 | 12-cap-fan-engagement-ticketing | Integrated (Batch 3) | Celebration scene; weak link to ticketing. Heavy lime kit, scarves and stadium lighting. |
 | 13-cap-membership-customer-management | Integrated (Batch 3) | Same file as 05 (control room) — provisional; does not depict membership/customer management. |
@@ -38,7 +38,7 @@ without its own), and capability-specific panel headers.
 - The five SHA-256 checksums in the batch's ASSET-MANIFEST.csv do not match the supplied files (dimensions match;
   all five are new images, not copies of earlier assets).
 - Area images 02–05 are mapped, but every capability now has its own file, so they only appear if a capability
-  image is removed. Capability files 06, 13 and 18 are still copies of the earlier 02/05 renders.
+  image is removed. Capability files 13 and 18 are still copies of the earlier 05 render.
 - Hero first-request conversion: LCP 2.1 s on a cold cache at 1440 @2x, 0.18 s once cached. Pre-generate or confirm
   Netlify Image CDN behaviour before launch.
 
@@ -47,8 +47,8 @@ without its own), and capability-specific panel headers.
 - Logos and lettering (swooshes, flag/banner marks, lanyards).
 - Lime/neon green inside images competing with the site's signal colour.
 - Repetition: sunsets, steel bottle/notebook props, indoor lime training halls, camera-at-pitch scenes.
-- Duplicate files standing in for distinct capabilities (06 = 02; 13 = 18 = 05; 17 = 14).
-- Preview-resolution assets (08, 09, 10, 19, 20, 21), several with concept-board labels on the bottom edge.
+- Duplicate files standing in for distinct capabilities (13 = 18 = earlier 05; 17 = 14).
+- Preview-resolution assets (19, 20, 21), with concept-board labels on the bottom edge.
 - Capability relevance (05, 12, 13, 17, 18, 20).
 - Performance: images are converted to AVIF on first request (locally 1.4–2.1 s per large image, then cached).
   In a cold-cache test, 6 of 16 desktop panel headers were still blank after 1.6 s. Verify on the Netlify Image CDN,

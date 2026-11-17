@@ -40,12 +40,12 @@ const areaImages: Record<string, PanelImage> = {
 
 /** Capability-specific images, keyed by capability id. */
 const capabilityImages: Record<string, PanelImage> = {
-  // Batch 2. 08–10 are preview-resolution board crops (~824px wide): replace before launch.
-  "event-planning-coordination": { src: eventPlanning, position: "60% 45%" },
-  "venue-facility-management": { src: venue, position: "50% 55%" },
-  "registration-administration": { src: registration, position: "50% 40%" },
-  "staff-volunteer-management": { src: staff, position: "40% 40%" },
-  "social-media-campaigns": { src: socialMedia, position: "50% 40%" },
+  // Final batch 2 (06–10): full-resolution 1672×941.
+  "event-planning-coordination": { src: eventPlanning, position: "50% 30%" },
+  "venue-facility-management": { src: venue, position: "50% 30%" },
+  "registration-administration": { src: registration, position: "50% 20%" },
+  "staff-volunteer-management": { src: staff, position: "50% 25%" },
+  "social-media-campaigns": { src: socialMedia, position: "50% 35%" },
   // Batch 3. 13 is the same file as the Management & Reporting area image (provisional).
   "sponsorship-management": { src: sponsorship, position: "50% 45%" },
   "fan-engagement-ticketing": { src: fanEngagement, position: "50% 35%" },
