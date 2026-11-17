@@ -297,3 +297,48 @@
     linear-gradient(to bottom, transparent 48%, #000 55%, #000 68%, transparent 76%);
   mask-composite: intersect;
 }
+
+/* Explorer: the chosen area's photograph. Desktop — a dim band behind the capability row that fades
+   to black on every edge, so the signal branches and text stay dominant. Phones/tablets — a short strip
+   that fades into black at its edges. */
+.area-backdrop-img {
+  opacity: 0.36;
+  filter: brightness(0.56) saturate(0.9);
+}
+.area-backdrop {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 28%, #000 46%, transparent 68%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 28%, #000 46%, transparent 68%);
+  mask-composite: intersect;
+}
+.area-strip {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 12%),
+    linear-gradient(to bottom, #000 60%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 12%),
+    linear-gradient(to bottom, #000 60%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* Phones/tablets: the hero photograph band melts into black at the top and bottom. */
+.hero-band {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 70%, transparent 100%);
+}
+.hero-band-quiet {
+  filter: saturate(0) brightness(0.3);
+  -webkit-mask-image:
+    linear-gradient(to right, #000 0%, #000 52%, transparent 66%),
+    linear-gradient(to bottom, transparent 44%, #000 52%, #000 64%, transparent 72%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, #000 0%, #000 52%, transparent 66%),
+    linear-gradient(to bottom, transparent 44%, #000 52%, #000 64%, transparent 72%);
+  mask-composite: intersect;
+}

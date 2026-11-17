@@ -214,6 +214,7 @@ function buildGeometry(hero: HTMLElement): Geo | null {
   const word = rel(visibleRect("hero-pulse-word"));
   const actions = rel(visibleRect("hero-actions"));
   const copy = rel(visibleRect("hero-copy"));
+  const band = rel(visibleRect("hero-band"));
   const entry = rel(visibleRect("signal-entry-desktop", "signal-entry-mobile"));
   if (!h1 || !word || !actions || !copy) return null;
 
@@ -275,7 +276,8 @@ function buildGeometry(hero: HTMLElement): Geo | null {
   const { toMarks, marks, bStart } = lead(y0, px, 0.85, 12);
   const textRight = Math.max(copy.right, actions.right, word.right);
   const xR = Math.max(bStart + R + 8, Math.min(w - 10, textRight + 40));
-  const yB = Math.max(actions.bottom + 20, h - R - 10);
+  // Below the photograph band when it is shown, so the signal runs down through it.
+  const yB = Math.max((band ?? actions).bottom + 20, h - R - 10);
   const rest =
     ` H ${f(xR - R)} A ${R} ${R} 0 0 1 ${f(xR)} ${f(y0 + R)}` +
     ` V ${f(yB - R)} A ${R} ${R} 0 0 1 ${f(xR - R)} ${f(yB)} H ${f(exitX + R)}` +
@@ -289,7 +291,7 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     toCore: toMarks,
     marks,
     core: null,
-    // Lit perforations only below the buttons, never behind the words.
-    texture: `linear-gradient(to bottom, transparent ${f(actions.bottom + 4)}px, #000 ${f(actions.bottom + 24)}px)`,
+    // Lit perforations only below the buttons (and the photo band), never behind the words.
+    texture: `linear-gradient(to bottom, transparent ${f((band ?? actions).bottom + 4)}px, #000 ${f((band ?? actions).bottom + 24)}px)`,
   };
 }

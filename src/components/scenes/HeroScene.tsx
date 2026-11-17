@@ -10,6 +10,9 @@ const {
   props: { srcSet: heroSrcSet, sizes: heroSizes },
 } = getImageProps({ src: pilotHero, alt: "", fill: true, sizes: "62vw" });
 const heroPhoto = { srcSet: heroSrcSet, sizes: heroSizes };
+const {
+  props: { srcSet: bandSrcSet, sizes: bandSizes },
+} = getImageProps({ src: pilotHero, alt: "", fill: true, sizes: "100vw" });
 
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
@@ -54,7 +57,7 @@ export function HeroScene() {
         </picture>
       </div>
       <HeroSignal />
-      <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-24 lg:pt-28 lg:pb-16">
+      <div className="container-site relative flex flex-1 flex-col justify-center pt-24 pb-16 lg:pt-28 lg:pb-16">
         <p className="label hero-fade text-subtle" style={delay(0)}>
           {hero.eyebrow}
         </p>
@@ -89,6 +92,38 @@ export function HeroScene() {
           <ButtonLink href={hero.secondaryAction.href} variant="secondary">
             {hero.secondaryAction.label}
           </ButtonLink>
+        </div>
+        {/* Phones and tablets: the hero photograph as a cinematic band after the buttons; the signal
+            runs down through it into the explorer. Screens ≥1024px never download it. */}
+        <div
+          id="hero-band"
+          aria-hidden="true"
+          className="hero-band hero-fade pointer-events-none relative mt-4 mx-[calc(50%-50vw)] aspect-[16/9] md:aspect-[21/9] lg:hidden"
+          style={delay(1000)}
+        >
+          <picture>
+            <source media="(max-width: 1023.98px)" srcSet={bandSrcSet} sizes={bandSizes} />
+            <img
+              alt=""
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              decoding="async"
+              fetchPriority="low"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: "74% 62%" }}
+            />
+          </picture>
+          {/* The photo's own lime wave would double the signal: show that stretch muted. */}
+          <picture className="hero-band-quiet absolute inset-0">
+            <source media="(max-width: 1023.98px)" srcSet={bandSrcSet} sizes={bandSizes} />
+            <img
+              alt=""
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              decoding="async"
+              fetchPriority="low"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: "74% 62%" }}
+            />
+          </picture>
         </div>
       </div>
     </section>

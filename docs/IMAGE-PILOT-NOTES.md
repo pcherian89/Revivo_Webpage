@@ -13,6 +13,16 @@ present them as Revivo clients, partners, events, products or results.
 - Hero: the photo's own lime wave is muted on its flat left stretch (`.hero-photo-quiet`) so it never doubles the
   site's animated signal.
 
+## Where images appear (final refinement)
+
+- Hero ≥1024px: 01-hero on the right; its lime wave's flat stretch muted (`.hero-photo-quiet`).
+- Hero <1024px: 01-hero as a 16:9 (21:9 on tablets) band after the buttons (`#hero-band`); the gutter signal runs
+  down through it and returns below it; low fetch priority so the headline paints first; desktop never downloads it.
+- Explorer, desktop: the chosen area's image (02–05) as a dim backdrop behind its capability row (`AreaBackdrop`,
+  `.area-backdrop`), under the signal branches; cross-fades on change; text contrast ≥4.5:1 measured at the worst pixel.
+- Explorer, phones/tablets: a short 12:5 (3:1 on tablets) strip of the area image above its capabilities (`AreaStrip`).
+- Capability panels: 06–21 as before.
+
 ## Creative direction (clarified by the owner)
 
 Conceptual and futuristic technology imagery (AI-assisted tracking, analytics, conceptual dashboards and interfaces)
@@ -49,5 +59,4 @@ New 1672×941 compositions, manifest SHA-256 verified:
 - Football dominates; no cricket, rugby, hockey, tennis, para-sport or esports. Casts are diverse; places are
   generic Western.
 - Baked-in lime light streaks (01–03, 06–10) and lime props dilute the site rule that lime means signal/action.
-- Area images 02–05 are not displayed anywhere (every capability has its own image).
 - Source resolution 1672px: the hero at 1440px on 2× screens is served ~6% below native; ideally regenerate at 2400px+.

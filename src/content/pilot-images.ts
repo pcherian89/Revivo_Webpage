@@ -61,6 +61,11 @@ const capabilityImages: Record<string, PanelImage> = {
   "governance-compliance": { src: governance, position: "50% 30%" },
 };
 
+/** The image for a solution area (explorer backdrop on desktop, strip on phones/tablets). */
+export function areaImage(zoneId: string): PanelImage | undefined {
+  return areaImages[zoneId];
+}
+
 export function panelImage(capId: string, zoneId: string): PanelImage | undefined {
   return capabilityImages[capId] ?? areaImages[zoneId];
 }

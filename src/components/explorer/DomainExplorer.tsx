@@ -1,6 +1,7 @@
 "use client";
 
-import { m, useReducedMotion } from "motion/react";
+import { AnimatePresence, m, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import { ArrowRight, Pointer } from "lucide-react";
 import {
   useCallback,
@@ -13,6 +14,7 @@ import {
 } from "react";
 import { useMediaQuery } from "@/components/ui/useMediaQuery";
 import { explorer, zones } from "@/content/explorer";
+import { areaImage } from "@/content/pilot-images";
 import type { RelatedProduct } from "@/content/products";
 import { cn } from "@/lib/cn";
 import { DIM_LIME, MID_LIME, orthogonal, SIGNAL, type Point } from "@/lib/signal";
@@ -232,6 +234,14 @@ export function DomainExplorer({
         className="absolute top-0 left-[31px] size-px md:left-[47px] lg:hidden"
       />
 
+      {/* Desktop: the chosen area's photograph as a dim cinematic backdrop behind its capabilities,
+          beneath the signal branches and the text. */}
+      <AnimatePresence>
+        {isDesktop && hydrated && openZone !== null && geo && (
+          <AreaBackdrop key={zones[openZone].id} zoneId={zones[openZone].id} geo={geo} zoneIndex={openZone} reduce={!!reduce} />
+        )}
+      </AnimatePresence>
+
       {geo && (
         <Perforation
           mask={textureMask(geo.pts, isDesktop)}
@@ -446,6 +456,7 @@ export function DomainExplorer({
                         className="pb-4"
                       >
                         <p className="text-small text-muted">{z.summary}</p>
+                        {on && hydrated && !isDesktop && <AreaStrip zoneId={z.id} reduce={!!reduce} />}
                         {/* Capability nodes sit in the gutter between the rail and the text, so their
                             branch never crosses the words above. */}
                         <ul className="mt-2 -ml-[23px] md:-ml-[32px]">
@@ -669,7 +680,8 @@ function textureMask(p: Record<string, Point>, isDesktop: boolean) {
   }
   const core = p.core ?? p.entry;
   if (!core) return "none";
-  return `radial-gradient(ellipse 130px ${Math.round(core.y * 0.75 + 60)}px at ${Math.round(core.x)}px ${Math.round(core.y * 0.6)}px, #000 30%, transparent 100%)`;
+  // Phones/tablets: keep the lit dots in the gutter around the rail, clear of the text column.
+  return `radial-gradient(ellipse 36px ${Math.round(core.y * 0.75 + 60)}px at ${Math.round(core.x)}px ${Math.round(core.y * 0.6)}px, #000 30%, transparent 100%)`;
 }
 
 /** The wave of lit perforations sent out when the light reaches the Intelligence Layer. */
@@ -678,4 +690,70 @@ function coreWave(p: Record<string, Point>, isDesktop: boolean) {
     return { x: p["core-in"].x, y: (p["core-in"].y + p["core-out"].y) / 2, size: 460 };
   }
   return p.core ? { x: p.core.x, y: p.core.y, size: 170 } : null;
+}
+
+/** Desktop: a wide, dim band of the area's photograph behind its row of capabilities. */
+function AreaBackdrop({
+  zoneId,
+  zoneIndex,
+  geo,
+  reduce,
+}: {
+  zoneId: string;
+  zoneIndex: number;
+  geo: { h: number; pts: Record<string, Point> };
+  reduce: boolean;
+}) {
+  const img = areaImage(zoneId);
+  const from = geo.pts[`zone-out-${zoneIndex}`];
+  const to = geo.pts["cap-out-0"];
+  if (!img || !from || !to) return null;
+  const top = Math.max(0, from.y - 24);
+  const height = Math.min(geo.h - top, to.y - from.y + 120);
+  return (
+    <m.div
+      aria-hidden="true"
+      className="area-backdrop pointer-events-none absolute inset-x-0"
+      style={{ top, height }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: reduce ? 0 : 0.6 }}
+    >
+      <div className="area-backdrop-img absolute inset-0">
+        <Image
+          src={img.src}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: img.position }}
+        />
+      </div>
+    </m.div>
+  );
+}
+
+/** Phones and tablets: a short, wide strip of the area's photograph above its capabilities. */
+function AreaStrip({ zoneId, reduce }: { zoneId: string; reduce: boolean }) {
+  const img = areaImage(zoneId);
+  if (!img) return null;
+  return (
+    <m.div
+      aria-hidden="true"
+      className="area-strip relative mt-3 -mr-5 aspect-[12/5] overflow-hidden md:-mr-10 md:aspect-[3/1]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: reduce ? 0 : 0.5 }}
+    >
+      <Image
+        src={img.src}
+        alt=""
+        fill
+        sizes="(min-width: 768px) 90vw, 100vw"
+        className="object-cover"
+        style={{ objectPosition: img.position }}
+      />
+    </m.div>
+  );
 }
