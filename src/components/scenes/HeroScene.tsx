@@ -89,7 +89,7 @@ export function HeroScene() {
         <div
           id="hero-band"
           aria-hidden="true"
-          className="hero-band hero-fade pointer-events-none relative mt-4 mx-[calc(50%-50vw)] aspect-[16/9] md:aspect-[21/9] lg:hidden"
+          className="hero-band hero-fade pointer-events-none relative mt-4 mx-[calc(50%-50vw)] aspect-[4/3] md:aspect-[3/2] lg:hidden"
           style={delay(1000)}
         >
           <picture>
@@ -99,8 +99,7 @@ export function HeroScene() {
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               decoding="async"
               fetchPriority="low"
-              className="photo absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: "60% 58%" }}
+              className="photo absolute inset-0 h-full w-full object-cover object-[50%_0%] md:object-[50%_6%]"
             />
           </picture>
         </div>

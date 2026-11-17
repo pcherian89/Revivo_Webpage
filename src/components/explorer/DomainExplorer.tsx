@@ -750,7 +750,7 @@ function AreaStrip({ zoneId, reduce }: { zoneId: string; reduce: boolean }) {
   return (
     <m.div
       aria-hidden="true"
-      className="area-strip relative mt-3 -mr-5 aspect-[12/5] overflow-hidden md:-mr-10 md:aspect-[3/1]"
+      className="area-strip relative mt-3 aspect-[12/5] w-full overflow-hidden md:aspect-[3/1]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: reduce ? 0 : 0.5 }}

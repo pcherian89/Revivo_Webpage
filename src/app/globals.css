@@ -328,9 +328,17 @@
 }
 
 /* Phones/tablets: the hero photograph band melts into black at the top and bottom. */
+/* Phone/tablet band shows the whole scene (every athlete and the analysts); the fade only
+   takes the floor below the monitors. */
 .hero-band {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 72%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 5%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 5%, #000 82%, transparent 100%);
+}
+@media (min-width: 48rem) {
+  .hero-band {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 4%, #000 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 4%, #000 80%, transparent 100%);
+  }
 }
 
 /* Explorer previews: small photographs inside area and capability buttons. Quiet at rest,
@@ -338,7 +346,7 @@
 .explorer-preview {
   border-radius: 6px;
   background: var(--color-surface);
-  opacity: 1;
+  opacity: 0.85;
   transition:
     opacity 300ms var(--ease-out-quart),
     filter 300ms var(--ease-out-quart);
@@ -346,6 +354,7 @@
 .explorer-preview[data-state="on"],
 .group:hover .explorer-preview[data-state="idle"],
 .group:focus-visible .explorer-preview[data-state="idle"] {
+  opacity: 1;
   filter: brightness(1.08);
 }
 .explorer-preview[data-state="off"] {
@@ -389,7 +398,7 @@
   left: calc(48rem + 2rem);
   width: calc((100cqw - 100%) / 2 + 100% - 50rem);
   height: max(calc(100% + var(--pad-top)), 15rem);
-  opacity: 0.88;
+  opacity: 1;
   /* same soft-edge language as the hero: long fades on the inner edges, right edge bleeds off */
   -webkit-mask-image:
     linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.6) 16%, #000 34%),
