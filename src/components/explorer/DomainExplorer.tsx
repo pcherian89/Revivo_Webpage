@@ -260,7 +260,7 @@ export function DomainExplorer({
 
       <div className="relative z-10">
         {/* Heading */}
-        <div className="container-site pt-10 md:pt-12">
+        <div className="container-site pt-10 md:pt-12 lg:pt-4">
           <div className="pl-[42px] md:pl-8 lg:w-[calc(50%-3rem)] lg:pl-0">
             <h2 id="explore-heading" className="text-title">
               {explorer.title}

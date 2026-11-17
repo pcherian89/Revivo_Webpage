@@ -35,14 +35,14 @@ export function HeroScene() {
       >
         {/* The near-square photograph fills the hero height; when space runs short only sky/desk is trimmed,
             never the sides (the swimmer stays in). Only screens ≥1024px download it. */}
-        <div className="hero-photo-frame absolute top-0 right-0 w-full aspect-[1318/1193] max-h-[calc(var(--sig-y,100%)-28px)]">
+        <div className="hero-photo-frame absolute top-[5.5rem] right-0 w-full aspect-[1318/1193]">
           <picture>
             <source media="(min-width: 1024px)" srcSet={heroPhoto.srcSet} sizes={heroPhoto.sizes} />
             <img
               alt=""
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               fetchPriority="high"
-              className="photo absolute inset-0 h-full w-full object-cover"
+              className="photo absolute inset-0 h-full w-full object-cover object-[50%_0%]"
             />
           </picture>
         </div>

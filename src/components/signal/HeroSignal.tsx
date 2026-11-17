@@ -222,8 +222,8 @@ function buildGeometry(hero: HTMLElement): Geo | null {
 
   if (desktop) {
     // Desktop: the track runs beneath the buttons (after headline, copy and actions), makes its
-    // pulse under "Pulse", and turns down at the centre into the explorer. The photograph above
-    // it on the right ends before the line, so they never cross.
+    // pulse under "Pulse", and turns down at the centre into the explorer. The photograph sits right
+    // of the core and trunk, so the line never crosses it.
     const y0 = Math.min(h - 24, actions.bottom + 44);
     const px = (word.left + word.right) / 2;
     const { toMarks, marks, bStart } = lead(y0, px, 1, 14);
@@ -231,7 +231,6 @@ function buildGeometry(hero: HTMLElement): Geo | null {
     const outer = 40;
     const rings = [outer * 0.36, outer * 0.68, outer];
     const down = ` V ${f(h)}`;
-    hero.style.setProperty("--sig-y", `${Math.round(y0)}px`);
     const b = `M ${f(bStart)} ${f(y0)} H ${f(cx)}${down}`;
     const toCore = `${toMarks} H ${f(cx)}`;
     const light = `${toCore}${down}`;
