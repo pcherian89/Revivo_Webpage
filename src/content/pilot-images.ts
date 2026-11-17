@@ -46,12 +46,12 @@ const capabilityImages: Record<string, PanelImage> = {
   "registration-administration": { src: registration, position: "50% 20%" },
   "staff-volunteer-management": { src: staff, position: "50% 25%" },
   "social-media-campaigns": { src: socialMedia, position: "50% 35%" },
-  // Batch 3. 13 is the same file as the Management & Reporting area image (provisional).
-  "sponsorship-management": { src: sponsorship, position: "50% 45%" },
-  "fan-engagement-ticketing": { src: fanEngagement, position: "50% 35%" },
-  "membership-customer-management": { src: membership, position: "50% 40%" },
-  "athlete-management-development": { src: athleteManagement, position: "60% 35%" },
-  "training-performance-monitoring": { src: training, position: "50% 35%" },
+  // Final batch 3 (11–15): full-resolution 1672×941.
+  "sponsorship-management": { src: sponsorship, position: "50% 25%" },
+  "fan-engagement-ticketing": { src: fanEngagement, position: "50% 25%" },
+  "membership-customer-management": { src: membership, position: "50% 30%" },
+  "athlete-management-development": { src: athleteManagement, position: "50% 25%" },
+  "training-performance-monitoring": { src: training, position: "50% 25%" },
   "video-analysis-scouting": { src: video, position: "50% 40%" },
   // Batch 4. 17 = same file as 14, 18 = same file as 05/13; 19–21 are preview-resolution board crops.
   "athlete-career-welfare": { src: careerWelfare, position: "60% 35%" },

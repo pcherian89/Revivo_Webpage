@@ -21,11 +21,11 @@ without its own), and capability-specific panel headers.
 | 08-cap-registration-administration | Final Batch 2 | New, full resolution (replaces the 824px board crop). 1672×941; manifest SHA-256 verified. |
 | 09-cap-staff-volunteer-management | Final Batch 2 | New, full resolution (replaces the 824px board crop). 1672×941; manifest SHA-256 verified. |
 | 10-cap-social-media-campaigns | Final Batch 2 | New, full resolution (replaces the 824px board crop and its label strip). 1672×941; manifest SHA-256 verified. |
-| 11-cap-sponsorship-management | Integrated (Batch 3) | 1536×1024 (3:2), new render of the hospitality-box scene. Blank monitor, steel bottle and notebook props repeat; sunset. |
-| 12-cap-fan-engagement-ticketing | Integrated (Batch 3) | Celebration scene; weak link to ticketing. Heavy lime kit, scarves and stadium lighting. |
-| 13-cap-membership-customer-management | Integrated (Batch 3) | Same file as 05 (control room) — provisional; does not depict membership/customer management. |
-| 14-cap-athlete-management-development | Integrated (Batch 3) | Indoor training hall; strong lime accents (kit, lights, hurdles). Close in look to 04 and 15. |
-| 15-cap-training-performance-monitoring | Integrated | Same file as the earlier pilot. Swoosh-style logos on athlete and coach kit — must be removed. Sunset. |
+| 11-cap-sponsorship-management | Final Batch 3 | New. Laptop screen shows chart/dashboard-style graphics (fake-UI risk); lime lanyards. 1672×941; manifest SHA-256 verified. |
+| 12-cap-fan-engagement-ticketing | Final Batch 3 | New. Ticket-scanning scene fits the capability; heavy lime scarves, banners and lighting. 1672×941; manifest SHA-256 verified. |
+| 13-cap-membership-customer-management | Final Batch 3 | New, distinct image (no longer a copy of 05). Lime scarves. 1672×941; manifest SHA-256 verified. |
+| 14-cap-athlete-management-development | Final Batch 3 | New. Lime kit trims and camera light. 1672×941; manifest SHA-256 verified. |
+| 15-cap-training-performance-monitoring | Final Batch 3 | New (replaces the version with swoosh-style logos). Lime kit trims. 1672×941; manifest SHA-256 verified. |
 | 16-cap-video-analysis-scouting | Integrated (Batch 4 file identical) | Duplicate steel bottle; slightly malformed binoculars. Sunset. |
 | 17-cap-athlete-career-welfare | Integrated (Batch 4) | Same file as 14 (indoor sprint training) — subject mismatch for career & welfare; strong lime accents. Replace. |
 | 18-cap-dashboards-reporting | Integrated (Batch 4) | Same file as 05 and 13 (control room) — third use of one image; partial subject match. Replace. |
@@ -38,7 +38,7 @@ without its own), and capability-specific panel headers.
 - The five SHA-256 checksums in the batch's ASSET-MANIFEST.csv do not match the supplied files (dimensions match;
   all five are new images, not copies of earlier assets).
 - Area images 02–05 are mapped, but every capability now has its own file, so they only appear if a capability
-  image is removed. Capability files 13 and 18 are still copies of the earlier 05 render.
+  image is removed. Capability file 18 is still a copy of the earlier 05 render; 17 is still a copy of the earlier 14.
 - Hero first-request conversion: LCP 2.1 s on a cold cache at 1440 @2x, 0.18 s once cached. Pre-generate or confirm
   Netlify Image CDN behaviour before launch.
 
@@ -47,7 +47,7 @@ without its own), and capability-specific panel headers.
 - Logos and lettering (swooshes, flag/banner marks, lanyards).
 - Lime/neon green inside images competing with the site's signal colour.
 - Repetition: sunsets, steel bottle/notebook props, indoor lime training halls, camera-at-pitch scenes.
-- Duplicate files standing in for distinct capabilities (13 = 18 = earlier 05; 17 = 14).
+- Duplicate files standing in for distinct capabilities (18 = earlier 05; 17 = earlier 14) — Batch 4 pending.
 - Preview-resolution assets (19, 20, 21), with concept-board labels on the bottom edge.
 - Capability relevance (05, 12, 13, 17, 18, 20).
 - Performance: images are converted to AVIF on first request (locally 1.4–2.1 s per large image, then cached).
