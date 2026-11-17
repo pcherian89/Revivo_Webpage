@@ -12,6 +12,11 @@ import socialMedia from "@/assets/pilot/10-cap-social-media-campaigns.png";
 import fanEngagement from "@/assets/pilot/12-cap-fan-engagement-ticketing.png";
 import membership from "@/assets/pilot/13-cap-membership-customer-management.png";
 import athleteManagement from "@/assets/pilot/14-cap-athlete-management-development.png";
+import careerWelfare from "@/assets/pilot/17-cap-athlete-career-welfare.png";
+import dashboards from "@/assets/pilot/18-cap-dashboards-reporting.png";
+import programmes from "@/assets/pilot/19-cap-sports-programme-management.png";
+import funding from "@/assets/pilot/20-cap-funding-impact-reporting.png";
+import governance from "@/assets/pilot/21-cap-governance-compliance.png";
 import sponsorship from "@/assets/pilot/11-cap-sponsorship-management.png";
 import training from "@/assets/pilot/15-cap-training-performance-monitoring.png";
 import video from "@/assets/pilot/16-cap-video-analysis-scouting.png";
@@ -48,6 +53,12 @@ const capabilityImages: Record<string, PanelImage> = {
   "athlete-management-development": { src: athleteManagement, position: "60% 35%" },
   "training-performance-monitoring": { src: training, position: "50% 35%" },
   "video-analysis-scouting": { src: video, position: "50% 40%" },
+  // Batch 4. 17 = same file as 14, 18 = same file as 05/13; 19–21 are preview-resolution board crops.
+  "athlete-career-welfare": { src: careerWelfare, position: "60% 35%" },
+  "dashboards-reporting": { src: dashboards, position: "50% 40%" },
+  "sports-programme-management": { src: programmes, position: "50% 40%" },
+  "funding-impact-reporting": { src: funding, position: "50% 35%" },
+  "governance-compliance": { src: governance, position: "50% 40%" },
 };
 
 export function panelImage(capId: string, zoneId: string): PanelImage | undefined {

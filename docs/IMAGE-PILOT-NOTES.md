@@ -26,13 +26,26 @@ without its own), and capability-specific panel headers.
 | 13-cap-membership-customer-management | Integrated (Batch 3) | Same file as 05 (control room) — provisional; does not depict membership/customer management. |
 | 14-cap-athlete-management-development | Integrated (Batch 3) | Indoor training hall; strong lime accents (kit, lights, hurdles). Close in look to 04 and 15. |
 | 15-cap-training-performance-monitoring | Integrated | Same file as the earlier pilot. Swoosh-style logos on athlete and coach kit — must be removed. Sunset. |
-| 16-cap-video-analysis-scouting | Integrated | Duplicate steel bottle; slightly malformed binoculars. Sunset. |
+| 16-cap-video-analysis-scouting | Integrated (Batch 4 file identical) | Duplicate steel bottle; slightly malformed binoculars. Sunset. |
+| 17-cap-athlete-career-welfare | Integrated (Batch 4) | Same file as 14 (indoor sprint training) — subject mismatch for career & welfare; strong lime accents. Replace. |
+| 18-cap-dashboards-reporting | Integrated (Batch 4) | Same file as 05 and 13 (control room) — third use of one image; partial subject match. Replace. |
+| 19-cap-sports-programme-management | Integrated (Batch 4) | Preview resolution (824×392, board crop) — replace. Good subject (grassroots). Concept-board label visible on the bottom edge; identifiable children. |
+| 20-cap-funding-impact-reporting | Integrated (Batch 4) | Preview resolution (824×392, board crop) — replace. Subject mismatch (fan crowd); face paint, child; label visible on the bottom edge. |
+| 21-cap-governance-compliance | Integrated (Batch 4) | Preview resolution (824×390, board crop) — replace. Document with text-like lines; label visible on the bottom edge. |
 
 ## Set-wide themes to check in the final audit
 
 - Logos and lettering (swooshes, flag/banner marks, lanyards).
 - Lime/neon green inside images competing with the site's signal colour.
 - Repetition: sunsets, steel bottle/notebook props, indoor lime training halls, camera-at-pitch scenes.
-- Duplicate files standing in for distinct capabilities (06 = 02, 13 = 05).
-- Preview-resolution assets (08, 09, 10).
-- Capability relevance (05, 12, 13).
+- Duplicate files standing in for distinct capabilities (06 = 02; 13 = 18 = 05; 17 = 14).
+- Preview-resolution assets (08, 09, 10, 19, 20, 21), several with concept-board labels on the bottom edge.
+- Capability relevance (05, 12, 13, 17, 18, 20).
+- Performance: images are converted to AVIF on first request (locally 1.4–2.1 s per large image, then cached).
+  In a cold-cache test, 6 of 16 desktop panel headers were still blank after 1.6 s. Verify on the Netlify Image CDN,
+  or pre-generate the sizes, before launch.
+
+## Slot check (Batch 4 integration)
+
+All 21 slots populated: hero (desktop/laptop only), 4 area images, 16 capability panels. Every panel was opened at
+1440 and 375 px and shows its intended file.
