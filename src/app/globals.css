@@ -277,19 +277,24 @@
 /* Starts just right of where the signal turns down (past the copy, or at the centre axis),
    so the line never crosses the photograph. */
 .hero-photo {
+  /* starts just right of where the signal turns down (the centre axis, or past the copy) */
   left: max(
-    calc(50% + 28px),
-    calc(max(clamp(1.25rem, 0.2rem + 4.4vw, 4.5rem), (100% - 75rem) / 2) + 34rem + 64px)
+    calc(50% + 6px),
+    calc(max(clamp(1.25rem, 0.2rem + 4.4vw, 4.5rem), (100% - 75rem) / 2) + 34rem + 42px)
   );
 }
+/* The whole photograph, never cropped (its own 16:9 shape keeps the swimmer at the right edge).
+   Long fades on the three inner edges dissolve it into the page, so it reads as part of the
+   hero rather than a rectangle; the right edge bleeds off the screen. */
 .hero-photo-frame {
+  background: var(--color-canvas);
   -webkit-mask-image:
-    linear-gradient(to right, transparent 0%, #000 18%),
-    linear-gradient(to bottom, transparent 0%, #000 12%, #000 80%, transparent 100%);
+    linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.6) 16%, #000 34%),
+    linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 12%, #000 26%, #000 62%, transparent 100%);
   -webkit-mask-composite: source-in;
   mask-image:
-    linear-gradient(to right, transparent 0%, #000 18%),
-    linear-gradient(to bottom, transparent 0%, #000 12%, #000 80%, transparent 100%);
+    linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.6) 16%, #000 34%),
+    linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 12%, #000 26%, #000 62%, transparent 100%);
   mask-composite: intersect;
 }
 

@@ -33,9 +33,9 @@ export function HeroScene() {
         aria-hidden="true"
         className="hero-photo pointer-events-none absolute inset-y-0 right-0 hidden lg:block"
       >
-        {/* The whole photograph at its own 16:9 shape (nothing cropped off the right edge),
-            vertically centred in the hero. Only screens ≥1024px download it. */}
-        <div className="hero-photo-frame absolute inset-x-0 top-1/2 aspect-[16/9] -translate-y-1/2">
+        {/* The whole photograph at its own 16:9 shape (never cropped: the swimmer sits at the right edge),
+            starting level with the pulse line and fading down past the buttons. Only screens ≥1024px download it. */}
+        <div className="hero-photo-frame absolute inset-x-0 top-[32%] aspect-[16/9]">
           <picture>
             <source media="(min-width: 1024px)" srcSet={heroPhoto.srcSet} sizes={heroPhoto.sizes} />
             <img
