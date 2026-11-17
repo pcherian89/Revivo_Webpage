@@ -14,7 +14,7 @@ import {
 } from "react";
 import { useMediaQuery } from "@/components/ui/useMediaQuery";
 import { explorer, zones } from "@/content/explorer";
-import { areaImage } from "@/content/pilot-images";
+import { areaImage, panelImage } from "@/content/pilot-images";
 import type { RelatedProduct } from "@/content/products";
 import { cn } from "@/lib/cn";
 import { DIM_LIME, MID_LIME, orthogonal, SIGNAL, type Point } from "@/lib/signal";
@@ -238,7 +238,13 @@ export function DomainExplorer({
           beneath the signal branches and the text. */}
       <AnimatePresence>
         {isDesktop && hydrated && openZone !== null && geo && (
-          <AreaBackdrop key={zones[openZone].id} zoneId={zones[openZone].id} geo={geo} zoneIndex={openZone} reduce={!!reduce} />
+          <AreaBackdrop
+            key={zones[openZone].id}
+            zoneId={zones[openZone].id}
+            geo={geo}
+            zoneIndex={openZone}
+            reduce={!!reduce}
+          />
         )}
       </AnimatePresence>
 
@@ -348,12 +354,20 @@ export function DomainExplorer({
                         aria-controls="explore-caps"
                         onClick={() => chooseZone(i)}
                         className={cn(
-                          "text-subtitle mt-3 min-h-11 max-w-[13rem] rounded-full px-2 whitespace-pre-line transition-colors duration-200",
+                          "group text-subtitle mt-3 flex min-h-11 max-w-[13rem] flex-col items-center gap-3 rounded-lg px-2 whitespace-pre-line transition-colors duration-200",
                           on ? "text-ink" : "text-muted hover:text-ink",
                         )}
                       >
+                        {hydrated && (
+                          <Preview
+                            img={areaImage(z.id)}
+                            sizes="192px"
+                            state={openZone === null ? "idle" : on ? "on" : "off"}
+                            className="aspect-[16/9] w-[12rem]"
+                          />
+                        )}
                         {/* Break after "&" so every area title sits on the same two lines */}
-                        {z.name.replace(" & ", " &\n")}
+                        <span>{z.name.replace(" & ", " &\n")}</span>
                       </button>
                       <p className={cn("text-small mt-1 max-w-[14rem]", on ? "text-muted" : "text-subtle")}>
                         {z.summary}
@@ -393,6 +407,14 @@ export function DomainExplorer({
                             activeCap === j ? "text-lime" : "text-ink hover:text-lime",
                           )}
                         >
+                          {hydrated && (
+                            <Preview
+                              img={panelImage(c.id, zones[openZone].id)}
+                              sizes="160px"
+                              state={activeCap === j ? "on" : "idle"}
+                              className="mb-2 aspect-[16/9] w-[10rem]"
+                            />
+                          )}
                           <span className="font-medium">{c.name}</span>
                           <span className="text-small text-muted">{c.short}</span>
                           <span className="text-small mt-1 inline-flex items-center gap-1 text-subtle group-hover:text-lime">
@@ -441,11 +463,20 @@ export function DomainExplorer({
                         aria-controls={`zone-acc-panel-${z.id}`}
                         onClick={() => chooseZone(i)}
                         className={cn(
-                          "text-subtitle flex min-h-14 w-full items-center py-2 text-left",
+                          "group text-subtitle flex min-h-14 w-full items-center gap-3 py-2 text-left",
                           on ? "text-ink" : "text-muted",
                         )}
                       >
-                        {z.name}
+                        <span className="flex-1">{z.name}</span>
+                        {/* Once the area is open its photograph continues as the strip below. */}
+                        {hydrated && (
+                          <Preview
+                            img={areaImage(z.id)}
+                            sizes="96px"
+                            state={on && hydrated ? "hidden" : openZone === null ? "idle" : "off"}
+                            className="aspect-[3/2] w-[4.5rem] shrink-0 md:w-24"
+                          />
+                        )}
                       </button>
                     </h3>
                     {expanded && (
@@ -475,7 +506,7 @@ export function DomainExplorer({
                                   aria-haspopup="dialog"
                                   onClick={(e) => openCapability(j, e)}
                                   className={cn(
-                                    "flex min-h-12 w-full items-center gap-3 py-2 text-left",
+                                    "group flex min-h-12 w-full items-center gap-3 py-2 text-left",
                                     on && activeCap === j ? "text-lime" : "text-ink",
                                   )}
                                 >
@@ -487,6 +518,14 @@ export function DomainExplorer({
                                     <span className="font-medium">{c.name}</span>
                                     <span className="text-small text-muted">{c.short}</span>
                                   </span>
+                                  {hydrated && (
+                                    <Preview
+                                      img={panelImage(c.id, z.id)}
+                                      sizes="80px"
+                                      state={on && activeCap === j ? "on" : "idle"}
+                                      className="aspect-[4/3] w-14 shrink-0 md:w-20"
+                                    />
+                                  )}
                                   <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-subtle" />
                                 </button>
                               </m.li>
@@ -755,5 +794,42 @@ function AreaStrip({ zoneId, reduce }: { zoneId: string; reduce: boolean }) {
         style={{ objectPosition: img.position }}
       />
     </m.div>
+  );
+}
+
+type PreviewState = "idle" | "on" | "off" | "hidden";
+
+/**
+ * A small cinematic preview inside an area or capability button (the button's text is its
+ * accessible name, so the image is decorative). Loads lazily: it only exists once the
+ * explorer is open or its area is chosen.
+ */
+function Preview({
+  img,
+  sizes,
+  state,
+  className,
+}: {
+  img: ReturnType<typeof areaImage>;
+  sizes: string;
+  state: PreviewState;
+  className?: string;
+}) {
+  if (!img) return null;
+  return (
+    <span
+      aria-hidden="true"
+      data-state={state}
+      className={cn("explorer-preview relative block overflow-hidden", className)}
+    >
+      <Image
+        src={img.src}
+        alt=""
+        fill
+        sizes={sizes}
+        className="object-cover"
+        style={{ objectPosition: img.position }}
+      />
+    </span>
   );
 }

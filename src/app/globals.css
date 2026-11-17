@@ -342,3 +342,35 @@
     linear-gradient(to bottom, transparent 44%, #000 52%, #000 64%, transparent 72%);
   mask-composite: intersect;
 }
+
+/* Explorer previews: small photographs inside area and capability buttons. Quiet at rest,
+   full on hover/selection, dimmed when another area is chosen. No borders, shadows or overlays. */
+.explorer-preview {
+  border-radius: 6px;
+  background: var(--color-surface);
+  opacity: 0.82;
+  transition:
+    opacity 300ms var(--ease-out-quart),
+    filter 300ms var(--ease-out-quart);
+}
+.explorer-preview[data-state="on"],
+.group:hover .explorer-preview[data-state="idle"],
+.group:focus-visible .explorer-preview[data-state="idle"] {
+  opacity: 1;
+}
+.explorer-preview[data-state="off"] {
+  opacity: 0.4;
+  filter: saturate(0.4);
+}
+.group:hover .explorer-preview[data-state="off"] {
+  opacity: 0.75;
+  filter: none;
+}
+.explorer-preview[data-state="hidden"] {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .explorer-preview {
+    transition: none;
+  }
+}
