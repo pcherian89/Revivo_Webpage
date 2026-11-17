@@ -422,3 +422,118 @@
 #hero .photo {
   --tone: saturate(0.82) brightness(0.94); /* the hero is the most saturated photo: brought in line with the set */
 }
+
+/* ==========================================================================
+   GATEWAY — first-arrival entrance (src/components/gateway/Gateway.tsx).
+   Hidden unless <html class="gw"> (set before first paint by the boot script).
+   ========================================================================== */
+.gateway {
+  display: none;
+}
+html.gw .gateway {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow: hidden;
+  background: var(--color-canvas);
+  transition:
+    opacity 700ms var(--ease-out-quart),
+    visibility 0s linear 700ms;
+}
+html.gw body {
+  overflow: hidden;
+}
+/* The homepage's own entrance plays when the visitor enters, not behind the gateway. */
+html.gw .hero-fade,
+html.gw .hero-mask > span {
+  animation-play-state: paused;
+}
+html.gw-leaving .gateway {
+  opacity: 0;
+  visibility: hidden;
+}
+html.gw-leaving .gw-stage {
+  transform: translate(-50%, -50%) scale(1.04);
+}
+
+/* The artwork keeps its 16:9 composition: it covers landscape screens; on portrait screens it is
+   a wide panorama (160vw) centred on the observer and the dark brand area, fading to black above
+   and below, with the button underneath. Everything inside is placed in % of the artwork. */
+.gw-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100vw, 177.78vh);
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+  container-type: inline-size;
+  transition: transform 700ms var(--ease-out-quart);
+}
+.gw-identity {
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  width: 22cqw;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6cqw;
+}
+.gw-pulse {
+  width: 30cqw;
+  height: auto;
+  overflow: visible;
+}
+.gw-enter {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+@media (orientation: portrait) {
+  .gw-stage {
+    width: 190vw;
+    top: 42%;
+  }
+  .gw-art {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 80%, transparent 100%);
+  }
+  .gw-identity {
+    top: 24%;
+    width: 24cqw;
+  }
+  .gw-pulse {
+    width: 32cqw;
+  }
+  .gw-enter {
+    top: calc(100% + 1.5rem);
+  }
+}
+/* One light runs along the pulse, like the homepage signal. */
+.gw-light {
+  stroke-dasharray: 0.12 3;
+  stroke-dashoffset: 0.12;
+  animation: gw-run 2.6s linear infinite;
+}
+@keyframes gw-run {
+  0% {
+    stroke-dashoffset: 0.12;
+  }
+  70%,
+  100% {
+    stroke-dashoffset: -1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.gw .gateway,
+  .gw-stage {
+    transition: none;
+  }
+  .gw-light {
+    display: none;
+  }
+}

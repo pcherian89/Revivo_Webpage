@@ -111,6 +111,16 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
    desktop, vertical on mobile). Next to the form, `EchoSignal` ("Your signal") answers as the visitor types
    (`revivo:typing` event) plus a quiet idle pulse, with "What happens next" (three steps). The lower page stays calm.
 
+## 5b. Gateway (first-arrival entrance, owner-approved Nov 2026)
+
+`src/components/gateway/` — a dismissible overlay above the homepage, not a separate route. A boot script in
+`<head>` (`boot.ts`) shows it only on the first homepage arrival per browser session (no hash), and preloads its
+artwork only then; without JavaScript it never shows (SEO-safe). Layers: the clean background artwork
+(`src/assets/pilot/00-gateway.png`, CSS background so it is never downloaded when hidden), the real `RevivoLogo`
+with one homepage-style pulse (CSS light, hidden under reduced motion), and a real "Enter Revivo" button (focus
+trapped; Enter/Space/Escape enter; focus moves to `#main`). The homepage's own entrance animation waits for it.
+Portrait screens show the artwork as a 190vw panorama with the button beneath.
+
 ## 6. Component structure
 
 - `src/content/explorer.ts` — the four zones and sixteen capabilities (single source for map, HTML and panels).
