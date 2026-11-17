@@ -33,9 +33,9 @@ export function HeroScene() {
         aria-hidden="true"
         className="hero-photo pointer-events-none absolute inset-y-0 right-0 hidden lg:block"
       >
-        {/* The whole photograph at its own 16:9 shape (never cropped: the swimmer sits at the right edge),
-            starting level with the pulse line and fading down past the buttons. Only screens ≥1024px download it. */}
-        <div className="hero-photo-frame absolute inset-x-0 top-[32%] aspect-[16/9]">
+        {/* The near-square photograph fills the hero height; when space runs short only sky/desk is trimmed,
+            never the sides (the swimmer stays in). Only screens ≥1024px download it. */}
+        <div className="hero-photo-frame absolute top-0 right-0 w-full aspect-[1318/1193] max-h-full">
           <picture>
             <source media="(min-width: 1024px)" srcSet={heroPhoto.srcSet} sizes={heroPhoto.sizes} />
             <img
@@ -100,7 +100,7 @@ export function HeroScene() {
               decoding="async"
               fetchPriority="low"
               className="photo absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: "74% 62%" }}
+              style={{ objectPosition: "60% 58%" }}
             />
           </picture>
         </div>
