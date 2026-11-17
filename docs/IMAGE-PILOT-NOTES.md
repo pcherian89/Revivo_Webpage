@@ -13,13 +13,20 @@ present them as Revivo clients, partners, events, products or results.
 - Hero: the photo's own lime wave is muted on its flat left stretch (`.hero-photo-quiet`) so it never doubles the
   site's animated signal.
 
-## Production blockers
+## Creative direction (clarified by the owner)
 
-| # | Image | Problem |
-|---|---|---|
-| 1 | 18 Dashboards & Reporting | Readable invented results on the wall screen (Engagement +28%, Revenue +18%, Operations 96%, 96% Programme Delivery, 18.6K participants), still legible on phones; faint generator watermark bottom-right. Conflicts with CLAUDE.md §3 (fake dashboards, invented metrics). |
-| 2 | 16 Video Analysis & Scouting | Player-tracking overlays, heat zones and highlight rings present computer vision as existing; ad boards carry pseudo-brands. |
-| 3 | 19 Sports Programme Management | Nike-style swooshes on two jackets, crest emblems on others. |
+Conceptual and futuristic technology imagery (AI-assisted tracking, analytics, conceptual dashboards and interfaces)
+is intentional. Not acceptable: specific, unsupported performance figures; third-party or invented branding;
+generator watermarks; illegible pseudo-lettering. No captions or disclaimers on imagery.
+
+## Corrections integrated (16, 18, 19, 21)
+
+New 1672×941 compositions, manifest SHA-256 verified:
+- 18: conceptual dashboard kept; no readable figures; no watermark. Previous blocker resolved.
+- 16: conceptual tracking overlays kept; no fictional sponsor boards visible. Previous blocker resolved.
+- 19: grassroots multi-sport group; jacket swooshes and crests gone. Minor: a small illegible wordmark on one
+  girl's sleeve and a tiny tick-like mark on another sleeve (barely visible at panel size).
+- 21: conceptual holographic interface with icons only, no lettering.
 
 ## Should fix
 
@@ -30,7 +37,6 @@ present them as Revivo clients, partners, events, products or results.
 | 13 Membership | Monogram crest on a jacket reads like a luxury brand. |
 | 15 Training | Tick-like chest logo on the coach; wall of screens hints at a monitoring suite. |
 | 20 Funding & Impact | Growth-arrow bar-chart screen implies results. |
-| 21 Governance | Floating holographic UI with gibberish text; lime-heavy. |
 | 12 Fan Engagement | Heaviest lime (banners, scarves, turnstile). |
 | 11 Sponsorship | Odd gold cast on one handshake hand (artefact); lime bar chart on laptop (no numbers). |
 | 07 Venue & Facility | Reads as stewarding rather than bookings/maintenance; near-duplicate of 02. |
