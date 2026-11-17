@@ -4,6 +4,11 @@ import areaEvents from "@/assets/pilot/02-area-events-operations.png";
 import areaGrowth from "@/assets/pilot/03-area-growth-engagement.png";
 import areaAthletes from "@/assets/pilot/04-area-athletes-performance.png";
 import areaManagement from "@/assets/pilot/05-area-management-reporting.png";
+import eventPlanning from "@/assets/pilot/06-cap-event-planning-coordination.png";
+import venue from "@/assets/pilot/07-cap-venue-facility-management.png";
+import registration from "@/assets/pilot/08-cap-registration-administration.png";
+import staff from "@/assets/pilot/09-cap-staff-volunteer-management.png";
+import socialMedia from "@/assets/pilot/10-cap-social-media-campaigns.png";
 import sponsorship from "@/assets/pilot/11-cap-sponsorship-management.png";
 import training from "@/assets/pilot/15-cap-training-performance-monitoring.png";
 import video from "@/assets/pilot/16-cap-video-analysis-scouting.png";
@@ -27,6 +32,12 @@ const areaImages: Record<string, PanelImage> = {
 
 /** Capability-specific images, keyed by capability id. */
 const capabilityImages: Record<string, PanelImage> = {
+  // Batch 2. 08–10 are preview-resolution board crops (~824px wide): replace before launch.
+  "event-planning-coordination": { src: eventPlanning, position: "60% 45%" },
+  "venue-facility-management": { src: venue, position: "50% 55%" },
+  "registration-administration": { src: registration, position: "50% 40%" },
+  "staff-volunteer-management": { src: staff, position: "40% 40%" },
+  "social-media-campaigns": { src: socialMedia, position: "50% 40%" },
   "sponsorship-management": { src: sponsorship, position: "50% 45%" },
   "training-performance-monitoring": { src: training, position: "50% 35%" },
   "video-analysis-scouting": { src: video, position: "50% 40%" },
