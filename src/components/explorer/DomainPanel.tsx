@@ -147,7 +147,7 @@ export function DomainPanel({
                     /* IMAGE PILOT: full-bleed header that fades into the panel (shorter on phones) */
                     <div
                       aria-hidden="true"
-                      className="relative -mx-6 -mt-8 mb-6 aspect-[16/7] overflow-hidden md:-mx-10 md:aspect-[2/1]"
+                      className="relative -mx-6 -mt-8 mb-6 aspect-[16/9] overflow-hidden md:-mx-10"
                     >
                       <Image
                         src={headerImage.src}

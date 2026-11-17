@@ -118,7 +118,14 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
   homepage-style pulse (CSS light, hidden under reduced motion) and a real "Enter Revivo" link to `/home`. No site
   header/footer on this page. Old deep links (`/#start`, `/#explore`…) are forwarded to `/home#…`.
 - `/home` — the full homepage (`src/app/home/page.tsx`). Logo, nav, CTAs and "Back to the homepage" link here.
-- Portrait screens show the Gateway artwork as a 190vw panorama with the button beneath.
+- The whole artwork is always shown: landscape screens fit it (min(100vw, 16:9 of the height)); portrait screens
+  show it across the full width with the logo and pulse above it and the button beneath.
+
+## 5c. Photographs are never cropped (owner decision, Nov 2026)
+
+Every photograph is shown whole on every device: each frame uses the photo's own shape (16:9 for the set; the
+hero photo 1318:1193), so `object-cover` never trims anything. Atmospheric photos (area backdrop, process photo)
+fade at their own edges instead of being cut. Check with the crop audit before changing any image frame.
 
 ## 6. Component structure
 

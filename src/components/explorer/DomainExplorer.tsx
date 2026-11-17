@@ -462,7 +462,7 @@ export function DomainExplorer({
                             img={areaImage(z.id)}
                             sizes="96px"
                             state={on && hydrated ? "hidden" : openZone === null ? "idle" : "off"}
-                            className="aspect-[3/2] w-[4.5rem] shrink-0 md:w-24"
+                            className="aspect-[16/9] w-[4.5rem] shrink-0 md:w-24"
                           />
                         )}
                       </button>
@@ -509,9 +509,9 @@ export function DomainExplorer({
                                   {hydrated && (
                                     <Preview
                                       img={panelImage(c.id, z.id)}
-                                      sizes="80px"
+                                      sizes="96px"
                                       state={on && activeCap === j ? "on" : "idle"}
-                                      className="aspect-[4/3] w-11 shrink-0 min-[380px]:w-12 md:w-20"
+                                      className="aspect-[16/9] w-14 shrink-0 min-[380px]:w-16 md:w-24"
                                     />
                                   )}
                                   <ArrowRight
@@ -750,7 +750,7 @@ function AreaStrip({ zoneId, reduce }: { zoneId: string; reduce: boolean }) {
   return (
     <m.div
       aria-hidden="true"
-      className="area-strip relative mt-3 aspect-[12/5] w-full overflow-hidden md:aspect-[3/1]"
+      className="area-strip relative mt-3 aspect-[16/9] w-full overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: reduce ? 0 : 0.5 }}
