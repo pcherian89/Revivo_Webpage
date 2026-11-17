@@ -52,13 +52,13 @@ const capabilityImages: Record<string, PanelImage> = {
   "membership-customer-management": { src: membership, position: "50% 30%" },
   "athlete-management-development": { src: athleteManagement, position: "50% 25%" },
   "training-performance-monitoring": { src: training, position: "50% 25%" },
-  "video-analysis-scouting": { src: video, position: "50% 40%" },
-  // Batch 4. 17 = same file as 14, 18 = same file as 05/13; 19–21 are preview-resolution board crops.
-  "athlete-career-welfare": { src: careerWelfare, position: "60% 35%" },
-  "dashboards-reporting": { src: dashboards, position: "50% 40%" },
-  "sports-programme-management": { src: programmes, position: "50% 40%" },
-  "funding-impact-reporting": { src: funding, position: "50% 35%" },
-  "governance-compliance": { src: governance, position: "50% 40%" },
+  "video-analysis-scouting": { src: video, position: "50% 30%" },
+  // Final batch 4 (16–21): full-resolution 1672×941.
+  "athlete-career-welfare": { src: careerWelfare, position: "50% 30%" },
+  "dashboards-reporting": { src: dashboards, position: "50% 30%" },
+  "sports-programme-management": { src: programmes, position: "50% 35%" },
+  "funding-impact-reporting": { src: funding, position: "50% 30%" },
+  "governance-compliance": { src: governance, position: "50% 30%" },
 };
 
 export function panelImage(capId: string, zoneId: string): PanelImage | undefined {

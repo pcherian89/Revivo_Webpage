@@ -1,0 +1,254 @@
+{
+  "01-hero": {
+    "hash": "b038cdabea",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "02-area-events-operations": {
+    "hash": "bda553deae",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "03-area-growth-engagement": {
+    "hash": "cefec471b1",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "04-area-athletes-performance": {
+    "hash": "30e212da4a",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "05-area-management-reporting": {
+    "hash": "d6aff5d8b4",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "06-cap-event-planning-coordination": {
+    "hash": "6d0d0dc77a",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "07-cap-venue-facility-management": {
+    "hash": "a71b8ef89f",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "08-cap-registration-administration": {
+    "hash": "00490c327b",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "09-cap-staff-volunteer-management": {
+    "hash": "3960c85e43",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "10-cap-social-media-campaigns": {
+    "hash": "2ba754d784",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "11-cap-sponsorship-management": {
+    "hash": "570778cf56",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "12-cap-fan-engagement-ticketing": {
+    "hash": "a8484a4545",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "13-cap-membership-customer-management": {
+    "hash": "2bc02358eb",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "14-cap-athlete-management-development": {
+    "hash": "4f14102a00",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "15-cap-training-performance-monitoring": {
+    "hash": "eb96800b78",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "16-cap-video-analysis-scouting": {
+    "hash": "cb145651d2",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "17-cap-athlete-career-welfare": {
+    "hash": "217279d7c7",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "18-cap-dashboards-reporting": {
+    "hash": "28b8b30e49",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "19-cap-sports-programme-management": {
+    "hash": "1140c7545e",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "20-cap-funding-impact-reporting": {
+    "hash": "14b208256a",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  },
+  "21-cap-governance-compliance": {
+    "hash": "a25bfabb03",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1672
+    ]
+  }
+}

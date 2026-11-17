@@ -6,3 +6,9 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Build-time image variants have content-hashed names, so they can be cached for good.
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
