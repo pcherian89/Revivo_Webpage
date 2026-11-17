@@ -88,8 +88,8 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
    straight lime track (dim) runs beneath the buttons — after headline, copy and actions — makes one crisp pulse under
    the word "Pulse", passes five data marks, reaches a small **signal core** (concentric rings) on the centre axis and
    turns straight down into the explorer. The hero photograph sits above it on the right and ends before the line;
-   they never cross. Below 1024px the same order holds (headline → pulse →
-   copy → buttons): the line runs along the right gutter past the copy and buttons, then steps back to the rail. A bright light **runs through the track continuously**
+   they never cross. Below 1024px the order is headline → pulse →
+   copy → buttons: the line runs along the right gutter past the copy and buttons, then steps back to the rail. A bright light **runs through the track continuously**
    and the core ripples as it arrives. The light is driven by the shared **signal clock** (`src/lib/signal-clock.ts`):
    one light, one timeline — it flows from the hero straight down the explorer trunk into the Intelligence Layer and
    lights it up (core flash). Paused off-screen; static under reduced motion. Geometry in `src/lib/signal.ts`:
