@@ -460,21 +460,29 @@ body:has([data-gateway-page]) footer {
   opacity: 0;
 }
 .gateway.gw-leaving .gw-stage {
-  transform: translate(-50%, -50%) scale(1.04);
+  transform: translate(-50%, var(--gw-y)) scale(1.04);
 }
 
 /* The artwork keeps its 16:9 composition: it covers landscape screens; on portrait screens it is
    a wide panorama (160vw) centred on the observer and the dark brand area, fading to black above
    and below, with the button underneath. Everything inside is placed in % of the artwork. */
+/* Landscape: the artwork keeps its full width on 16:10 laptops (nothing cut at the sides — the
+   athletes reach the edges), anchored at the top; any spare height below is the near-black floor
+   fading into the page. Wider screens (16:9 and up) are covered exactly as before. */
 .gw-stage {
+  --gw-y: 0%;
   position: absolute;
   left: 50%;
-  top: 50%;
-  width: max(100vw, 177.78vh);
+  top: 0;
+  width: max(100vw, 160vh);
   aspect-ratio: 16 / 9;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, var(--gw-y));
   container-type: inline-size;
   transition: transform 700ms var(--ease-out-quart);
+}
+.gw-art {
+  -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent);
+  mask-image: linear-gradient(to bottom, #000 88%, transparent);
 }
 .gw-identity {
   position: absolute;
@@ -501,6 +509,7 @@ body:has([data-gateway-page]) footer {
 }
 @media (orientation: portrait) {
   .gw-stage {
+    --gw-y: -50%;
     width: 190vw;
     top: 42%;
   }
