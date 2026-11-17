@@ -285,18 +285,6 @@
     linear-gradient(to bottom, transparent 0%, #000 14%, #000 70%, transparent 100%);
   mask-composite: intersect;
 }
-/* Mutes the photo's lime wave where it would double the site's signal (left, 50–74% height). */
-.hero-photo-quiet {
-  filter: saturate(0) brightness(0.3);
-  -webkit-mask-image:
-    linear-gradient(to right, #000 0%, #000 40%, transparent 58%),
-    linear-gradient(to bottom, transparent 48%, #000 55%, #000 68%, transparent 76%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to right, #000 0%, #000 40%, transparent 58%),
-    linear-gradient(to bottom, transparent 48%, #000 55%, #000 68%, transparent 76%);
-  mask-composite: intersect;
-}
 
 /* Explorer: the chosen area's photograph. Desktop — a dim band behind the capability row that fades
    to black on every edge, so the signal branches and text stay dominant. Phones/tablets — a short strip
@@ -330,17 +318,6 @@
 .hero-band {
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 70%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 70%, transparent 100%);
-}
-.hero-band-quiet {
-  filter: saturate(0) brightness(0.3);
-  -webkit-mask-image:
-    linear-gradient(to right, #000 0%, #000 52%, transparent 66%),
-    linear-gradient(to bottom, transparent 44%, #000 52%, #000 64%, transparent 72%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to right, #000 0%, #000 52%, transparent 66%),
-    linear-gradient(to bottom, transparent 44%, #000 52%, #000 64%, transparent 72%);
-  mask-composite: intersect;
 }
 
 /* Explorer previews: small photographs inside area and capability buttons. Quiet at rest,
