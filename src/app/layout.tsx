@@ -2,9 +2,6 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import gatewayImage from "@/assets/pilot/00-gateway.png";
-import { gatewayBootScript, gatewayUrls } from "@/components/gateway/boot";
-import { Gateway } from "@/components/gateway/Gateway";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { siteConfig, siteUrl } from "@/config/site";
 import { displayFont, sansFont } from "./fonts";
@@ -39,20 +36,9 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-const gatewayArt = gatewayUrls(gatewayImage.src);
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      data-scroll-behavior="smooth"
-      className={`${displayFont.variable} ${sansFont.variable}`}
-      suppressHydrationWarning
-    >
-      <head>
-        {/* First arrival only: decide before first paint whether the gateway shows. */}
-        <script dangerouslySetInnerHTML={{ __html: gatewayBootScript(gatewayArt) }} />
-      </head>
+    <html lang="en" data-scroll-behavior="smooth" className={`${displayFont.variable} ${sansFont.variable}`}>
       <body>
         <a
           href="#main"
@@ -66,7 +52,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {children}
           </main>
           <SiteFooter />
-          <Gateway />
         </MotionProvider>
       </body>
     </html>

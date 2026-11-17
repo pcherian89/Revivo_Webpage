@@ -427,33 +427,27 @@
    GATEWAY — first-arrival entrance (src/components/gateway/Gateway.tsx).
    Hidden unless <html class="gw"> (set before first paint by the boot script).
    ========================================================================== */
-.gateway {
+/* The gateway page is a bare full-screen stage: no site header, footer or skip link. */
+body:has([data-gateway-page]) {
+  overflow: hidden;
+}
+body:has([data-gateway-page]) > a[href="#main"],
+body:has([data-gateway-page]) header,
+body:has([data-gateway-page]) footer {
   display: none;
 }
-html.gw .gateway {
-  display: block;
+.gateway {
   position: fixed;
   inset: 0;
   z-index: 90;
   overflow: hidden;
   background: var(--color-canvas);
-  transition:
-    opacity 700ms var(--ease-out-quart),
-    visibility 0s linear 700ms;
+  transition: opacity 600ms var(--ease-out-quart);
 }
-html.gw body {
-  overflow: hidden;
-}
-/* The homepage's own entrance plays when the visitor enters, not behind the gateway. */
-html.gw .hero-fade,
-html.gw .hero-mask > span {
-  animation-play-state: paused;
-}
-html.gw-leaving .gateway {
+.gateway.gw-leaving {
   opacity: 0;
-  visibility: hidden;
 }
-html.gw-leaving .gw-stage {
+.gateway.gw-leaving .gw-stage {
   transform: translate(-50%, -50%) scale(1.04);
 }
 
@@ -529,7 +523,7 @@ html.gw-leaving .gw-stage {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  html.gw .gateway,
+  .gateway,
   .gw-stage {
     transition: none;
   }

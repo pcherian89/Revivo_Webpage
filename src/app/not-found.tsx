@@ -9,7 +9,7 @@ export default function NotFound() {
         <p className="label mt-8 text-subtle">Page not found</p>
         <h1 className="text-title mt-4 max-w-3xl">We lost the signal on this page.</h1>
         <div className="mt-10">
-          <ButtonLink href="/">Back to the homepage</ButtonLink>
+          <ButtonLink href="/home">Back to the homepage</ButtonLink>
         </div>
       </div>
     </div>

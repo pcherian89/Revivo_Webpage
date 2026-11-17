@@ -76,7 +76,7 @@ export function SiteHeader() {
         )}
       >
         <div className="container-site flex h-16 items-center justify-between gap-6 lg:h-[4.5rem]">
-          <Link href="/" className="inline-flex min-h-11 items-center text-ink" aria-label="Revivo, home">
+          <Link href="/home" className="inline-flex min-h-11 items-center text-ink" aria-label="Revivo, home">
             <RevivoLogo title="" className="h-[26px] w-auto" />
           </Link>
 

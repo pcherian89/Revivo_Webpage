@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import { DomainExplorer } from "@/components/explorer/DomainExplorer";
-import { FinalCtaScene } from "@/components/scenes/FinalCtaScene";
-import { HeroScene } from "@/components/scenes/HeroScene";
-import { ProcessScene } from "@/components/scenes/ProcessScene";
+import gatewayImage from "@/assets/pilot/00-gateway.png";
+import { gatewayUrls, SMALL_QUERY } from "@/components/gateway/boot";
+import { Gateway } from "@/components/gateway/Gateway";
 import { siteConfig } from "@/config/site";
-import { relatedProducts } from "@/content/products";
-import { jsonLdScript, organizationJsonLd, servicesJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: { absolute: siteConfig.title },
@@ -13,18 +10,21 @@ export const metadata: Metadata = {
   openGraph: { url: "/", title: siteConfig.title, description: siteConfig.socialDescription },
 };
 
-/** Hero signal → domain explorer → how Revivo works → final call to action. */
-export default function HomePage() {
+const art = gatewayUrls(gatewayImage.src);
+
+/** revivosportech.com — the cinematic gateway. The homepage lives at /home. */
+export default function GatewayPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdScript([organizationJsonLd(), servicesJsonLd()]) }}
+      <link rel="preload" as="image" href={art.small} media={SMALL_QUERY} fetchPriority="high" />
+      <link
+        rel="preload"
+        as="image"
+        href={art.large}
+        media={`not all and ${SMALL_QUERY}`}
+        fetchPriority="high"
       />
-      <HeroScene />
-      <DomainExplorer relatedProducts={relatedProducts()} />
-      <ProcessScene />
-      <FinalCtaScene />
+      <Gateway />
     </>
   );
 }

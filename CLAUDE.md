@@ -111,15 +111,14 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
    desktop, vertical on mobile). Next to the form, `EchoSignal` ("Your signal") answers as the visitor types
    (`revivo:typing` event) plus a quiet idle pulse, with "What happens next" (three steps). The lower page stays calm.
 
-## 5b. Gateway (first-arrival entrance, owner-approved Nov 2026)
+## 5b. Gateway and homepage are two pages (owner decision, Nov 2026)
 
-`src/components/gateway/` — a dismissible overlay above the homepage, not a separate route. A boot script in
-`<head>` (`boot.ts`) shows it only on the first homepage arrival per browser session (no hash), and preloads its
-artwork only then; without JavaScript it never shows (SEO-safe). Layers: the clean background artwork
-(`src/assets/pilot/00-gateway.png`, CSS background so it is never downloaded when hidden), the real `RevivoLogo`
-with one homepage-style pulse (CSS light, hidden under reduced motion), and a real "Enter Revivo" button (focus
-trapped; Enter/Space/Escape enter; focus moves to `#main`). The homepage's own entrance animation waits for it.
-Portrait screens show the artwork as a 190vw panorama with the button beneath.
+- `/` — the cinematic **Gateway** (`src/app/page.tsx`, `src/components/gateway/`): the clean background artwork
+  (`src/assets/pilot/00-gateway.png`, CSS background, preloaded), the real `RevivoLogo` inside the page's `h1`, one
+  homepage-style pulse (CSS light, hidden under reduced motion) and a real "Enter Revivo" link to `/home`. No site
+  header/footer on this page. Old deep links (`/#start`, `/#explore`…) are forwarded to `/home#…`.
+- `/home` — the full homepage (`src/app/home/page.tsx`). Logo, nav, CTAs and "Back to the homepage" link here.
+- Portrait screens show the Gateway artwork as a 190vw panorama with the button beneath.
 
 ## 6. Component structure
 

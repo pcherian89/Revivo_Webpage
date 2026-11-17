@@ -46,9 +46,9 @@ export const contactConfig = {
 } as const;
 
 export const navLinks = [
-  { label: "Capabilities", href: "/#explore" },
-  { label: "How we work", href: "/#how-we-work" },
+  { label: "Capabilities", href: "/home#explore" },
+  { label: "How we work", href: "/home#how-we-work" },
 ] as const;
 
 /** The one primary action, used everywhere. */
-export const primaryCta = { label: "Start a conversation", href: "/#start" } as const;
+export const primaryCta = { label: "Start a conversation", href: "/home#start" } as const;

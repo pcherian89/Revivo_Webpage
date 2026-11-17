@@ -11,7 +11,7 @@ export function SiteFooter() {
       <div className="container-site py-12 md:py-14">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div>
-            <Link href="/" aria-label="Revivo, home" className="inline-flex min-h-11 items-center text-ink">
+            <Link href="/home" aria-label="Revivo, home" className="inline-flex min-h-11 items-center text-ink">
               <RevivoLogo title="" className="h-7 w-auto" />
             </Link>
             <p className="text-small mt-4 text-subtle">{siteConfig.positioning}</p>

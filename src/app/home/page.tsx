@@ -1,0 +1,30 @@
+import type { Metadata } from "next";
+import { DomainExplorer } from "@/components/explorer/DomainExplorer";
+import { FinalCtaScene } from "@/components/scenes/FinalCtaScene";
+import { HeroScene } from "@/components/scenes/HeroScene";
+import { ProcessScene } from "@/components/scenes/ProcessScene";
+import { siteConfig } from "@/config/site";
+import { relatedProducts } from "@/content/products";
+import { jsonLdScript, organizationJsonLd, servicesJsonLd } from "@/lib/structured-data";
+
+export const metadata: Metadata = {
+  title: { absolute: siteConfig.title },
+  alternates: { canonical: "/home" },
+  openGraph: { url: "/home", title: siteConfig.title, description: siteConfig.socialDescription },
+};
+
+/** Hero signal → domain explorer → how Revivo works → final call to action. */
+export default function HomePage() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript([organizationJsonLd(), servicesJsonLd()]) }}
+      />
+      <HeroScene />
+      <DomainExplorer relatedProducts={relatedProducts()} />
+      <ProcessScene />
+      <FinalCtaScene />
+    </>
+  );
+}
