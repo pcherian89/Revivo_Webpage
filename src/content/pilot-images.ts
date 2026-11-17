@@ -21,8 +21,8 @@ type PanelImage = { src: StaticImageData; position?: string };
 const areaImages: Record<string, PanelImage> = {
   "events-operations": { src: areaEvents, position: "60% 45%" },
   "growth-engagement": { src: areaGrowth, position: "50% 40%" },
-  "athletes-performance": { src: areaAthletes, position: "62% 40%" },
-  "management-reporting": { src: areaManagement, position: "50% 35%" },
+  "athletes-performance": { src: areaAthletes, position: "50% 30%" },
+  "management-reporting": { src: areaManagement, position: "50% 40%" },
 };
 
 /** Capability-specific images, keyed by capability id. */
