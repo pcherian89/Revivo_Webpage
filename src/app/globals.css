@@ -431,6 +431,10 @@
 body:has([data-gateway-page]) {
   overflow: hidden;
 }
+/* No reserved scrollbar strip beside the full-screen artwork (Windows/classic scrollbars). */
+html:has([data-gateway-page]) {
+  scrollbar-gutter: auto;
+}
 body:has([data-gateway-page]) > a[href="#main"],
 body:has([data-gateway-page]) header,
 body:has([data-gateway-page]) footer {
@@ -481,13 +485,14 @@ body:has([data-gateway-page]) footer {
   transition: transform 700ms var(--ease-out-quart);
 }
 .gw-art {
+  --tone: brightness(0.92) saturate(0.92); /* settles the artwork to the homepage's level */
   -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent);
   mask-image: linear-gradient(to bottom, #000 88%, transparent);
 }
 .gw-identity {
   position: absolute;
   left: 50%;
-  top: 28%;
+  top: 27.5%;
   width: 18cqw;
   transform: translateX(-50%);
   display: flex;
@@ -503,7 +508,7 @@ body:has([data-gateway-page]) footer {
 .gw-enter {
   position: absolute;
   left: 50%;
-  top: 42.5%;
+  top: 41.5%;
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -511,7 +516,7 @@ body:has([data-gateway-page]) footer {
   .gw-stage {
     --gw-y: -50%;
     width: 190vw;
-    top: 42%;
+    top: 40%;
   }
   .gw-art {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 80%, transparent 100%);
