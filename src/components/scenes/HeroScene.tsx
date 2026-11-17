@@ -42,7 +42,7 @@ export function HeroScene() {
               alt=""
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               fetchPriority="high"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="photo absolute inset-0 h-full w-full object-cover"
             />
           </picture>
         </div>
@@ -99,7 +99,7 @@ export function HeroScene() {
               src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
               decoding="async"
               fetchPriority="low"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="photo absolute inset-0 h-full w-full object-cover"
               style={{ objectPosition: "74% 62%" }}
             />
           </picture>

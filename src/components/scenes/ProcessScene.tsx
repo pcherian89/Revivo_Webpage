@@ -92,8 +92,8 @@ export function ProcessScene() {
               alt=""
               fill
               sizes="45vw"
-              className="object-cover"
-              style={{ objectPosition: processImage.position, filter: processImage.tone }}
+              className="photo object-cover"
+              style={{ objectPosition: processImage.position }}
             />
           </div>
           <p className="label relative text-subtle">How Revivo works</p>

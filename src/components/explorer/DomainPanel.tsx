@@ -3,7 +3,7 @@
 import { AnimatePresence, m } from "motion/react";
 import { ArrowRight, X } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { explorer, zones } from "@/content/explorer";
 import { panelImage } from "@/content/pilot-images";
 import type { RelatedProduct } from "@/content/products";
@@ -154,10 +154,15 @@ export function DomainPanel({
                         alt=""
                         fill
                         sizes="(min-width: 1024px) 46vw, 100vw"
-                        className="object-cover"
-                        style={{ objectPosition: headerImage.position, filter: headerImage.tone }}
+                        className="photo object-cover"
+                        style={
+                          {
+                            objectPosition: headerImage.position,
+                            "--tone": headerImage.tone,
+                          } as CSSProperties
+                        }
                       />
-                      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_58%,var(--color-surface)_100%)]" />
+                      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_68%,var(--color-surface)_100%)]" />
                     </div>
                   )}
                   <h2 id="domain-panel-title" className="text-subtitle text-ink">

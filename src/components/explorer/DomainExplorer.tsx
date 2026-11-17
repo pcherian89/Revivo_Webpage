@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
   useSyncExternalStore,
+  type CSSProperties,
   type MouseEvent,
   type RefObject,
 } from "react";
@@ -734,8 +735,8 @@ function AreaBackdrop({
           alt=""
           fill
           sizes="100vw"
-          className="object-cover"
-          style={{ objectPosition: img.position, filter: img.tone }}
+          className="photo object-cover"
+          style={{ objectPosition: img.position, "--tone": img.tone } as CSSProperties}
         />
       </div>
     </m.div>
@@ -759,8 +760,8 @@ function AreaStrip({ zoneId, reduce }: { zoneId: string; reduce: boolean }) {
         alt=""
         fill
         sizes="(min-width: 768px) 90vw, 100vw"
-        className="object-cover"
-        style={{ objectPosition: img.position, filter: img.tone }}
+        className="photo object-cover"
+        style={{ objectPosition: img.position, "--tone": img.tone } as CSSProperties}
       />
     </m.div>
   );
@@ -796,8 +797,8 @@ function Preview({
         alt=""
         fill
         sizes={sizes}
-        className="object-cover"
-        style={{ objectPosition: img.position, filter: img.tone }}
+        className="photo object-cover"
+        style={{ objectPosition: img.position, "--tone": img.tone } as CSSProperties}
       />
     </span>
   );

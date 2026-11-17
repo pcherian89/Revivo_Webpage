@@ -90,6 +90,4 @@ export function panelImage(capId: string, zoneId: string): PanelImage | undefine
 export const processImage: PanelImage = {
   src: eventPlanning,
   position: "45% 30%",
-  // calmer, warm-neutral: the lime rail stays the only saturated colour in the section
-  tone: "grayscale(0.3) saturate(0.85) brightness(0.92) contrast(1.05)",
 };
