@@ -221,23 +221,17 @@ function buildGeometry(hero: HTMLElement): Geo | null {
   };
 
   if (desktop) {
-    const y0 = h1.bottom + 28; // ≈28px beneath the whole two-line headline
+    // Desktop: the track runs beneath the buttons (after headline, copy and actions), makes its
+    // pulse under "Pulse", and turns down at the centre into the explorer. The photograph above
+    // it on the right ends before the line, so they never cross.
+    const y0 = Math.min(h - 24, actions.bottom + 44);
     const px = (word.left + word.right) / 2;
     const { toMarks, marks, bStart } = lead(y0, px, 1, 14);
-
-    // The line no longer crosses the photograph: just past the copy and buttons (or at the
-    // explorer's axis, whichever is further right) the signal core sits on the track, and the
-    // line turns down there, running beneath the buttons to the centre and into the explorer.
-    const clearRight = Math.max(copy.right, actions.right) + 36;
-    const cx = Math.max(exitX, clearRight);
+    const cx = exitX;
     const outer = 40;
     const rings = [outer * 0.36, outer * 0.68, outer];
-
-    const yT = Math.min(h - R - 8, actions.bottom + 44);
-    const down =
-      Math.abs(cx - exitX) < 3
-        ? ` V ${f(h)}`
-        : ` V ${f(yT - R)} A ${R} ${R} 0 0 1 ${f(cx - R)} ${f(yT)} H ${f(exitX + R)} A ${R} ${R} 0 0 0 ${f(exitX)} ${f(yT + R)} V ${f(h)}`;
+    const down = ` V ${f(h)}`;
+    hero.style.setProperty("--sig-y", `${Math.round(y0)}px`);
     const b = `M ${f(bStart)} ${f(y0)} H ${f(cx)}${down}`;
     const toCore = `${toMarks} H ${f(cx)}`;
     const light = `${toCore}${down}`;

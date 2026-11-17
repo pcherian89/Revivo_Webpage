@@ -35,7 +35,7 @@ export function HeroScene() {
       >
         {/* The near-square photograph fills the hero height; when space runs short only sky/desk is trimmed,
             never the sides (the swimmer stays in). Only screens ≥1024px download it. */}
-        <div className="hero-photo-frame absolute top-0 right-0 w-full aspect-[1318/1193] max-h-full">
+        <div className="hero-photo-frame absolute top-0 right-0 w-full aspect-[1318/1193] max-h-[calc(var(--sig-y,100%)-28px)]">
           <picture>
             <source media="(min-width: 1024px)" srcSet={heroPhoto.srcSet} sizes={heroPhoto.sizes} />
             <img
@@ -69,7 +69,7 @@ export function HeroScene() {
         </h1>
         <p
           id="hero-copy"
-          className="text-lead measure hero-fade mt-[72px] text-muted lg:mt-[80px]"
+          className="text-lead measure hero-fade mt-[72px] text-muted lg:mt-8"
           style={delay(700)}
         >
           {hero.statement}

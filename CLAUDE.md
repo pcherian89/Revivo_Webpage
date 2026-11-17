@@ -19,8 +19,8 @@ product" link in a capability panel once the owner approves it (`showcase: true`
 
 - **Master tagline (exactly as written, hero h1 only): "Pulse of Sport. Mind of the Game."** (approved Oct 2026) — two
   sentences, one statement, one `h1`, on two lines ("Pulse of Sport." / "Mind of the Game."), same size and weight,
-  line-height ≈0.92. Only "Pulse" and "Mind" in lime. The running pulse sits beneath the whole headline, never between
-  the lines. No other slogans on the homepage. "AI" stays out of the tagline (overused) and appears once in the hero,
+  line-height ≈0.92. Only "Pulse" and "Mind" in lime. The running pulse never sits between
+  the lines (desktop: beneath the buttons; phones: beneath the headline). No other slogans on the homepage. "AI" stays out of the tagline (overused) and appears once in the hero,
   in the supporting copy ("AI-powered digital solutions"). Retired taglines: "AI built for the pulse of sport.",
   "Pulse of Sport. Power of AI."
 - Eyebrow: "DIGITAL SOLUTIONS FOR SPORT"
@@ -84,10 +84,11 @@ particles, SVG turbulence or large blur filters, scroll hijacking, typewriter/gl
 
 Story: live sports signal → Revivo intelligence → solution domains → organized action.
 
-1. **Hero (`HeroSignal`)** — pure SVG + CSS, measured from the real layout. A straight lime track (dim) runs beneath
-   the whole two-line headline (≈28px desktop / 24px mobile), makes one crisp pulse under "Pulse", passes five data marks and flows into a small **signal core**
-   (concentric rings) just past the copy, where it turns down — beneath the buttons to the centre axis and into the
-   explorer. It never crosses the hero photograph, which sits to the right of that turn, shown whole at 16:9. Below 1024px the same order holds (headline → pulse →
+1. **Hero (`HeroSignal`)** — pure SVG + CSS, measured from the real layout. Desktop (owner decision, Nov 2026): a
+   straight lime track (dim) runs beneath the buttons — after headline, copy and actions — makes one crisp pulse under
+   the word "Pulse", passes five data marks, reaches a small **signal core** (concentric rings) on the centre axis and
+   turns straight down into the explorer. The hero photograph sits above it on the right and ends before the line;
+   they never cross. Below 1024px the same order holds (headline → pulse →
    copy → buttons): the line runs along the right gutter past the copy and buttons, then steps back to the rail. A bright light **runs through the track continuously**
    and the core ripples as it arrives. The light is driven by the shared **signal clock** (`src/lib/signal-clock.ts`):
    one light, one timeline — it flows from the hero straight down the explorer trunk into the Intelligence Layer and
