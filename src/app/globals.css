@@ -273,42 +273,7 @@
   }
 }
 
-/* Tree preview: the server render shows every capability (for search engines and no-JS);
-   with JavaScript on, keep it hidden until the interactive tree takes over. */
-html.js [data-ssr="true"] .tree-reveal {
-  visibility: hidden;
-}
-
-/* Tree preview: a bare page — no site header or footer, only the logo and the tree */
-body:has([data-bare-page]) [data-site-chrome] {
-  display: none;
-}
-/* The power switch: a soft ring opening out of the logo's dot */
-.tree-ring {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: tree-ring 2.4s ease-out infinite;
-}
-@keyframes tree-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  70%,
-  100% {
-    transform: scale(3.4);
-    opacity: 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .tree-ring {
-    animation: none;
-    transform: scale(1.8);
-    opacity: 0.6;
-  }
-}
-
-/* IMAGE PILOT (local preview only): hero photograph on the right, fading under the copy and into the explorer. */
+/* Hero photograph on the right, fading under the copy and into the explorer. */
 .hero-photo {
   left: calc(max(clamp(1.25rem, 0.2rem + 4.4vw, 4.5rem), (100% - 75rem) / 2) + 26rem);
   -webkit-mask-image:
@@ -320,7 +285,7 @@ body:has([data-bare-page]) [data-site-chrome] {
     linear-gradient(to bottom, transparent 0%, #000 14%, #000 70%, transparent 100%);
   mask-composite: intersect;
 }
-/* IMAGE PILOT: mutes the photo's lime wave where it would double the site's signal (left, 50–74% height). */
+/* Mutes the photo's lime wave where it would double the site's signal (left, 50–74% height). */
 .hero-photo-quiet {
   filter: saturate(0) brightness(0.3);
   -webkit-mask-image:
