@@ -5,7 +5,7 @@ import { ArrowRight, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { explorer, zones } from "@/content/explorer";
-import { pilotPanelImages } from "@/content/pilot-images";
+import { panelImage } from "@/content/pilot-images";
 import type { RelatedProduct } from "@/content/products";
 import { cn } from "@/lib/cn";
 
@@ -81,6 +81,7 @@ export function DomainPanel({
   const cap = zone && selection ? zone.capabilities[selection.cap] : null;
   const L = explorer.panelLabels;
   const related = (cap && relatedProducts?.[cap.id]) || [];
+  const headerImage = cap && zone ? panelImage(cap.id, zone.id) : undefined;
 
   return (
     <AnimatePresence>
@@ -142,21 +143,21 @@ export function DomainPanel({
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
                 >
-                  {pilotPanelImages[cap.id] && (
-                    /* IMAGE PILOT: full-bleed 2:1 header that fades into the panel */
+                  {headerImage && (
+                    /* IMAGE PILOT: full-bleed header that fades into the panel (shorter on phones) */
                     <div
                       aria-hidden="true"
-                      className="relative -mx-6 -mt-8 mb-6 aspect-[2/1] overflow-hidden md:-mx-10"
+                      className="relative -mx-6 -mt-8 mb-6 aspect-[16/7] overflow-hidden md:-mx-10 md:aspect-[2/1]"
                     >
                       <Image
-                        src={pilotPanelImages[cap.id].src}
+                        src={headerImage.src}
                         alt=""
                         fill
                         sizes="(min-width: 1024px) 46vw, 100vw"
                         className="object-cover"
-                        style={{ objectPosition: pilotPanelImages[cap.id].position }}
+                        style={{ objectPosition: headerImage.position }}
                       />
-                      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_55%,var(--color-surface)_100%)]" />
+                      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_58%,var(--color-surface)_100%)]" />
                     </div>
                   )}
                   <h2 id="domain-panel-title" className="text-subtitle text-ink">

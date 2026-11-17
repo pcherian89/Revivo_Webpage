@@ -38,7 +38,7 @@ export function HeroScene() {
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             fetchPriority="high"
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "38% 50%" }}
+            style={{ objectPosition: "72% 50%" }}
           />
         </picture>
       </div>
