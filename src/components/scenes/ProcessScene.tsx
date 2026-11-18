@@ -93,6 +93,7 @@ export function ProcessScene() {
               fill
               sizes="45vw"
               className="photo object-contain object-right-top"
+              style={{ "--tone": processImage.tone } as CSSProperties}
             />
           </div>
           <p className="label relative text-subtle">How Revivo works</p>
@@ -104,7 +105,14 @@ export function ProcessScene() {
             aria-hidden="true"
             className="process-band pointer-events-none relative mt-6 mx-[calc(50%-50vw)] aspect-[16/9] md:mx-0 md:max-w-2xl xl:hidden"
           >
-            <Image src={processImage.src} alt="" fill sizes="(min-width: 768px) 42rem, 100vw" className="photo object-cover" />
+            <Image
+              src={processImage.src}
+              alt=""
+              fill
+              sizes="(min-width: 768px) 42rem, 100vw"
+              className="photo object-cover"
+              style={{ "--tone": processImage.tone } as CSSProperties}
+            />
           </div>
         </header>
 

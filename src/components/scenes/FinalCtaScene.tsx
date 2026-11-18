@@ -38,7 +38,7 @@ export function ChallengeAside() {
     <>
       <EchoSignal />
 
-      <div className="mt-10 hidden lg:block">
+      <div className="mt-10">
         <p className="label text-subtle">{finalCta.nextLabel}</p>
         <ol className="mt-4 space-y-3">
           {finalCta.next.map((step, i) => (

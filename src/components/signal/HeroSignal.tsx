@@ -252,8 +252,9 @@ function buildGeometry(hero: HTMLElement): Geo | null {
   const px = Math.max((word.left + word.right) / 2, PULSE_HALF.before * 0.85 + 8);
   const { toMarks, marks, bStart } = lead(y0, px, 0.85, 12);
   const textRight = Math.max(copy.right, actions.right, word.right);
-  const xR = Math.max(bStart + R + 8, Math.min(w - 10, textRight + 40));
-  // Below the photograph band when it is shown, so the signal runs down through it.
+  // The line runs beside the photograph band (which sits inside the page margins), never across it.
+  const xR = Math.max(bStart + R + 8, Math.min(w - 10, Math.max(textRight + 40, band ? band.right + 12 : 0)));
+  // Below the photograph band when it is shown, so the signal runs down beside it.
   const yB = Math.max((band ?? actions).bottom + 20, h - R - 10);
   const rest =
     ` H ${f(xR - R)} A ${R} ${R} 0 0 1 ${f(xR)} ${f(y0 + R)}` +

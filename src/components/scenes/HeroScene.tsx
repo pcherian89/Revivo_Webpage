@@ -89,7 +89,7 @@ export function HeroScene() {
         <div
           id="hero-band"
           aria-hidden="true"
-          className="hero-band hero-fade pointer-events-none relative mt-4 mx-[calc(50%-50vw)] aspect-[1318/1193] lg:hidden"
+          className="hero-band hero-fade pointer-events-none relative mt-4 aspect-[1318/1193] lg:hidden"
           style={delay(1000)}
         >
           <picture>

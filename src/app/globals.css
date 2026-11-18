@@ -337,13 +337,25 @@
 /* Phone/tablet band shows the whole scene (every athlete and the analysts); the fade only
    takes the floor below the monitors. */
 .hero-band {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 5%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 5%, #000 92%, transparent 100%);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 5%, #000 92%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 5%, #000 92%, transparent 100%);
+  mask-composite: intersect;
 }
 @media (min-width: 48rem) {
   .hero-band {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 4%, #000 92%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 4%, #000 92%, transparent 100%);
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 4%, #000 92%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 4%, #000 92%, transparent 100%);
+    mask-composite: intersect;
   }
 }
 
@@ -364,8 +376,8 @@
   filter: brightness(1.08);
 }
 .explorer-preview[data-state="off"] {
-  opacity: 0.4;
-  filter: saturate(0.4);
+  opacity: 0.55;
+  filter: saturate(0.75);
 }
 .group:hover .explorer-preview[data-state="off"] {
   opacity: 0.75;
@@ -449,7 +461,7 @@
 }
 /* The hero ("step inside" the Gateway arena) gets one gentler grade of its own, matching the Gateway. */
 #hero .photo {
-  filter: saturate(0.78) contrast(1.04) brightness(0.97);
+  filter: saturate(0.72) contrast(1.04) brightness(0.86);
 }
 
 /* ==========================================================================
@@ -516,7 +528,8 @@ body:has([data-gateway-page]) footer {
 /* The whole artwork is always shown (never cropped): it fits the screen and only its outermost
    edges melt into the black page. */
 .gw-art {
-  --tone: brightness(0.92) saturate(0.92); /* settles the artwork to the homepage's level */
+  /* the three Gateway artworks and the homepage arena photo are matched to one another (tone/solve.py) */
+  --tone: saturate(0.89) brightness(0.92);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 4%, #000 90%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, #000 4%, #000 90%, transparent 100%);
 }
@@ -560,12 +573,12 @@ body:has([data-gateway-page]) footer {
    dark centre, as on desktop. Its source is already as dark as the wide artwork after its tone. */
 @media (orientation: portrait) {
   .gw-stage {
-    top: calc(50% - 2.25rem);
-    width: min(100vw, calc((100svh - 8rem) * 1199 / 1312));
+    top: 50%;
+    width: min(100vw, calc(100svh * 1199 / 1312));
     aspect-ratio: 1199 / 1312;
   }
   .gw-art {
-    --tone: brightness(1);
+    --tone: saturate(0.88) brightness(0.93);
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 92%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 92%, transparent 100%);
   }
@@ -590,8 +603,10 @@ body:has([data-gateway-page]) footer {
     width: 36cqw;
     transform: translate(-50%, -50%);
   }
+  /* the button sits in the dark gap under the pulse: logo, pulse and button read as one group */
   .gw-enter {
-    top: calc(100% + 1.25rem);
+    top: 53%;
+    transform: translate(-50%, -50%);
   }
 }
 /* Upright screens: the pulse is drawn small, so its lines get the homepage signal's on-screen weight
@@ -617,7 +632,8 @@ body:has([data-gateway-page]) footer {
     aspect-ratio: 941 / 1672;
   }
   .gw-art {
-    --tone: brightness(0.94); /* matches the upright and wide artwork as rendered */
+    /* the tall artwork is more vivid than the wide one: brought to the desktop's colour and highlights */
+    --tone: saturate(0.83) brightness(0.94);
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
   }
@@ -630,8 +646,18 @@ body:has([data-gateway-page]) footer {
     width: 32cqw;
   }
   .gw-enter {
-    top: auto;
-    bottom: 5%;
+    top: 51.5%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    min-height: 2.75rem; /* 44px touch target, sized to the artwork */
+    padding-inline: 1.125rem;
+    font-size: 0.9375rem;
+  }}
+/* Short phones (e.g. iPhone SE): a slightly smaller label so the button sits clear of the athletes. */
+@media (orientation: portrait) and (max-aspect-ratio: 2/3) and (max-height: 700px) {
+  .gw-enter {
+    font-size: 0.875rem;
+    padding-inline: 1rem;
   }
 }
 /* One light runs along the pulse, like the homepage signal. */
