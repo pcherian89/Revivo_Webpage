@@ -604,6 +604,7 @@ body:has([data-gateway-page]) footer {
     aspect-ratio: 941 / 1672;
   }
   .gw-art {
+    --tone: brightness(0.94); /* matches the upright and wide artwork as rendered */
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
   }
