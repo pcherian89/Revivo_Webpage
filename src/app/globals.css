@@ -578,15 +578,16 @@ body:has([data-gateway-page]) footer {
   .gw-identity > h1 {
     position: absolute;
     left: 50%;
-    top: 32%;
+    top: 42%;
     width: 30cqw;
     transform: translate(-50%, -50%);
   }
+  /* the pulse runs across the arena, from the cyclist to the wheelchair racer */
   .gw-pulse {
     position: absolute;
     left: 50%;
-    top: 41%;
-    width: 34cqw;
+    top: 56%;
+    width: 52cqw;
     transform: translate(-50%, -50%);
   }
   .gw-enter {
