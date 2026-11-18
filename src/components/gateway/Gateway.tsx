@@ -66,9 +66,9 @@ export function Gateway() {
             <RevivoLogo className="gw-logo h-auto w-full text-ink" title="Revivo" />
           </h1>
           <svg className="gw-pulse" viewBox={`0 0 ${W} 60`} fill="none" aria-hidden="true" focusable="false">
-            <path d={TRACK} stroke={DIM_LIME} strokeWidth={SIGNAL.width} strokeLinejoin="round" />
+            <path className="gw-track" d={TRACK} stroke={DIM_LIME} strokeWidth={SIGNAL.width} strokeLinejoin="round" />
             <path
-              className="gw-light"
+              className="gw-light gw-glow"
               d={TRACK}
               pathLength={1}
               stroke={SIGNAL.color}
@@ -78,7 +78,7 @@ export function Gateway() {
               strokeLinejoin="round"
             />
             <path
-              className="gw-light"
+              className="gw-light gw-core"
               d={TRACK}
               pathLength={1}
               stroke={SIGNAL.color}

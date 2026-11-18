@@ -54,7 +54,7 @@ const capabilityImages: Record<string, PanelImage> = {
   "sponsorship-management": { src: sponsorship, position: "50% 25%" },
   "fan-engagement-ticketing": { src: fanEngagement, position: "50% 25%", tone: "saturate(0.9)" },
   "membership-customer-management": { src: membership, position: "50% 30%", tone: "brightness(0.94)" },
-  "athlete-management-development": {
+  "talent-identification-development": {
     src: athleteManagement,
     position: "50% 25%",
     tone: "brightness(0.9) contrast(1.05)",

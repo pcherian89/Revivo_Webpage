@@ -578,20 +578,33 @@ body:has([data-gateway-page]) footer {
   .gw-identity > h1 {
     position: absolute;
     left: 50%;
-    top: 42%;
+    top: 40%;
     width: 30cqw;
     transform: translate(-50%, -50%);
   }
-  /* the pulse runs across the arena, from the cyclist to the wheelchair racer */
+  /* the pulse sits just under the logo, in the dark centre, as on desktop */
   .gw-pulse {
     position: absolute;
     left: 50%;
-    top: 56%;
-    width: 52cqw;
+    top: 46.5%;
+    width: 36cqw;
     transform: translate(-50%, -50%);
   }
   .gw-enter {
     top: calc(100% + 1.25rem);
+  }
+}
+/* Upright screens: the pulse is drawn small, so its lines get the homepage signal's on-screen weight
+   (≈1.5px track, 2.25px light with a soft glow) instead of shrinking with the artwork. */
+@media (orientation: portrait) {
+  .gw-track {
+    stroke-width: 5;
+  }
+  .gw-glow {
+    stroke-width: 26;
+  }
+  .gw-core {
+    stroke-width: 8;
   }
 }
 /* Phones (tall upright screens): the tall 9:16 artwork fills the screen edge to edge, shown whole.
@@ -609,12 +622,12 @@ body:has([data-gateway-page]) footer {
     mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
   }
   .gw-identity > h1 {
-    top: 43%;
+    top: 41.8%;
     width: 30cqw;
   }
   .gw-pulse {
-    top: 54.6%;
-    width: 46cqw;
+    top: 46%;
+    width: 32cqw;
   }
   .gw-enter {
     top: auto;

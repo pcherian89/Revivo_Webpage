@@ -204,23 +204,24 @@ export const zones: readonly Zone[] = [
   {
     id: "athletes-performance",
     name: "Athletes & Performance",
-    summary: "Support athlete development, training, performance and future opportunities.",
+    summary: "Find and develop athletes, support their training, performance and future opportunities.",
     capabilities: [
       {
-        id: "athlete-management-development",
-        name: "Athlete Management & Development",
-        short: "Maintain athlete profiles, assessments, development plans and progress records.",
+        id: "talent-identification-development",
+        name: "Talent Identification & Development",
+        short: "Run consent-based talent programmes, from first assessment to long-term development.",
         problem:
-          "Athlete information is scattered across notebooks, spreadsheets and messages, so development is hard to follow across seasons or when an athlete changes coach or squad.",
+          "Promising young people are missed because assessments vary between schools, clubs and regions, results sit in spreadsheets, and families rarely hear what happens next or why.",
         build:
-          "One profile per athlete holding assessments, goals, development plans, coach notes and progress records, with controls over who can see what. Review dates and missing assessments prompt reminders.",
+          "Programme setup for any sport and age group, consent and registration, a field app for agreed tests, results compared with peers of the same age, staff-reviewed referrals, development plans, reassessment and a family portal. Assessment cannot start without recorded consent.",
         ai: [
-          "Summarise an athlete’s progress across assessments and coach notes.",
-          "Draft development goals from assessment results for the coach to adjust.",
-          "Compare results with the athlete’s own earlier records and highlight changes.",
+          "Flag missing, duplicate or unusual results for a second person to check.",
+          "Draft plain-language result summaries for families, in their language, for staff to approve.",
+          "Suggest sports to try from a young person’s results, with reasons, for coaches to consider.",
         ],
         benefit:
-          "Coaches and staff share a clear, long-term picture of each athlete, while coaches make every development decision.",
+          "Young people are assessed in the same way wherever they live, families understand each step, and staff make every selection and referral decision.",
+        note: "Tests and selection rules are set by the client’s experts. Results describe current performance, not future potential.",
       },
       {
         id: "training-performance-monitoring",

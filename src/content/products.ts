@@ -43,6 +43,14 @@ export const products: readonly Product[] = [
     showcase: false,
   },
   {
+    // Talent identification platform (reference build on fictional data). Always "Revivo Pathway", never "Pathway" alone.
+    id: "revivo-pathway",
+    name: "Revivo Pathway",
+    status: "in-development",
+    capabilities: ["talent-identification-development", "sports-programme-management", "governance-compliance"],
+    showcase: false,
+  },
+  {
     id: "event-promotion-analytics",
     name: "Event Promotion & Analytics",
     status: "concept",

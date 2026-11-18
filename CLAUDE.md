@@ -121,7 +121,7 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
 - The whole artwork is always shown: landscape screens fit it (min(100vw, 16:9 of the height)); upright iPads show
   the upright artwork (`00-gateway-portrait.png`, 1199:1312) whole with the button beneath; phones (portrait, aspect
   ≤ 2:3) show the tall 9:16 artwork (`00-gateway-phone.png`) edge to edge with the button on its dark floor. In both,
-  the logo sits in the dark centre and the pulse runs from the cyclist to the wheelchair racer.
+  the logo sits in the dark centre with the moving pulse just beneath it (drawn at the homepage signal's line weight).
 
 ## 5c. Photographs are never cropped (owner decision, Nov 2026)
 
