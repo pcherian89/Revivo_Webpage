@@ -99,6 +99,13 @@ export function ProcessScene() {
           <h2 id="process-heading" className="text-title relative mt-3 max-w-3xl">
             {process.title}
           </h2>
+          {/* Phones and tablets: the same photograph, whole (16:9), between the heading and the steps. */}
+          <div
+            aria-hidden="true"
+            className="process-band pointer-events-none relative mt-6 mx-[calc(50%-50vw)] aspect-[16/9] md:mx-0 md:max-w-2xl xl:hidden"
+          >
+            <Image src={processImage.src} alt="" fill sizes="(min-width: 768px) 42rem, 100vw" className="photo object-cover" />
+          </div>
         </header>
 
         <ol ref={listRef} className="relative grid gap-8 lg:grid-cols-4 lg:gap-10">

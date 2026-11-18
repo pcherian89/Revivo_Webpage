@@ -385,6 +385,7 @@
 .gpu-layer,
 .hero-photo,
 .hero-band,
+.process-band,
 .area-backdrop,
 .explorer-preview {
   will-change: transform;
@@ -417,6 +418,24 @@
     linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.6) 16%, #000 34%),
     linear-gradient(to bottom, transparent 0%, #000 22%, #000 55%, transparent 100%);
   mask-composite: intersect;
+}
+
+/* Phones/tablets: the process photograph melts into black at its top and bottom (sides too on tablets). */
+.process-band {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 85%, transparent 100%);
+}
+@media (min-width: 48rem) {
+  .process-band {
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 8%, #000 85%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 8%, #000 85%, transparent 100%);
+    mask-composite: intersect;
+  }
 }
 
 /* One photographic grade for every photograph on the site (hero, explorer previews and backdrops,
@@ -539,6 +558,10 @@ body:has([data-gateway-page]) footer {
 @media (orientation: portrait) {
   .gw-stage {
     top: 52%;
+  }
+  .gw-art {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 82%, transparent 100%);
   }
   .gw-identity {
     top: auto;
