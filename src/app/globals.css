@@ -594,6 +594,32 @@ body:has([data-gateway-page]) footer {
     top: calc(100% + 1.25rem);
   }
 }
+/* Phones (tall upright screens): the tall 9:16 artwork fills the screen edge to edge, shown whole.
+   The logo sits in the dark centre, the pulse runs from the cyclist to the wheelchair racer, and the
+   button stands on the dark floor inside the artwork. */
+@media (orientation: portrait) and (max-aspect-ratio: 2/3) {
+  .gw-stage {
+    top: 50%;
+    width: min(100vw, calc(100svh * 941 / 1672));
+    aspect-ratio: 941 / 1672;
+  }
+  .gw-art {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%);
+  }
+  .gw-identity > h1 {
+    top: 43%;
+    width: 30cqw;
+  }
+  .gw-pulse {
+    top: 54.6%;
+    width: 46cqw;
+  }
+  .gw-enter {
+    top: auto;
+    bottom: 5%;
+  }
+}
 /* One light runs along the pulse, like the homepage signal. */
 .gw-light {
   stroke-dasharray: 0.12 3;

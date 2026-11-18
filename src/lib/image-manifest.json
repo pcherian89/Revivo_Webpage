@@ -1,4 +1,14 @@
 {
+  "00-gateway-phone": {
+    "hash": "f22f0b284a",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      941
+    ]
+  },
   "00-gateway-portrait": {
     "hash": "4ffe8e62fb",
     "widths": [

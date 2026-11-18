@@ -118,9 +118,10 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
   homepage-style pulse (CSS light, hidden under reduced motion) and a real "Enter Revivo" link to `/home`. No site
   header/footer on this page. Old deep links (`/#start`, `/#explore`…) are forwarded to `/home#…`.
 - `/home` — the full homepage (`src/app/home/page.tsx`). Logo, nav, CTAs and "Back to the homepage" link here.
-- The whole artwork is always shown: landscape screens fit it (min(100vw, 16:9 of the height)); portrait screens
-  (phones, upright iPads) show the upright artwork (`00-gateway-portrait.png`, 1199:1312) whole, with the logo and
-  the moving pulse in its dark centre and the button beneath.
+- The whole artwork is always shown: landscape screens fit it (min(100vw, 16:9 of the height)); upright iPads show
+  the upright artwork (`00-gateway-portrait.png`, 1199:1312) whole with the button beneath; phones (portrait, aspect
+  ≤ 2:3) show the tall 9:16 artwork (`00-gateway-phone.png`) edge to edge with the button on its dark floor. In both,
+  the logo sits in the dark centre and the pulse runs from the cyclist to the wheelchair racer.
 
 ## 5c. Photographs are never cropped (owner decision, Nov 2026)
 
