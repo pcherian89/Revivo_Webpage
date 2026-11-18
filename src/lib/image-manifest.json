@@ -1,4 +1,15 @@
 {
+  "00-gateway-portrait": {
+    "hash": "4ffe8e62fb",
+    "widths": [
+      384,
+      640,
+      750,
+      828,
+      1080,
+      1199
+    ]
+  },
   "00-gateway": {
     "hash": "5e64467cc5",
     "widths": [

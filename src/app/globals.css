@@ -554,16 +554,19 @@ body:has([data-gateway-page]) footer {
   transform: translateX(-50%);
   white-space: nowrap;
 }
-/* Portrait screens: the whole artwork across the width, the logo above it, the moving pulse in the
-   artwork's dark centre (between the athletes, as on desktop) and the button below — one block,
-   centred slightly above the middle. */
+/* Upright screens (phones, portrait iPads): the upright artwork (1199:1312), shown whole, as large as
+   the screen allows while leaving room for the button below. The logo and the moving pulse sit in its
+   dark centre, as on desktop. Its source is already as dark as the wide artwork after its tone. */
 @media (orientation: portrait) {
   .gw-stage {
-    top: calc(46% + 1.1rem);
+    top: calc(50% - 2.25rem);
+    width: min(100vw, calc((100svh - 8rem) * 1199 / 1312));
+    aspect-ratio: 1199 / 1312;
   }
   .gw-art {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+    --tone: brightness(1);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 92%, transparent 100%);
   }
   .gw-identity {
     inset: 0;
@@ -574,19 +577,19 @@ body:has([data-gateway-page]) footer {
   .gw-identity > h1 {
     position: absolute;
     left: 50%;
-    bottom: calc(100% + 1.75rem);
-    width: min(56cqw, 15rem);
-    transform: translateX(-50%);
+    top: 32%;
+    width: 30cqw;
+    transform: translate(-50%, -50%);
   }
   .gw-pulse {
     position: absolute;
     left: 50%;
-    top: 36%;
+    top: 41%;
     width: 34cqw;
     transform: translate(-50%, -50%);
   }
   .gw-enter {
-    top: calc(100% + 2rem);
+    top: calc(100% + 1.25rem);
   }
 }
 /* One light runs along the pulse, like the homepage signal. */

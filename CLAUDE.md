@@ -119,7 +119,8 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
   header/footer on this page. Old deep links (`/#start`, `/#explore`…) are forwarded to `/home#…`.
 - `/home` — the full homepage (`src/app/home/page.tsx`). Logo, nav, CTAs and "Back to the homepage" link here.
 - The whole artwork is always shown: landscape screens fit it (min(100vw, 16:9 of the height)); portrait screens
-  show it across the full width with the logo above it, the moving pulse in its dark centre and the button beneath.
+  (phones, upright iPads) show the upright artwork (`00-gateway-portrait.png`, 1199:1312) whole, with the logo and
+  the moving pulse in its dark centre and the button beneath.
 
 ## 5c. Photographs are never cropped (owner decision, Nov 2026)
 

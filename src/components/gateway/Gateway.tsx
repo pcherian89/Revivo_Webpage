@@ -5,13 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type MouseEvent } from "react";
 import gatewayImage from "@/assets/pilot/00-gateway.png";
+import gatewayPortrait from "@/assets/pilot/00-gateway-portrait.png";
 import { RevivoLogo } from "@/components/brand/RevivoLogo";
 import { DIM_LIME, pulseSegment, SIGNAL } from "@/lib/signal";
-import { gatewayUrls, SMALL_QUERY } from "./boot";
+import { gatewayUrls, PORTRAIT_QUERY, SMALL_QUERY } from "./boot";
 
-const ART = gatewayUrls(gatewayImage.src);
-/* A CSS background: painted without waiting for JavaScript, and phones get the lighter file. */
-const ART_CSS = `.gw-art{background-image:url(${ART.large})}@media ${SMALL_QUERY}{.gw-art{background-image:url(${ART.small})}}`;
+const ART = gatewayUrls(gatewayImage.src, gatewayPortrait.src);
+/* A CSS background: painted without waiting for JavaScript. Landscape screens get the wide artwork,
+   upright screens the upright one (phones a lighter file of it). */
+const ART_CSS = `.gw-art{background-image:url(${ART.wide})}@media ${PORTRAIT_QUERY}{.gw-art{background-image:url(${ART.upright})}}@media ${SMALL_QUERY}{.gw-art{background-image:url(${ART.uprightSmall})}}`;
 
 // The signal through the identity: a straight track with the homepage's ECG pulse in the middle.
 const W = 600;
