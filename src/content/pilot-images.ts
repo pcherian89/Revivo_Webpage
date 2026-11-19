@@ -33,7 +33,8 @@ export const pilotHero: StaticImageData = hero;
  * untouched). Values are solved, not eyeballed: after the shared grade every daylight photo lands at
  * the same upper-mid brightness (75th percentile ≈76/255) and colour strength (≈42%), without ever
  * adding more than 5% colour (scratchpad tone/solve.py, Nov 2026). Dusk photos with purple-magenta skies get a
- * touch of sepia so they read as amber dusk like the newer photos (art-direction audit). Re-solve when an image changes.
+ * touch of sepia so they read as amber dusk like the newer photos (art-direction audit). Photos with a glowing screen or
+ * the sun in frame are also capped so their brightest highlights match the set. Re-solve when an image changes.
  */
 type PanelImage = { src: StaticImageData; position?: string; tone?: string };
 
@@ -104,7 +105,7 @@ const capabilityImages: Record<string, PanelImage> = {
   "talent-identification-development": {
     src: talentIdentification,
     position: "50% 25%",
-    tone: "saturate(0.91) brightness(1.02)",
+    tone: "saturate(0.91) brightness(0.92)",
   },
   "training-performance-monitoring": {
     src: training,
@@ -125,7 +126,7 @@ const capabilityImages: Record<string, PanelImage> = {
   "dashboards-reporting": {
     src: dashboards,
     position: "50% 30%",
-    tone: "sepia(0.08) saturate(1.01) brightness(1.15)",
+    tone: "sepia(0.08) saturate(1.01) brightness(0.92)",
   },
   "sports-programme-management": {
     src: programmes,
