@@ -24,8 +24,8 @@ product" link in a capability panel once the owner approves it (`showcase: true`
   in the supporting copy ("AI-powered digital solutions"). Retired taglines: "AI built for the pulse of sport.",
   "Pulse of Sport. Power of AI."
 - Eyebrow: "DIGITAL SOLUTIONS FOR SPORT"
-- Supporting copy: "Revivo builds AI-powered digital solutions for sport, helping organisations manage events, engage
-  audiences, develop athletes and make better decisions." (one phrase per area, in area order)
+- Supporting copy: "Revivo builds AI-powered digital solutions for sport, helping organisations develop athletes, engage
+  audiences, manage events and make better decisions." (one phrase per area, in area order)
 - British English throughout visible copy (organisation, programme, analyse).
 - Primary action everywhere: **"Start a conversation"** (`/#start`) — replaced "Start with your challenge" (sounded like a game). Panel action "Discuss this with us"; form button "Send message". Hero secondary: "Explore the signal" (`#explore`).
 - Process statement: "We start with the problem—not the technology." Final CTA: "What is your organisation not seeing yet?"
@@ -37,8 +37,8 @@ product" link in a capability panel once the owner approves it (`showcase: true`
   function already exists. Each capability has a one-line `short` description and a panel structured as
   The problem → What Revivo can build (workflows + automation) → How AI helps (2–3 specific examples, distinct from
   ordinary automation) → The benefit (no promised results). Humans stay responsible for approvals and decisions.
-- The four areas (approved October 2026): Events & Operations, Growth & Engagement, Athletes & Performance,
-  Management & Reporting. The Intelligence Layer is a visual device, never a separately deployed platform.
+- The four areas, in display order (owner decision, Nov 2026): Athletes & Performance, Growth & Engagement, Events &
+  Operations, Management & Reporting. The Intelligence Layer is a visual device, never a separately deployed platform.
 - Keep client examples varied (gyms, academies, teams, leagues, federations, events, venues, government and community
   programmes, foundations/CSR, sports businesses, media). Do not over-index on coaches or athletes.
 - Required qualifier in the explorer and panels: "Illustrative possibilities. Every Revivo system is designed around the

@@ -60,73 +60,75 @@ export const explorer = {
 
 export const zones: readonly Zone[] = [
   {
-    id: "events-operations",
-    name: "Events & Operations",
-    summary: "Plan events, organise teams and manage everyday sports operations.",
+    id: "athletes-performance",
+    name: "Athletes & Performance",
+    summary: "Find and develop athletes, support their training, performance and future opportunities.",
     capabilities: [
       {
-        id: "event-planning-coordination",
-        name: "Event Planning & Coordination",
-        short: "Manage event plans, tasks, committees, deadlines and progress in one place.",
+        id: "talent-identification-development",
+        name: "Talent Identification & Development",
+        short: "Run consent-based talent programmes, from first assessment to long-term development.",
         problem:
-          "Event plans live in spreadsheets, email threads and group chats, so committees lose track of who owns each task and deadlines slip without anyone noticing.",
+          "Promising young people are missed because assessments vary between schools, clubs and regions, results sit in spreadsheets, and families rarely hear what happens next or why.",
         build:
-          "An event workspace to build plans from templates, assign tasks to committees and people, set deadlines and follow progress on one timeline. Automatic reminders chase overdue tasks.",
+          "Programme setup for any sport and age group, consent and registration, a field app for agreed tests, results compared with peers of the same age, staff-reviewed referrals, development plans, reassessment and a family portal. Assessment cannot start without recorded consent.",
         ai: [
-          "Turn meeting notes into action items with suggested owners and dates.",
-          "Draft a starting plan based on past events of a similar size.",
-          "Prepare a weekly progress summary that highlights risks to the timeline.",
+          "Flag missing, duplicate or unusual results for a second person to check.",
+          "Draft plain-language result summaries for families, in their language, for staff to approve.",
+          "Suggest sports to try from a young person’s results, with reasons, for coaches to consider.",
         ],
         benefit:
-          "Organisers can see what is done, what is late and who is responsible, without chasing updates through chats and spreadsheets.",
+          "Young people are assessed in the same way wherever they live, families understand each step, and staff make every selection and referral decision.",
+        note: "Tests and selection rules are set by the client’s experts. Results describe current performance, not future potential.",
       },
       {
-        id: "venue-facility-management",
-        name: "Venue & Facility Management",
-        short: "Organise bookings, maintenance, equipment and facility schedules.",
+        id: "training-performance-monitoring",
+        name: "Training & Performance Monitoring",
+        short: "Plan training, track workloads and review performance over time.",
         problem:
-          "Bookings, maintenance requests and equipment checks are handled by phone, paper and separate calendars, leading to double bookings, missed repairs and unused space.",
+          "Training plans, session records and results are kept in different apps and notebooks, so coaches struggle to see whether training is going to plan.",
         build:
-          "A facility system with a shared booking calendar, a simple maintenance request form, an equipment register with condition history and inspection checklists. Booking confirmations and servicing reminders go out automatically.",
+          "A tool to plan training cycles and sessions, log completed sessions and workloads, record test and match results, and view trends across weeks and seasons. Athletes get session reminders and quick logging forms.",
         ai: [
-          "Sort incoming maintenance requests by urgency for the facility manager to confirm.",
-          "Spot booking patterns, such as regularly unused slots or peak-time clashes.",
-          "Suggest inspection and servicing schedules based on how spaces and equipment are used.",
+          "Highlight where completed training differs from the plan, for the coach to review.",
+          "Summarise weekly training load and performance trends in plain language.",
+          "Suggest session adjustments within limits the coach sets.",
         ],
         benefit:
-          "Managers can share space fairly, deal with urgent repairs first and know the condition of every key asset.",
+          "Coaches spend less time collating records and more time coaching, with a clearer picture behind each training decision.",
       },
       {
-        id: "registration-administration",
-        name: "Registration & Administration",
-        short: "Manage registrations, documents, eligibility checks and approvals.",
+        id: "video-analysis-scouting",
+        name: "Video Analysis & Scouting",
+        short: "Organise match footage, review performances and support recruitment decisions.",
         problem:
-          "Registrations arrive through forms, emails and paper, and staff spend hours checking documents, confirming eligibility and chasing missing information.",
+          "Match footage, scouting reports and player data live in different places, so clips take too long to find and shortlisted players are hard to compare.",
         build:
-          "Online registration with clear forms, document upload, eligibility rules, an approval workflow and a live status for every application. Applicants receive automatic updates and reminders about anything missing.",
+          "A video library with structured tagging, clip collections for players and opponents, standard scouting report templates and shortlists that bring reports, data and video together.",
         ai: [
-          "Read uploaded documents and pre-fill key details for staff to confirm.",
-          "Flag incomplete or inconsistent applications before they reach a reviewer.",
-          "Answer common applicant questions using the organisation’s own rules.",
+          "Make footage searchable through tags and transcribed commentary.",
+          "Summarise several scouting reports on a player into one overview.",
+          "Compare shortlisted players on the criteria your staff agree.",
         ],
         benefit:
-          "Staff spend less time on data entry and follow-up, and applicants always know where their registration stands.",
+          "Analysts and scouts can find the right footage faster, and recruitment decisions rest on consistent, well-organised evidence.",
+        note: "Automated player tracking from video (computer vision) is scoped as a pilot or R&D engagement.",
       },
       {
-        id: "staff-volunteer-management",
-        name: "Staff & Volunteer Management",
-        short: "Assign responsibilities, manage shifts and track attendance.",
+        id: "athlete-career-welfare",
+        name: "Athlete Career & Welfare",
+        short: "Manage career opportunities, scholarships and athlete support processes.",
         problem:
-          "Staff and volunteer details, availability and shifts sit in separate lists and chat groups, so gaps and no-shows often appear only on the day.",
+          "Athletes miss scholarships and career openings because information is scattered, and welfare support requests are handled informally with little follow-up.",
         build:
-          "A system to register people, record skills and accreditations, assign roles, publish shift rosters and check attendance on the day. Shift confirmations and reminders are sent automatically.",
+          "A portal where athletes keep a verified sports CV, find and apply for scholarships and opportunities, and request support, while staff follow each application and welfare case through clear, confidential steps.",
         ai: [
-          "Suggest shift assignments that match skills, availability and fair workloads.",
-          "Highlight shifts at risk of being understaffed so coordinators can act early.",
-          "Draft role briefings for each shift from the event plan.",
+          "Match athletes with scholarships and opportunities that fit their profile.",
+          "Help athletes draft CVs and application statements for staff to check.",
+          "Point athletes to the right support using the organisation’s own guidance.",
         ],
         benefit:
-          "Coordinators can see who is confirmed, qualified and present for every shift, with fewer calls and messages.",
+          "Athletes can see more suitable opportunities, and staff can make sure every support request is followed up.",
       },
     ],
   },
@@ -202,75 +204,73 @@ export const zones: readonly Zone[] = [
     ],
   },
   {
-    id: "athletes-performance",
-    name: "Athletes & Performance",
-    summary: "Find and develop athletes, support their training, performance and future opportunities.",
+    id: "events-operations",
+    name: "Events & Operations",
+    summary: "Plan events, organise teams and manage everyday sports operations.",
     capabilities: [
       {
-        id: "talent-identification-development",
-        name: "Talent Identification & Development",
-        short: "Run consent-based talent programmes, from first assessment to long-term development.",
+        id: "event-planning-coordination",
+        name: "Event Planning & Coordination",
+        short: "Manage event plans, tasks, committees, deadlines and progress in one place.",
         problem:
-          "Promising young people are missed because assessments vary between schools, clubs and regions, results sit in spreadsheets, and families rarely hear what happens next or why.",
+          "Event plans live in spreadsheets, email threads and group chats, so committees lose track of who owns each task and deadlines slip without anyone noticing.",
         build:
-          "Programme setup for any sport and age group, consent and registration, a field app for agreed tests, results compared with peers of the same age, staff-reviewed referrals, development plans, reassessment and a family portal. Assessment cannot start without recorded consent.",
+          "An event workspace to build plans from templates, assign tasks to committees and people, set deadlines and follow progress on one timeline. Automatic reminders chase overdue tasks.",
         ai: [
-          "Flag missing, duplicate or unusual results for a second person to check.",
-          "Draft plain-language result summaries for families, in their language, for staff to approve.",
-          "Suggest sports to try from a young person’s results, with reasons, for coaches to consider.",
+          "Turn meeting notes into action items with suggested owners and dates.",
+          "Draft a starting plan based on past events of a similar size.",
+          "Prepare a weekly progress summary that highlights risks to the timeline.",
         ],
         benefit:
-          "Young people are assessed in the same way wherever they live, families understand each step, and staff make every selection and referral decision.",
-        note: "Tests and selection rules are set by the client’s experts. Results describe current performance, not future potential.",
+          "Organisers can see what is done, what is late and who is responsible, without chasing updates through chats and spreadsheets.",
       },
       {
-        id: "training-performance-monitoring",
-        name: "Training & Performance Monitoring",
-        short: "Plan training, track workloads and review performance over time.",
+        id: "venue-facility-management",
+        name: "Venue & Facility Management",
+        short: "Organise bookings, maintenance, equipment and facility schedules.",
         problem:
-          "Training plans, session records and results are kept in different apps and notebooks, so coaches struggle to see whether training is going to plan.",
+          "Bookings, maintenance requests and equipment checks are handled by phone, paper and separate calendars, leading to double bookings, missed repairs and unused space.",
         build:
-          "A tool to plan training cycles and sessions, log completed sessions and workloads, record test and match results, and view trends across weeks and seasons. Athletes get session reminders and quick logging forms.",
+          "A facility system with a shared booking calendar, a simple maintenance request form, an equipment register with condition history and inspection checklists. Booking confirmations and servicing reminders go out automatically.",
         ai: [
-          "Highlight where completed training differs from the plan, for the coach to review.",
-          "Summarise weekly training load and performance trends in plain language.",
-          "Suggest session adjustments within limits the coach sets.",
+          "Sort incoming maintenance requests by urgency for the facility manager to confirm.",
+          "Spot booking patterns, such as regularly unused slots or peak-time clashes.",
+          "Suggest inspection and servicing schedules based on how spaces and equipment are used.",
         ],
         benefit:
-          "Coaches spend less time collating records and more time coaching, with a clearer picture behind each training decision.",
+          "Managers can share space fairly, deal with urgent repairs first and know the condition of every key asset.",
       },
       {
-        id: "video-analysis-scouting",
-        name: "Video Analysis & Scouting",
-        short: "Organise match footage, review performances and support recruitment decisions.",
+        id: "registration-administration",
+        name: "Registration & Administration",
+        short: "Manage registrations, documents, eligibility checks and approvals.",
         problem:
-          "Match footage, scouting reports and player data live in different places, so clips take too long to find and shortlisted players are hard to compare.",
+          "Registrations arrive through forms, emails and paper, and staff spend hours checking documents, confirming eligibility and chasing missing information.",
         build:
-          "A video library with structured tagging, clip collections for players and opponents, standard scouting report templates and shortlists that bring reports, data and video together.",
+          "Online registration with clear forms, document upload, eligibility rules, an approval workflow and a live status for every application. Applicants receive automatic updates and reminders about anything missing.",
         ai: [
-          "Make footage searchable through tags and transcribed commentary.",
-          "Summarise several scouting reports on a player into one overview.",
-          "Compare shortlisted players on the criteria your staff agree.",
+          "Read uploaded documents and pre-fill key details for staff to confirm.",
+          "Flag incomplete or inconsistent applications before they reach a reviewer.",
+          "Answer common applicant questions using the organisation’s own rules.",
         ],
         benefit:
-          "Analysts and scouts can find the right footage faster, and recruitment decisions rest on consistent, well-organised evidence.",
-        note: "Automated player tracking from video (computer vision) is scoped as a pilot or R&D engagement.",
+          "Staff spend less time on data entry and follow-up, and applicants always know where their registration stands.",
       },
       {
-        id: "athlete-career-welfare",
-        name: "Athlete Career & Welfare",
-        short: "Manage career opportunities, scholarships and athlete support processes.",
+        id: "staff-volunteer-management",
+        name: "Staff & Volunteer Management",
+        short: "Assign responsibilities, manage shifts and track attendance.",
         problem:
-          "Athletes miss scholarships and career openings because information is scattered, and welfare support requests are handled informally with little follow-up.",
+          "Staff and volunteer details, availability and shifts sit in separate lists and chat groups, so gaps and no-shows often appear only on the day.",
         build:
-          "A portal where athletes keep a verified sports CV, find and apply for scholarships and opportunities, and request support, while staff follow each application and welfare case through clear, confidential steps.",
+          "A system to register people, record skills and accreditations, assign roles, publish shift rosters and check attendance on the day. Shift confirmations and reminders are sent automatically.",
         ai: [
-          "Match athletes with scholarships and opportunities that fit their profile.",
-          "Help athletes draft CVs and application statements for staff to check.",
-          "Point athletes to the right support using the organisation’s own guidance.",
+          "Suggest shift assignments that match skills, availability and fair workloads.",
+          "Highlight shifts at risk of being understaffed so coordinators can act early.",
+          "Draft role briefings for each shift from the event plan.",
         ],
         benefit:
-          "Athletes can see more suitable opportunities, and staff can make sure every support request is followed up.",
+          "Coordinators can see who is confirmed, qualified and present for every shift, with fewer calls and messages.",
       },
     ],
   },

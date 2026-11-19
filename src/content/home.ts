@@ -14,7 +14,7 @@ export const hero = {
     line2: { accent: "Mind", rest: " of the Game." },
   },
   statement:
-    "Revivo builds AI-powered digital solutions for sport, helping organisations manage events, engage audiences, develop athletes and make better decisions.",
+    "Revivo builds AI-powered digital solutions for sport, helping organisations develop athletes, engage audiences, manage events and make better decisions.",
   secondaryAction: { label: "Explore the signal", href: "#explore" },
 } as const;
 

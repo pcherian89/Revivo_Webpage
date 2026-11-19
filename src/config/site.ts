@@ -24,7 +24,7 @@ export const siteConfig = {
   /** Title used when the site is shared on social media. */
   socialTitle: "Pulse of Sport. Mind of the Game.",
   description:
-    "Revivo builds AI-powered digital solutions for sport, helping organisations manage events, engage audiences, develop athletes and make better decisions.",
+    "Revivo builds AI-powered digital solutions for sport, helping organisations develop athletes, engage audiences, manage events and make better decisions.",
   socialDescription:
     "AI-powered digital solutions built around the people, decisions and systems that keep sport moving.",
   positioning: "AI-powered digital solutions for sports organisations worldwide.",
