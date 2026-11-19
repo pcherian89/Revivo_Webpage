@@ -32,13 +32,18 @@ export const pilotHero: StaticImageData = hero;
  * `tone` evens out each photograph so the set reads as one family on every device (source files
  * untouched). Values are solved, not eyeballed: after the shared grade every daylight photo lands at
  * the same upper-mid brightness (75th percentile ≈76/255) and colour strength (≈42%), without ever
- * adding more than 5% colour (scratchpad tone/solve.py, Nov 2026). Re-solve when an image changes.
+ * adding more than 5% colour (scratchpad tone/solve.py, Nov 2026). Dusk photos with purple-magenta skies get a
+ * touch of sepia so they read as amber dusk like the newer photos (art-direction audit). Re-solve when an image changes.
  */
 type PanelImage = { src: StaticImageData; position?: string; tone?: string };
 
 /** One image per area: the header for any capability without its own image. */
 const areaImages: Record<string, PanelImage> = {
-  "events-operations": { src: areaEvents, position: "60% 45%", tone: "saturate(0.93) brightness(0.94)" },
+  "events-operations": {
+    src: areaEvents,
+    position: "60% 45%",
+    tone: "saturate(0.85) sepia(0.07) brightness(0.92)",
+  },
   "growth-engagement": { src: areaGrowth, position: "50% 40%", tone: "saturate(0.9) brightness(1)" },
   "athletes-performance": { src: areaAthletes, position: "50% 30%", tone: "saturate(1.05) brightness(0.85)" },
   "management-reporting": { src: areaManagement, position: "50% 40%", tone: "saturate(1) brightness(0.8)" },
@@ -50,19 +55,27 @@ const capabilityImages: Record<string, PanelImage> = {
   "event-planning-coordination": {
     src: eventPlanning,
     position: "50% 30%",
-    tone: "saturate(0.96) brightness(0.88)",
+    tone: "saturate(0.88) sepia(0.07) brightness(0.86)",
   },
-  "venue-facility-management": { src: venue, position: "50% 30%", tone: "saturate(0.92) brightness(0.96)" },
+  "venue-facility-management": {
+    src: venue,
+    position: "50% 30%",
+    tone: "saturate(0.85) sepia(0.07) brightness(0.95)",
+  },
   "registration-administration": {
     src: registration,
     position: "50% 20%",
-    tone: "saturate(1.05) brightness(0.9)",
+    tone: "saturate(0.95) sepia(0.07) brightness(0.88)",
   },
-  "staff-volunteer-management": { src: staff, position: "50% 25%", tone: "saturate(1.05) brightness(0.9)" },
+  "staff-volunteer-management": {
+    src: staff,
+    position: "50% 25%",
+    tone: "saturate(0.95) sepia(0.07) brightness(0.89)",
+  },
   "social-media-campaigns": {
     src: socialMedia,
     position: "50% 35%",
-    tone: "saturate(1.05) brightness(0.8)",
+    tone: "saturate(0.9) sepia(0.08) brightness(0.79)",
   },
   // Final batch 3 (11–15): full-resolution 1672×941.
   "sponsorship-management": {
@@ -73,7 +86,7 @@ const capabilityImages: Record<string, PanelImage> = {
   "fan-engagement-ticketing": {
     src: fanEngagement,
     position: "50% 25%",
-    tone: "saturate(0.76) brightness(0.86)",
+    tone: "saturate(0.7) brightness(0.86)",
   },
   "membership-customer-management": {
     src: membership,
@@ -83,15 +96,18 @@ const capabilityImages: Record<string, PanelImage> = {
   "talent-identification-development": {
     src: talentIdentification,
     position: "50% 25%",
-    // interim: softer contrast for its backlight until the photo is regenerated
-    tone: "contrast(0.93) brightness(0.8)",
+    tone: "saturate(0.91) brightness(1.02)",
   },
   "training-performance-monitoring": {
     src: training,
     position: "50% 25%",
-    tone: "saturate(0.87) brightness(0.9)",
+    tone: "saturate(0.8) sepia(0.06) brightness(0.88)",
   },
-  "video-analysis-scouting": { src: video, position: "50% 30%", tone: "saturate(0.93) brightness(1)" },
+  "video-analysis-scouting": {
+    src: video,
+    position: "50% 30%",
+    tone: "saturate(0.88) sepia(0.08) brightness(1.12)",
+  },
   // Final batch 4 (16–21): full-resolution 1672×941.
   "athlete-career-welfare": {
     src: careerWelfare,
@@ -102,7 +118,7 @@ const capabilityImages: Record<string, PanelImage> = {
   "sports-programme-management": {
     src: programmes,
     position: "50% 35%",
-    tone: "saturate(0.73) brightness(0.87)",
+    tone: "saturate(0.7) sepia(0.06) brightness(0.86)",
   },
   "funding-impact-reporting": {
     src: funding,
@@ -125,5 +141,5 @@ export function panelImage(capId: string, zoneId: string): PanelImage | undefine
 export const processImage: PanelImage = {
   src: eventPlanning,
   position: "45% 30%",
-  tone: "saturate(0.96) brightness(0.88)", // same as its capability panel
+  tone: "saturate(0.88) sepia(0.07) brightness(0.86)", // same as its capability panel
 };
