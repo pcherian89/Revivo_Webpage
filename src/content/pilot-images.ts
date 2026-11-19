@@ -83,7 +83,8 @@ const capabilityImages: Record<string, PanelImage> = {
   "talent-identification-development": {
     src: talentIdentification,
     position: "50% 25%",
-    tone: "saturate(1.05) brightness(0.81)",
+    // interim: softer contrast for its backlight until the photo is regenerated
+    tone: "contrast(0.93) brightness(0.8)",
   },
   "training-performance-monitoring": {
     src: training,

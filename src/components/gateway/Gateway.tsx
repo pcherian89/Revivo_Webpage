@@ -8,7 +8,7 @@ import gatewayImage from "@/assets/pilot/00-gateway.png";
 import gatewayPhone from "@/assets/pilot/00-gateway-phone.png";
 import gatewayPortrait from "@/assets/pilot/00-gateway-portrait.png";
 import { RevivoLogo } from "@/components/brand/RevivoLogo";
-import { DIM_LIME, pulseSegment, SIGNAL } from "@/lib/signal";
+import { DIM_LIME, MID_LIME, pulseSegment, SIGNAL } from "@/lib/signal";
 import { gatewayUrls, PORTRAIT_QUERY, TALL_QUERY } from "./boot";
 
 const ART = gatewayUrls(gatewayImage.src, gatewayPortrait.src, gatewayPhone.src);
@@ -21,6 +21,19 @@ const W = 600;
 const Y = 30;
 const PX = W / 2;
 const TRACK = `M 0 ${Y} H ${PX - 34 * 1.2}${pulseSegment(PX, Y, 1.2)} H ${W}`;
+/** Just the heartbeat, which glows as the light passes through it. */
+const SPIKE = `M ${PX - 34 * 1.2} ${Y}${pulseSegment(PX, Y, 1.2)}`;
+/**
+ * The light is a long comet (a bright head with a soft body and tail) that runs slowly along the
+ * track; every layer shares one leading edge. `L` is each layer's length (fraction of the track),
+ * mirrored in the gw-run-* keyframes in globals.css.
+ */
+const COMET = [
+  { cls: "gw-tail", L: 0.45, width: 2, opacity: 0.16 },
+  { cls: "gw-body", L: 0.22, width: 2, opacity: 0.45 },
+  { cls: "gw-glow", L: 0.22, width: 8, opacity: 0.22 },
+  { cls: "gw-head", L: 0.07, width: 2.25, opacity: 1 },
+] as const;
 
 /**
  * The cinematic gateway page (revivosportech.com/): the clean background artwork, the real Revivo
@@ -43,8 +56,8 @@ export function Gateway() {
     if (phase !== "idle") return;
     // The heartbeat fires once, the scene fades, and the homepage (and its own pulse) takes over.
     setPhase("firing");
-    window.setTimeout(() => setPhase("leaving"), 380);
-    window.setTimeout(() => router.push("/home"), 820);
+    window.setTimeout(() => setPhase("leaving"), 420);
+    window.setTimeout(() => router.push("/home"), 860);
   };
 
   return (
@@ -66,21 +79,56 @@ export function Gateway() {
             <RevivoLogo className="gw-logo h-auto w-full text-ink" title="Revivo" />
           </h1>
           <svg className="gw-pulse" viewBox={`0 0 ${W} 60`} fill="none" aria-hidden="true" focusable="false">
-            <path className="gw-track" d={TRACK} stroke={DIM_LIME} strokeWidth={SIGNAL.width} strokeLinejoin="round" />
+            <defs>
+              {/* Both ends fade into the dark, so the line seems to come out of the night and carry on. */}
+              <linearGradient id="gw-fade-track" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2={W} y2="0">
+                <stop offset="0" stopColor={DIM_LIME} stopOpacity="0" />
+                <stop offset="0.24" stopColor={DIM_LIME} />
+                <stop offset="0.76" stopColor={DIM_LIME} />
+                <stop offset="1" stopColor={DIM_LIME} stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="gw-fade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2={W} y2="0">
+                <stop offset="0" stopColor="#fff" stopOpacity="0" />
+                <stop offset="0.24" stopColor="#fff" />
+                <stop offset="0.76" stopColor="#fff" />
+                <stop offset="1" stopColor="#fff" stopOpacity="0" />
+              </linearGradient>
+              <mask id="gw-fade-mask" maskUnits="userSpaceOnUse" x="-20" y="-20" width={W + 40} height="100">
+                <rect x="-20" y="-20" width={W + 40} height="100" fill="url(#gw-fade)" />
+              </mask>
+            </defs>
             <path
-              className="gw-light gw-glow"
+              className="gw-track"
               d={TRACK}
-              pathLength={1}
-              stroke={SIGNAL.color}
-              strokeOpacity={0.3}
-              strokeWidth={8}
-              strokeLinecap="round"
+              stroke="url(#gw-fade-track)"
+              strokeWidth={SIGNAL.width}
               strokeLinejoin="round"
             />
             <path
-              className="gw-light gw-core"
-              d={TRACK}
-              pathLength={1}
+              className="gw-spike-rest"
+              d={SPIKE}
+              stroke={MID_LIME}
+              strokeWidth={SIGNAL.width}
+              strokeLinejoin="round"
+            />
+            <g mask="url(#gw-fade-mask)">
+              {COMET.map((c) => (
+                <path
+                  key={c.cls}
+                  className={`gw-comet ${c.cls}`}
+                  d={TRACK}
+                  pathLength={1}
+                  stroke={SIGNAL.color}
+                  strokeOpacity={c.opacity}
+                  strokeWidth={c.width}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              ))}
+            </g>
+            <path
+              className="gw-spike"
+              d={SPIKE}
               stroke={SIGNAL.color}
               strokeWidth={2.25}
               strokeLinecap="round"
