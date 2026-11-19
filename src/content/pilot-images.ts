@@ -45,7 +45,7 @@ const areaImages: Record<string, PanelImage> = {
     tone: "saturate(0.85) sepia(0.07) brightness(0.92)",
   },
   "growth-engagement": { src: areaGrowth, position: "50% 40%", tone: "saturate(0.9) brightness(1)" },
-  "athletes-performance": { src: areaAthletes, position: "50% 30%", tone: "saturate(1.05) brightness(0.85)" },
+  "athletes-performance": { src: areaAthletes, position: "50% 40%", tone: "saturate(1.01) brightness(0.79)" },
   "management-reporting": { src: areaManagement, position: "50% 40%", tone: "saturate(1) brightness(0.8)" },
 };
 
