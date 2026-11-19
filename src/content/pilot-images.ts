@@ -11,7 +11,7 @@ import staff from "@/assets/pilot/09-cap-staff-volunteer-management.png";
 import socialMedia from "@/assets/pilot/10-cap-social-media-campaigns.png";
 import fanEngagement from "@/assets/pilot/12-cap-fan-engagement-ticketing.png";
 import membership from "@/assets/pilot/13-cap-membership-customer-management.png";
-import athleteManagement from "@/assets/pilot/14-cap-athlete-management-development.png";
+import talentIdentification from "@/assets/pilot/14-cap-talent-identification-development.png";
 import careerWelfare from "@/assets/pilot/17-cap-athlete-career-welfare.png";
 import dashboards from "@/assets/pilot/18-cap-dashboards-reporting.png";
 import programmes from "@/assets/pilot/19-cap-sports-programme-management.png";
@@ -81,9 +81,9 @@ const capabilityImages: Record<string, PanelImage> = {
     tone: "saturate(0.89) brightness(0.8)",
   },
   "talent-identification-development": {
-    src: athleteManagement,
+    src: talentIdentification,
     position: "50% 25%",
-    tone: "saturate(1.05) brightness(0.8)",
+    tone: "saturate(1.05) brightness(0.81)",
   },
   "training-performance-monitoring": {
     src: training,

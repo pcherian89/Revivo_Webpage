@@ -462,7 +462,7 @@ export function DomainExplorer({
                             img={areaImage(z.id)}
                             sizes="96px"
                             state={on && hydrated ? "hidden" : openZone === null ? "idle" : "off"}
-                            className="aspect-[16/9] w-[4.5rem] shrink-0 md:w-24"
+                            className="aspect-[16/9] w-[4.5rem] shrink-0 md:mr-7 md:w-24"
                           />
                         )}
                       </button>
