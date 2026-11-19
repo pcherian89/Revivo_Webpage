@@ -44,8 +44,16 @@ const areaImages: Record<string, PanelImage> = {
     position: "60% 45%",
     tone: "saturate(0.85) sepia(0.07) brightness(0.92)",
   },
-  "growth-engagement": { src: areaGrowth, position: "50% 40%", tone: "saturate(0.9) brightness(1)" },
-  "athletes-performance": { src: areaAthletes, position: "50% 40%", tone: "saturate(1.01) brightness(0.79)" },
+  "growth-engagement": {
+    src: areaGrowth,
+    position: "50% 40%",
+    tone: "sepia(0.07) saturate(0.93) brightness(0.72)",
+  },
+  "athletes-performance": {
+    src: areaAthletes,
+    position: "50% 40%",
+    tone: "saturate(1.01) brightness(0.79) contrast(1.04) brightness(0.97)",
+  },
   "management-reporting": { src: areaManagement, position: "50% 40%", tone: "saturate(1) brightness(0.8)" },
 };
 
@@ -86,12 +94,12 @@ const capabilityImages: Record<string, PanelImage> = {
   "fan-engagement-ticketing": {
     src: fanEngagement,
     position: "50% 25%",
-    tone: "saturate(0.7) brightness(0.86)",
+    tone: "saturate(0.7) brightness(0.86) sepia(0.08) saturate(0.94)",
   },
   "membership-customer-management": {
     src: membership,
     position: "50% 30%",
-    tone: "saturate(0.89) brightness(0.8)",
+    tone: "saturate(0.89) brightness(0.78)",
   },
   "talent-identification-development": {
     src: talentIdentification,
@@ -106,7 +114,7 @@ const capabilityImages: Record<string, PanelImage> = {
   "video-analysis-scouting": {
     src: video,
     position: "50% 30%",
-    tone: "saturate(0.88) sepia(0.08) brightness(1.12)",
+    tone: "saturate(0.88) sepia(0.08) brightness(1.15)",
   },
   // Final batch 4 (16–21): full-resolution 1672×941.
   "athlete-career-welfare": {
@@ -114,7 +122,11 @@ const capabilityImages: Record<string, PanelImage> = {
     position: "50% 30%",
     tone: "saturate(0.92) brightness(0.8)",
   },
-  "dashboards-reporting": { src: dashboards, position: "50% 30%", tone: "saturate(0.79) brightness(1.12)" },
+  "dashboards-reporting": {
+    src: dashboards,
+    position: "50% 30%",
+    tone: "sepia(0.08) saturate(1.01) brightness(1.15)",
+  },
   "sports-programme-management": {
     src: programmes,
     position: "50% 35%",
@@ -123,9 +135,13 @@ const capabilityImages: Record<string, PanelImage> = {
   "funding-impact-reporting": {
     src: funding,
     position: "50% 30%",
-    tone: "saturate(1.05) brightness(0.8)",
+    tone: "saturate(0.95) brightness(0.86)",
   },
-  "governance-compliance": { src: governance, position: "50% 30%", tone: "saturate(1.05) brightness(1.06)" },
+  "governance-compliance": {
+    src: governance,
+    position: "50% 30%",
+    tone: "sepia(0.07) saturate(1.05) brightness(0.78)",
+  },
 };
 
 /** The image for a solution area (explorer backdrop on desktop, strip on phones/tablets). */
