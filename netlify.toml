@@ -18,3 +18,10 @@
   for = "/pathway-demo.html"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+# The Revivo Pathway prototype lives at /pathway/demo (also rewritten in next.config.ts).
+[[redirects]]
+  from = "/pathway/demo"
+  to = "/pathway-demo.html"
+  status = 200
+  force = true

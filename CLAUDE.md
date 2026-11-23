@@ -140,7 +140,8 @@ The first clickable prototype behind a capability. Shown as proof inside a capab
 "Prototype" chip on that capability in the explorer, one line under the process steps ("See a prototype working.") and
 a footer link. Always "Revivo Pathway" (never "Pathway" alone), always "prototype" and "fictional data"; never
 "launch", "available now" or "demo request". More prototypes: add `prototype: true` + `href` in `products.ts`; at three
-or more, list them on a `/prototypes` page. No main-nav or Gateway entry.
+or more, list them on a `/prototypes` page. Owner decision (Nov 2026): "Revivo Pathway" is in the main navigation
+(`navLinks` in `src/config/site.ts`) so it is easy to find; no Gateway entry.
 
 ## 6. Component structure
 

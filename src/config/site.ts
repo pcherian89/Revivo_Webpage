@@ -48,6 +48,7 @@ export const contactConfig = {
 export const navLinks = [
   { label: "Capabilities", href: "/home#explore" },
   { label: "How we work", href: "/home#how-we-work" },
+  { label: "Revivo Pathway", href: "/pathway" },
 ] as const;
 
 /** The one primary action, used everywhere. */
