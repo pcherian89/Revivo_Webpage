@@ -29,6 +29,13 @@ export const process = {
     { name: "Prototype", body: "You see and test the proposed system before full development begins." },
     { name: "Build", body: "We build, integrate and launch the working system—then keep improving it." },
   ],
+  /** Proof of the Prototype step: one line under the steps, linking to /pathway. */
+  proof: {
+    title: "See a prototype working.",
+    body: "Revivo Pathway shows a complete talent identification programme, end to end, on fictional data. It supports staff decisions and never predicts talent.",
+    link: "Explore Revivo Pathway",
+    href: "/pathway",
+  },
 } as const;
 
 export const finalCta = {

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { FieldGlyph } from "@/components/signal/SignalGlyph";
 import { processImage } from "@/content/pilot-images";
 import { process } from "@/content/home";
@@ -165,6 +167,21 @@ export function ProcessScene() {
             </li>
           ))}
         </ol>
+
+        <div className="mt-12 flex flex-col gap-3 border-t border-line pt-8 md:flex-row md:items-baseline md:gap-8">
+          <h3 className="text-subtitle shrink-0 text-ink">{process.proof.title}</h3>
+          <p className="measure text-muted">{process.proof.body}</p>
+          <Link
+            href={process.proof.href}
+            className="group inline-flex min-h-11 shrink-0 items-center gap-2 font-medium text-ink hover:text-lime"
+          >
+            {process.proof.link}
+            <ArrowRight
+              aria-hidden="true"
+              className="size-4 transition-transform group-hover:translate-x-0.5"
+            />
+          </Link>
+        </div>
       </div>
     </section>
   );

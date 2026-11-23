@@ -49,9 +49,12 @@ const useHydrated = () =>
  */
 export function DomainExplorer({
   relatedProducts,
+  prototypes = [],
 }: {
   /** Owner-approved Revivo products per capability id, computed on the server */
   relatedProducts?: Record<string, RelatedProduct[]>;
+  /** Capability ids with a clickable prototype (marked with a "Prototype" chip) */
+  prototypes?: readonly string[];
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const reduce = Boolean(useReducedMotion());
@@ -405,6 +408,7 @@ export function DomainExplorer({
                           )}
                           <span className="font-medium">{c.name}</span>
                           <span className="text-small text-muted">{c.short}</span>
+                          {prototypes.includes(c.id) && <PrototypeChip />}
                           <span className="text-small mt-1 inline-flex items-center gap-1 text-subtle group-hover:text-lime">
                             View possibilities <ArrowRight aria-hidden="true" className="size-3.5" />
                           </span>
@@ -502,9 +506,10 @@ export function DomainExplorer({
                                     anchor={on ? `cap-${j}` : undefined}
                                     state={on && activeCap === j ? "on" : "dim"}
                                   />
-                                  <span className="flex flex-1 flex-col">
+                                  <span className="flex flex-1 flex-col items-start">
                                     <span className="font-medium">{c.name}</span>
                                     <span className="text-small text-muted">{c.short}</span>
+                                    {prototypes.includes(c.id) && <PrototypeChip />}
                                   </span>
                                   {hydrated && (
                                     <Preview
@@ -536,6 +541,7 @@ export function DomainExplorer({
         <div className="container-site">
           <p className="text-small mt-10 pl-[42px] text-subtle md:pl-8 lg:mx-auto lg:max-w-xl lg:pl-0 lg:text-center">
             {explorer.qualifier}
+            {prototypes.length > 0 && <> Marked capabilities have a working prototype you can try.</>}
           </p>
         </div>
       </div>
@@ -800,6 +806,16 @@ function Preview({
         className="photo object-cover"
         style={{ objectPosition: img.position, "--tone": img.tone } as CSSProperties}
       />
+    </span>
+  );
+}
+
+/** A quiet outlined label with a lime dot: this capability has a clickable prototype (fictional data). */
+function PrototypeChip() {
+  return (
+    <span className="label mt-1.5 inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-ink">
+      <span aria-hidden="true" className="size-1.5 rounded-full bg-lime" />
+      Prototype<span className="sr-only">: a working prototype is available</span>
     </span>
   );
 }

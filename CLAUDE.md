@@ -131,6 +131,17 @@ Every photograph is shown whole on every device: each frame uses the photo's own
 hero photo 1318:1193), so `object-cover` never trims anything. Atmospheric photos (area backdrop, process photo)
 fade at their own edges instead of being cut. Check with the crop audit before changing any image frame.
 
+## 5d. Revivo Pathway prototype (owner approved, Nov 2026)
+
+The first clickable prototype behind a capability. Shown as proof inside a capability, never as a product category:
+`/pathway` (indexed page: what it is, how it works, safeguards, "Try the prototype" + "Start a conversation"; copy in
+`src/content/pathway.ts`), `/pathway/demo` (the self-contained HTML in `public/pathway-demo.html`, rewritten in
+`next.config.ts`, `noindex`), a "Related Revivo product" link in the Talent Identification & Development panel, a quiet
+"Prototype" chip on that capability in the explorer, one line under the process steps ("See a prototype working.") and
+a footer link. Always "Revivo Pathway" (never "Pathway" alone), always "prototype" and "fictional data"; never
+"launch", "available now" or "demo request". More prototypes: add `prototype: true` + `href` in `products.ts`; at three
+or more, list them on a `/prototypes` page. No main-nav or Gateway entry.
+
 ## 6. Component structure
 
 - `src/content/explorer.ts` — the four zones and sixteen capabilities (single source for map, HTML and panels).

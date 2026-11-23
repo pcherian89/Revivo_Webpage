@@ -25,6 +25,8 @@ export type Product = {
   href?: string;
   /** One line shown in the panel when showcased */
   summary?: string;
+  /** A clickable prototype on fictional data exists: marks its capabilities with a "Prototype" chip. */
+  prototype?: boolean;
 };
 
 export const products: readonly Product[] = [
@@ -43,12 +45,21 @@ export const products: readonly Product[] = [
     showcase: false,
   },
   {
-    // Talent identification platform (reference build on fictional data). Always "Revivo Pathway", never "Pathway" alone.
+    // Talent identification platform. Always "Revivo Pathway", never "Pathway" alone. Owner approved showing the
+    // prototype on the site (Nov 2026); it stays labelled as a prototype on fictional data.
     id: "revivo-pathway",
     name: "Revivo Pathway",
     status: "in-development",
-    capabilities: ["talent-identification-development", "sports-programme-management", "governance-compliance"],
-    showcase: false,
+    capabilities: [
+      "talent-identification-development",
+      "sports-programme-management",
+      "governance-compliance",
+    ],
+    showcase: true,
+    href: "/pathway",
+    summary:
+      "A working prototype on fictional data: consent, assessment, review and development plans, end to end.",
+    prototype: true,
   },
   {
     id: "event-promotion-analytics",
@@ -60,7 +71,13 @@ export const products: readonly Product[] = [
 ];
 
 /** What the panel needs to show a related product. */
-export type RelatedProduct = { id: string; name: string; href: string; summary?: string };
+export type RelatedProduct = {
+  id: string;
+  name: string;
+  href: string;
+  summary?: string;
+  prototype?: boolean;
+};
 
 /**
  * Showcased products for each capability id. Call on the server and pass the
@@ -71,8 +88,21 @@ export function relatedProducts(): Record<string, RelatedProduct[]> {
   for (const p of products) {
     if (!p.showcase || !p.href) continue;
     for (const capId of p.capabilities) {
-      (out[capId] ??= []).push({ id: p.id, name: p.name, href: p.href, summary: p.summary });
+      (out[capId] ??= []).push({
+        id: p.id,
+        name: p.name,
+        href: p.href,
+        summary: p.summary,
+        prototype: p.prototype,
+      });
     }
   }
   return out;
+}
+
+/** Capability ids that have a clickable prototype (shown with a "Prototype" chip in the explorer). */
+export function prototypeCapabilities(): string[] {
+  return products
+    .filter((p) => p.showcase && p.href && p.prototype)
+    .flatMap((p) => p.capabilities.slice(0, 1));
 }

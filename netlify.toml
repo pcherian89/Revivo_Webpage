@@ -12,3 +12,9 @@
   for = "/img/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# The Revivo Pathway prototype (fictional data) stays out of search results.
+[[headers]]
+  for = "/pathway-demo.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

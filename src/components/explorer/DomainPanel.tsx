@@ -210,7 +210,7 @@ export function DomainPanel({
                                   href={p.href}
                                   className="inline-flex min-h-11 items-center gap-2 font-medium text-ink hover:text-lime"
                                 >
-                                  {p.name}
+                                  {p.prototype ? `${p.name} · see the prototype` : p.name}
                                   <ArrowRight aria-hidden="true" className="size-4" />
                                 </a>
                                 {p.summary && <p className="text-small text-muted">{p.summary}</p>}
