@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { prototypeNavEntries } from "@/content/prototype-nav";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { siteConfig, siteUrl } from "@/config/site";
 import { displayFont, sansFont } from "./fonts";
@@ -47,7 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to content
         </a>
         <MotionProvider>
-          <SiteHeader />
+          <SiteHeader prototypes={prototypeNavEntries()} />
           <main id="main" tabIndex={-1}>
             {children}
           </main>

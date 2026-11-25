@@ -72,7 +72,7 @@ export function SiteFooter() {
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-1">
             <li>
-              <FooterLink href="/pathway">Revivo Pathway prototype</FooterLink>
+              <FooterLink href="/pathway">Prototype: Revivo Pathway</FooterLink>
             </li>
             <li>
               <FooterLink href="/privacy">Privacy</FooterLink>

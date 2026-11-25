@@ -170,6 +170,40 @@ export function DomainPanel({
                   </h2>
                   {cap.audience && <p className="text-small mt-1.5 text-muted">For: {cap.audience}</p>}
 
+                  {related.map((p) => (
+                    <section
+                      key={p.id}
+                      aria-labelledby={`proto-${p.id}`}
+                      className="mt-6 rounded-xl border border-line bg-raised p-5"
+                    >
+                      <p className="label text-lime">
+                        {p.prototype ? "Working prototype" : "Related Revivo product"}
+                      </p>
+                      <h3 id={`proto-${p.id}`} className="text-subtitle mt-2 text-ink">
+                        {p.name}
+                      </h3>
+                      {p.summary && <p className="mt-1.5 text-muted">{p.summary}</p>}
+                      <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
+                        {p.demoHref && (
+                          <a
+                            href={p.demoHref}
+                            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-5 font-display text-base font-bold tracking-[0.03em] text-ink transition-colors hover:border-lime hover:text-lime"
+                          >
+                            Try the prototype
+                            <ArrowRight aria-hidden="true" className="size-4" />
+                          </a>
+                        )}
+                        <a
+                          href={p.href}
+                          className="inline-flex min-h-11 items-center gap-1.5 font-medium text-ink hover:text-lime"
+                        >
+                          About {p.name}
+                          <ArrowRight aria-hidden="true" className="size-4" />
+                        </a>
+                      </div>
+                    </section>
+                  ))}
+
                   <dl className="mt-8 space-y-7">
                     <div>
                       <dt className="label text-subtle">{L.problem}</dt>
@@ -200,27 +234,6 @@ export function DomainPanel({
                       <dt className="label text-lime">{L.benefit}</dt>
                       <dd className="mt-2 text-ink">{cap.benefit}</dd>
                     </div>
-                    {related.length > 0 && (
-                      <div>
-                        <dt className="label text-subtle">Related Revivo product</dt>
-                        <dd className="mt-2">
-                          <ul className="space-y-2">
-                            {related.map((p) => (
-                              <li key={p.id}>
-                                <a
-                                  href={p.href}
-                                  className="inline-flex min-h-11 items-center gap-2 font-medium text-ink hover:text-lime"
-                                >
-                                  {p.prototype ? `${p.name} · see the prototype` : p.name}
-                                  <ArrowRight aria-hidden="true" className="size-4" />
-                                </a>
-                                {p.summary && <p className="text-small text-muted">{p.summary}</p>}
-                              </li>
-                            ))}
-                          </ul>
-                        </dd>
-                      </div>
-                    )}
                   </dl>
 
                   <button

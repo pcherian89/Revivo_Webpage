@@ -26,8 +26,10 @@ export type Product = {
   href?: string;
   /** One line shown in the panel when showcased */
   summary?: string;
-  /** A clickable prototype on fictional data exists: marks its capabilities with a "Prototype" chip. */
+  /** A clickable prototype on fictional data exists: marks its home capability with a "Prototype" chip. */
   prototype?: boolean;
+  /** Where "Try the prototype" goes (the prototype itself) */
+  demoHref?: string;
 };
 
 export const products: readonly Product[] = [
@@ -54,6 +56,7 @@ export const products: readonly Product[] = [
     capabilities: ["talent-identification-development"],
     showcase: true,
     href: "/pathway",
+    demoHref: "/pathway/demo",
     summary:
       "A working prototype on fictional data: consent, assessment, review and development plans, end to end.",
     prototype: true,
@@ -74,6 +77,7 @@ export type RelatedProduct = {
   href: string;
   summary?: string;
   prototype?: boolean;
+  demoHref?: string;
 };
 
 /**
@@ -91,6 +95,7 @@ export function relatedProducts(): Record<string, RelatedProduct[]> {
         href: p.href,
         summary: p.summary,
         prototype: p.prototype,
+        demoHref: p.demoHref,
       });
     }
   }

@@ -138,8 +138,50 @@ export function DomainExplorer({
 
   const closePanel = useCallback((restoreFocus = true) => {
     setSelection(null);
+    if (window.location.hash && window.location.hash !== "#explore")
+      history.replaceState(null, "", `${window.location.pathname}#explore`);
     if (restoreFocus) requestAnimationFrame(() => triggerRef.current?.focus());
   }, []);
+
+  // Deep links (`/home#<capability-id>`, e.g. from the "Prototypes" menu) open that capability straight away:
+  // the map is shown already lit (no pulse sequence) and its panel opens. Otherwise nothing opens by itself.
+  const openById = useCallback((id: string) => {
+    const zi = zones.findIndex((z) => z.capabilities.some((c) => c.id === id));
+    if (zi < 0) return false;
+    const ci = zones[zi].capabilities.findIndex((c) => c.id === id);
+    runId.current++;
+    setActivated(true);
+    setDrawnZones(zones.length);
+    setShownZones(zones.length);
+    setZone(zi);
+    setDrawnCaps(CAPS_PER_ZONE);
+    setShownCaps(CAPS_PER_ZONE);
+    triggerRef.current = null;
+    document.getElementById("explore")?.scrollIntoView({ behavior: "auto" });
+    setSelection({ zone: zi, cap: ci });
+    return true;
+  }, []);
+  useEffect(() => {
+    const fromHash = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (id) openById(id);
+    };
+    const fromEvent = (e: Event) => openById((e as CustomEvent<string>).detail);
+    fromHash();
+    window.addEventListener("hashchange", fromHash);
+    window.addEventListener("revivo:open-capability", fromEvent);
+    return () => {
+      window.removeEventListener("hashchange", fromHash);
+      window.removeEventListener("revivo:open-capability", fromEvent);
+    };
+  }, [openById]);
+  // Keep the address bar pointing at the open capability, so Back from a prototype returns to it.
+  useEffect(() => {
+    if (!selection) return;
+    const id = zones[selection.zone].capabilities[selection.cap].id;
+    if (window.location.hash !== `#${id}`)
+      history.replaceState(null, "", `${window.location.pathname}#${id}`);
+  }, [selection]);
 
   const discuss = useCallback(
     (capName: string) => {

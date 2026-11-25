@@ -80,18 +80,6 @@
       1672
     ]
   },
-  "05-area-management-reporting": {
-    "hash": "d6aff5d8b4",
-    "widths": [
-      384,
-      640,
-      750,
-      828,
-      1080,
-      1200,
-      1672
-    ]
-  },
   "06-cap-event-planning-coordination": {
     "hash": "6d0d0dc77a",
     "widths": [
@@ -118,30 +106,6 @@
   },
   "08-cap-registration-administration": {
     "hash": "00490c327b",
-    "widths": [
-      384,
-      640,
-      750,
-      828,
-      1080,
-      1200,
-      1672
-    ]
-  },
-  "09-cap-staff-volunteer-management": {
-    "hash": "3960c85e43",
-    "widths": [
-      384,
-      640,
-      750,
-      828,
-      1080,
-      1200,
-      1672
-    ]
-  },
-  "10-cap-social-media-campaigns": {
-    "hash": "89863abd1f",
     "widths": [
       384,
       640,
@@ -190,18 +154,6 @@
   },
   "14-cap-talent-identification-development": {
     "hash": "38d2b0889f",
-    "widths": [
-      384,
-      640,
-      750,
-      828,
-      1080,
-      1200,
-      1672
-    ]
-  },
-  "15-cap-training-performance-monitoring": {
-    "hash": "eb96800b78",
     "widths": [
       384,
       640,

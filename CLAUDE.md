@@ -10,10 +10,12 @@ organizations to understand operational, commercial, performance, participation,
 designs and builds the appropriate AI-powered system around their workflows.
 
 Revivo is **not**: only a coaching, athlete-performance or fitness company; a fixed catalogue of products; an
-India-specific company; or Revivo IQ. The sixteen capabilities are illustrative systems Revivo can configure and
+India-specific company; or Revivo IQ. The twelve capabilities are illustrative systems Revivo can configure and
 build. Never write "Our Products" or "Request a demo". **Products are not a website category.** Revivo products are
-linked to capabilities internally in `src/content/products.ts` (many-to-many) and appear only as a "Related Revivo
-product" link in a capability panel once the owner approves it (`showcase: true` plus a product page).
+linked to capabilities internally in `src/content/products.ts` and appear only once the owner approves them
+(`showcase: true` plus a product page). **One product, one home** (owner decision, Nov 2026): a showcased product has
+exactly one home capability, a capability is home to at most one showcased product, and other uses are described on
+the product's own page (enforced by `check:copy`).
 
 ## 2. Approved language
 
@@ -38,14 +40,17 @@ product" link in a capability panel once the owner approves it (`showcase: true`
   The problem → What Revivo can build (workflows + automation) → How AI helps (2–3 specific examples, distinct from
   ordinary automation) → The benefit (no promised results). Humans stay responsible for approvals and decisions.
 - The four areas, in display order (owner decision, Nov 2026): Athletes & Performance, Growth & Engagement, Events &
-  Operations, Management & Reporting. The Intelligence Layer is a visual device, never a separately deployed platform.
+  Operations, Funding & Governance (id `management-reporting`), each with **three** capabilities (12 in total; merged
+  from 16 in Nov 2026, retired ids mapped in `retiredCapabilityIds`). Write capability copy in very simple everyday
+  English (short sentences, no jargon such as "leverage", "streamline", "stakeholders", "solution"); each capability
+  has a "For:" line (`audience`, ≤8 words) shown in its panel. The Intelligence Layer is a visual device, never a separately deployed platform.
 - Keep client examples varied (gyms, academies, teams, leagues, federations, events, venues, government and community
   programmes, foundations/CSR, sports businesses, media). Do not over-index on coaches or athletes.
 - Required qualifier in the explorer and panels: "Illustrative possibilities. Every Revivo system is designed around the
   client's workflows, users, data and objectives."
 - Copy limits (enforced by `npm run check:copy`): hero statement ≤35 words, explorer intro ≤40, capability short ≤14,
-  problem ≤35, build ≤45, benefit ≤30, 2–3 AI examples of ≤16 words, process step ≤20, exactly 4 zones × 4
-  capabilities. The check also fails if an unapproved product name appears in the copy.
+  problem ≤35, build ≤45, benefit ≤30, audience ≤8, 2–3 AI examples of ≤16 words, process step ≤20, exactly 4 zones ×
+  3 capabilities. The check also fails if an unapproved product name appears in the copy.
 
 ## 3. Prohibited claims (never add, even if asked casually — confirm with the owner first)
 
@@ -99,8 +104,10 @@ Story: live sports signal → Revivo intelligence → solution domains → organ
    their own compositor layers (`.gpu-layer`); no backdrop-filter blur on the sticky header.
 2. **Explorer (`DomainExplorer`)** — progressive and interactive. A large "Revivo Intelligence Layer" button (with a
    hand cue, "Tap to activate") waits for the visitor. Activating it sends a pulse to each of the four domains in turn;
-   choosing a domain sends a pulse to each of its four capabilities in turn; a capability opens `DomainPanel` (desktop
-   right panel ≈46vw; mobile bottom sheet). Nothing opens by itself: the visitor clicks each area. The travel dot
+   choosing a domain sends a pulse to each of its three capabilities in turn; a capability opens `DomainPanel` (desktop
+   right panel ≈46vw; mobile bottom sheet). Nothing opens by itself: the visitor clicks each area — except a deep link
+   (`/home#<capability-id>`, e.g. from the Prototypes menu), which opens its capability directly (map shown lit, no
+   pulse sequence) and keeps the address bar on the open capability so Back from a prototype returns to it. The travel dot
    fades out after each run so no node looks selected by accident. Desktop: tree; below 1024px: vertical rail. One moving pulse at a time
    (`useTravel`). Server/no-JS render shows the whole map; reduced motion reveals instantly. Branches are a clean,
    symmetric tree: every child of one parent shares one stem and one horizontal bus (`orthogonal(a, b, busY)`),
@@ -139,9 +146,12 @@ The first clickable prototype behind a capability. Shown as proof inside a capab
 `next.config.ts`, `noindex`), a "Related Revivo product" link in the Talent Identification & Development panel, a quiet
 "Prototype" chip on that capability in the explorer, one line under the process steps ("See a prototype working.") and
 a footer link. Always "Revivo Pathway" (never "Pathway" alone), always "prototype" and "fictional data"; never
-"launch", "available now" or "demo request". More prototypes: add `prototype: true` + `href` in `products.ts`; at three
-or more, list them on a `/prototypes` page. Owner decision (Nov 2026): "Revivo Pathway" is in the main navigation
-(`navLinks` in `src/config/site.ts`) so it is easy to find; no Gateway entry.
+"launch", "available now" or "demo request". Navigation (owner decision, Nov 2026): a **"Prototypes"** menu (desktop
+disclosure, phone menu group) lists each prototype under its capability — capability name first, "Revivo Pathway ·
+prototype" beneath — and each entry opens that capability's panel (`/home#<capability-id>`); the panel shows a
+"Working prototype" block with "Try the prototype" and "About …". Entries come from `prototypeNavEntries()`
+(`src/content/prototype-nav.ts`). More prototypes: add `prototype: true`, `href` and `demoHref` in `products.ts`; at
+three or more, add a `/prototypes` page. No Gateway entry.
 
 ## 6. Component structure
 

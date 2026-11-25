@@ -27,7 +27,11 @@ export default function PathwayPage() {
     <article className="pt-28 pb-20 md:pt-36">
       <header className="container-site grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-center">
         <div>
-          <p className="label text-subtle">{pathway.eyebrow}</p>
+          <p className="label text-subtle">
+            <Link href="/home#talent-identification-development" className="hover:text-ink">
+              {pathway.eyebrow}
+            </Link>
+          </p>
           <h1 className="text-hero mt-4 leading-[0.92]">
             Revivo <span className="text-lime">Pathway</span>
           </h1>

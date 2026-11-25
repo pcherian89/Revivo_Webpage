@@ -2,14 +2,21 @@
 
 import Link from "next/link";
 import { AnimatePresence, m } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { RevivoLogo } from "@/components/brand/RevivoLogo";
 import { buttonClasses } from "@/components/ui/ButtonLink";
 import { navLinks, primaryCta, siteConfig } from "@/config/site";
 import { cn } from "@/lib/cn";
+import type { PrototypeNavEntry } from "@/content/prototype-nav";
 
-export function SiteHeader() {
+/** Opening a capability from the menu: the explorer listens and opens it, even when already on /home. */
+function openCapability(id: string) {
+  if (window.location.pathname === "/home")
+    window.dispatchEvent(new CustomEvent("revivo:open-capability", { detail: id }));
+}
+
+export function SiteHeader({ prototypes = [] }: { prototypes?: readonly PrototypeNavEntry[] }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -92,6 +99,11 @@ export function SiteHeader() {
                   </Link>
                 </li>
               ))}
+              {prototypes.length > 0 && (
+                <li>
+                  <PrototypesMenu entries={prototypes} />
+                </li>
+              )}
             </ul>
           </nav>
 
@@ -153,6 +165,28 @@ export function SiteHeader() {
                   </li>
                 ))}
               </ul>
+              {prototypes.length > 0 && (
+                <div className="mt-8">
+                  <p className="label text-subtle">Prototypes</p>
+                  <ul className="mt-2">
+                    {prototypes.map((p) => (
+                      <li key={p.capabilityId}>
+                        <Link
+                          href={p.href}
+                          onClick={() => {
+                            close(false);
+                            openCapability(p.capabilityId);
+                          }}
+                          className="flex min-h-14 flex-col justify-center py-2 text-ink"
+                        >
+                          <span className="font-medium">{p.capabilityName}</span>
+                          <span className="text-small text-muted">{p.productName} · prototype</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <Link
                 href={primaryCta.href}
                 onClick={() => close(false)}
@@ -166,5 +200,65 @@ export function SiteHeader() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+/**
+ * "Prototypes" in the desktop navigation: a disclosure (click or tap, never hover) listing each prototype under
+ * the capability it belongs to. A link opens that capability in the explorer, where the panel offers the prototype.
+ * Built on <details> so it also opens without JavaScript; Escape and clicking outside close it.
+ */
+function PrototypesMenu({ entries }: { entries: readonly PrototypeNavEntry[] }) {
+  const ref = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const onDoc = (e: Event) => {
+      const el = ref.current;
+      if (el?.open && !el.contains(e.target as Node)) el.open = false;
+    };
+    const onKey = (e: KeyboardEvent) => {
+      const el = ref.current;
+      if (e.key === "Escape" && el?.open) {
+        el.open = false;
+        el.querySelector("summary")?.focus();
+      }
+    };
+    document.addEventListener("click", onDoc);
+    document.addEventListener("focusin", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("click", onDoc);
+      document.removeEventListener("focusin", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, []);
+  return (
+    <details ref={ref} className="group/proto relative">
+      <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm font-medium text-muted transition-colors duration-200 hover:text-ink group-open/proto:text-ink [&::-webkit-details-marker]:hidden">
+        Prototypes
+        <ChevronDown aria-hidden="true" className="size-4 transition-transform group-open/proto:rotate-180" />
+      </summary>
+      <div className="absolute top-full right-0 z-50 mt-2 w-80 rounded-xl border border-line bg-surface p-2 shadow-2xl">
+        <ul>
+          {entries.map((p) => (
+            <li key={p.capabilityId}>
+              <Link
+                href={p.href}
+                onClick={() => {
+                  if (ref.current) ref.current.open = false;
+                  openCapability(p.capabilityId);
+                }}
+                className="flex min-h-14 flex-col justify-center rounded-lg px-3 py-2 text-ink transition-colors hover:bg-raised focus-visible:bg-raised"
+              >
+                <span className="font-medium">{p.capabilityName}</span>
+                <span className="text-small text-muted">{p.productName} · prototype</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="text-small border-t border-line px-3 pt-2 pb-1 text-subtle">
+          Each prototype sits inside a capability. Fictional data only.
+        </p>
+      </div>
+    </details>
   );
 }
