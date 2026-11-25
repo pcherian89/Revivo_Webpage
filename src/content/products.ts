@@ -2,8 +2,9 @@
  * REVIVO PRODUCTS — internal associations between Revivo products and the
  * explorer capabilities. Products are NOT a separate website category.
  *
- * - A capability can relate to zero, one or several products; a product can
- *   relate to several capabilities (list capability ids from `explorer.ts`).
+ * - One product, one home (owner decision, Nov 2026): a showcased product lists exactly one capability id
+ *   from `explorer.ts` — its home — and a capability is home to at most one showcased product. Other uses of
+ *   a product are described on the product's own page, never as extra explorer links. Enforced by check:copy.
  * - Nothing here appears on the site until the owner approves it: set
  *   `showcase: true` and give the product an `href` to its information page.
  *   The capability panel then shows a "Related Revivo product" link.
@@ -50,11 +51,7 @@ export const products: readonly Product[] = [
     id: "revivo-pathway",
     name: "Revivo Pathway",
     status: "in-development",
-    capabilities: [
-      "talent-identification-development",
-      "sports-programme-management",
-      "governance-compliance",
-    ],
+    capabilities: ["talent-identification-development"],
     showcase: true,
     href: "/pathway",
     summary:
@@ -65,7 +62,7 @@ export const products: readonly Product[] = [
     id: "event-promotion-analytics",
     name: "Event Promotion & Analytics",
     status: "concept",
-    capabilities: ["social-media-campaigns"],
+    capabilities: ["fan-engagement-ticketing"],
     showcase: false,
   },
 ];

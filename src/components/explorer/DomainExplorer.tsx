@@ -39,6 +39,9 @@ const useHydrated = () =>
     () => false,
   );
 
+/** Every area has the same number of capabilities (enforced by `npm run check:copy`). */
+const CAPS_PER_ZONE = zones[0].capabilities.length;
+
 /**
  * Scene 2 — the interactive explorer.
  * 1. The Revivo Intelligence Layer waits to be activated (tap / click / Enter).
@@ -80,7 +83,7 @@ export function DomainExplorer({
   // Server / no-JS: show the whole map statically.
   const staticAll = !hydrated;
   const zonesVisible = staticAll ? zones.length : shownZones;
-  const capsVisible = staticAll ? 4 : shownCaps;
+  const capsVisible = staticAll ? CAPS_PER_ZONE : shownCaps;
   const openZone = staticAll ? 0 : zone;
   const mapOpen = staticAll || activated; // domains exist in the layout only once activated
 
@@ -88,18 +91,18 @@ export function DomainExplorer({
     async (i: number) => {
       if (i === zone) return;
       const id = ++runId.current;
-      setDrawnZones(4);
-      setShownZones(4);
+      setDrawnZones(zones.length);
+      setShownZones(zones.length);
       setZone(i);
       setDrawnCaps(0);
       setShownCaps(0);
       if (reduce) {
-        setDrawnCaps(4);
-        setShownCaps(4);
+        setDrawnCaps(CAPS_PER_ZONE);
+        setShownCaps(CAPS_PER_ZONE);
         return;
       }
       await wait(140); // let the new capability anchors render and be measured
-      for (let j = 0; j < 4; j++) {
+      for (let j = 0; j < CAPS_PER_ZONE; j++) {
         if (id !== runId.current) return;
         setDrawnCaps(j + 1);
         await travel([paths.current.get(`cap-${j}`)], STEP * 0.85);
@@ -114,8 +117,8 @@ export function DomainExplorer({
     const id = ++runId.current;
     setActivated(true);
     if (reduce) {
-      setDrawnZones(4);
-      setShownZones(4);
+      setDrawnZones(zones.length);
+      setShownZones(zones.length);
       return;
     }
     await wait(140); // let the domain anchors render and be measured
@@ -252,8 +255,8 @@ export function DomainExplorer({
           geo={geo}
           isDesktop={isDesktop}
           zone={openZone}
-          drawnZones={staticAll ? 4 : drawnZones}
-          drawnCaps={staticAll ? 4 : drawnCaps}
+          drawnZones={staticAll ? zones.length : drawnZones}
+          drawnCaps={staticAll ? CAPS_PER_ZONE : drawnCaps}
           activeCap={activeCap}
           animate={hydrated && !reduce}
           setPath={setPath}
@@ -373,7 +376,7 @@ export function DomainExplorer({
 
           <div id="explore-caps" className={cn(openZone !== null && "mt-14")}>
             {openZone !== null && (
-              <ul key={openZone} className="grid grid-cols-4 gap-8">
+              <ul key={openZone} className="mx-auto grid max-w-5xl grid-cols-3 gap-8">
                 {zones[openZone].capabilities.map((c, j) => {
                   const visible = j < capsVisible;
                   return (
@@ -610,7 +613,8 @@ function SignalMap({
     .sort((a, b) => a.order - b.order);
 
   const capFrom = zone === null ? null : isDesktop ? p[`zone-out-${zone}`] : p[`zone-in-${zone}`];
-  const capTargets = zone === null ? [] : [0, 1, 2, 3].map((j) => p[`cap-${j}`]).filter(Boolean);
+  const capIdx = Array.from({ length: CAPS_PER_ZONE }, (_, j) => j);
+  const capTargets = zone === null ? [] : capIdx.map((j) => p[`cap-${j}`]).filter(Boolean);
   const capBus =
     capFrom && capTargets.length
       ? capFrom.y + (Math.min(...capTargets.map((t) => t.y)) - capFrom.y) / 2
@@ -618,7 +622,7 @@ function SignalMap({
   const capBranches =
     zone === null || !capFrom
       ? []
-      : [0, 1, 2, 3]
+      : capIdx
           .map((j) => {
             const target = p[`cap-${j}`];
             if (!target) return null;

@@ -168,6 +168,7 @@ export function DomainPanel({
                   <h2 id="domain-panel-title" className="text-subtitle text-ink">
                     {cap.name}
                   </h2>
+                  {cap.audience && <p className="text-small mt-1.5 text-muted">For: {cap.audience}</p>}
 
                   <dl className="mt-8 space-y-7">
                     <div>

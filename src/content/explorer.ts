@@ -16,6 +16,8 @@ export type Capability = {
   name: string;
   /** One line shown under the name in the explorer */
   short: string;
+  /** Who it is for, shown in the panel as "For: …" (≤8 words) */
+  audience?: string;
   /** A recognisable real-world problem */
   problem: string;
   /** The proposed system and its practical features, in plain English (workflows + automation) */
