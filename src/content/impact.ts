@@ -28,12 +28,6 @@ export const impact = {
       body: "Finance records each payment. Spending and results are checked against receipts, and every figure in a report opens its source.",
     },
   ],
-  alsoTitle: "Also in the prototype",
-  also: [
-    "Sponsorship agreements between brands and athletes, always counted apart from development money.",
-    "Programme monitoring: sessions recorded on a phone, site by site, with a person acting when a site falls behind.",
-    "Funding that started elsewhere, brought into the same records without a new application.",
-  ],
   safeTitle: "Built around fair decisions and young people's safety.",
   safeguards: [
     "People make every decision. The person who approves funding is never the person who pays it.",

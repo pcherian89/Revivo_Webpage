@@ -89,17 +89,6 @@ export default function ImpactPage() {
             </li>
           ))}
         </ol>
-        <div className="mt-12 grid gap-6 border-t border-line pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
-          <h3 className="text-subtitle text-ink">{impact.alsoTitle}</h3>
-          <ul className="space-y-3">
-            {impact.also.map((a) => (
-              <li key={a} className="flex gap-3 text-muted">
-                <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-lime" />
-                {a}
-              </li>
-            ))}
-          </ul>
-        </div>
       </section>
 
       <section
