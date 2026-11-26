@@ -75,6 +75,9 @@ export function SiteFooter() {
               <FooterLink href="/pathway">Prototype: Revivo Pathway</FooterLink>
             </li>
             <li>
+              <FooterLink href="/impact">Prototype: Revivo Impact</FooterLink>
+            </li>
+            <li>
               <FooterLink href="/privacy">Privacy</FooterLink>
             </li>
             <li>

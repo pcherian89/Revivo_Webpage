@@ -23,11 +23,17 @@ const nextConfig: NextConfig = {
       // The Revivo Pathway prototype (fictional data) is linked from /pathway but kept out of search results.
       { source: "/pathway/demo", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
       { source: "/pathway-demo.html", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+      // The Revivo Impact prototype (fictional data) is linked from /impact, also kept out of search results.
+      { source: "/impact/demo", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+      { source: "/impact-demo.html", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
     ];
   },
   async rewrites() {
-    // The prototype is one self-contained HTML file in public/.
-    return [{ source: "/pathway/demo", destination: "/pathway-demo.html" }];
+    // Each prototype is one self-contained HTML file in public/.
+    return [
+      { source: "/pathway/demo", destination: "/pathway-demo.html" },
+      { source: "/impact/demo", destination: "/impact-demo.html" },
+    ];
   },
 };
 

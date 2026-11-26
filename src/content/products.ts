@@ -62,6 +62,20 @@ export const products: readonly Product[] = [
     prototype: true,
   },
   {
+    // Sports funding and sponsorship platform. Always "Revivo Impact". Owner approved showing the prototype on the
+    // site (Nov 2026). Home: Funding, Grants & Programmes; its sponsorship side is described on /impact only.
+    id: "revivo-impact",
+    name: "Revivo Impact",
+    status: "in-development",
+    capabilities: ["funding-impact-reporting"],
+    showcase: true,
+    href: "/impact",
+    demoHref: "/impact/demo",
+    summary:
+      "A working prototype on fictional data: scholarships, grants and sponsorship, from discovery to payments and reports.",
+    prototype: true,
+  },
+  {
     id: "event-promotion-analytics",
     name: "Event Promotion & Analytics",
     status: "concept",
