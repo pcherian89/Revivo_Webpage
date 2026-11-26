@@ -153,6 +153,11 @@ prototype" beneath — and each entry opens that capability's panel (`/home#<cap
 (`src/content/prototype-nav.ts`). More prototypes: add `prototype: true`, `href` and `demoHref` in `products.ts`; at
 three or more, add a `/prototypes` page. No Gateway entry.
 
+**Revivo Impact** (owner approved, Nov 2026) follows the same pattern: `/impact` (copy in `src/content/impact.ts`),
+`/impact/demo` (`public/impact-demo.html`, the final offline build from the Impact project, `noindex`), home capability
+Funding, Grants & Programmes; its sponsorship side is described on `/impact` only (one product, one home). The process
+proof line links to both prototypes. Always "Revivo Impact", "prototype" and "fictional data"; no real money moves.
+
 ## 6. Component structure
 
 - `src/content/explorer.ts` — the four zones and sixteen capabilities (single source for map, HTML and panels).

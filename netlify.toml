@@ -25,3 +25,16 @@
   to = "/pathway-demo.html"
   status = 200
   force = true
+
+# The Revivo Impact prototype (fictional data) stays out of search results.
+[[headers]]
+  for = "/impact-demo.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# The Revivo Impact prototype lives at /impact/demo (also rewritten in next.config.ts).
+[[redirects]]
+  from = "/impact/demo"
+  to = "/impact-demo.html"
+  status = 200
+  force = true
